@@ -1,0 +1,125 @@
+@import '../../../sass/variables.scss';
+@import '../../../sass/base.scss';
+
+.header {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 1.4rem;
+
+    background-color: $colorFrame1;
+    height: 45px;
+
+    &__details {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+
+        &-logo {
+            border: 1px solid white;
+            //background-image: url(/src/assets/img/nevintec.png);
+            width: 100px;
+            height: 80%;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        &-title {
+            color: $primary;
+        }
+
+    }
+
+    &__links {
+        display: inline-block;
+        padding-left: 70px;
+        text-decoration: $link-hover;
+        color: $primary;
+
+        font-size: 1.3rem;
+
+        &-login {
+            padding-right: 25px;
+            color: $primary;
+        }
+        &-login:hover {
+            color: $colorWidget;
+        }
+        &-signup {
+            padding-right: 25px;
+            color: $primary;
+        }
+        &-signup:hover {
+            color: $colorWidget;
+        }
+
+    }
+
+}
+
+
+//desktop styles
+@media screen and (min-width: 1024px) {
+    .header {
+        font-family: 'Roboto';
+        font-weight: 900;
+        font-size: 2rem;
+    
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    
+        background-color: $colorFrame1;
+        height: 55px;
+
+        &__details {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+
+            &-logo {
+                border: 1px solid white;
+                //background-image: url(/src/assets/img/nevintec.png);
+                width: 100px;
+                height: 80%;
+                vertical-align: middle;
+                margin: 0 25px;
+            }
+            &-title {
+                color: $primary;
+                margin-left: 75px;
+            }
+
+        }
+    
+        &__links {
+            display: inline-block;
+            padding-left: 70px;
+            text-decoration: $link-hover;
+            color: $primary;
+
+            font-size: 1.3rem;
+
+            &-login {
+                padding-right: 25px;
+                color: $primary;
+            }
+            &-login:hover {
+                color: $colorWidget;
+            }
+            &-signup {
+                padding-right: 25px;
+                color: $primary;
+            }
+            &-signup:hover {
+                color: $colorWidget;
+            }
+    
+        }
+    
+    }
+
+}

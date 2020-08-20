@@ -1,0 +1,8 @@
+@import '../sass/variables.scss';
+
+a {
+    text-decoration: $link-decoration;
+    &:hover {
+        text-decoration: $link-hover;
+    }
+}
