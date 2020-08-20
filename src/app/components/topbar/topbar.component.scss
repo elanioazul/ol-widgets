@@ -8,6 +8,7 @@
 
     background-color: $colorFrame1;
     height: 65px;
+
     display: flex;
     flex-direction: row;
 
@@ -21,8 +22,8 @@
 
         &-logo {
             //display: hidden;
-            width: 80px;
-            height: 60%;
+            width: 70px;
+            height: 50%;
             vertical-align: middle;
             margin: 0 5px;
         }
@@ -96,7 +97,6 @@
             }
             &-title {
                 color: $primary;
-                margin-left: 75px;
             }
 
         }
