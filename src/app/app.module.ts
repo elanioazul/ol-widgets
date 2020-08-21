@@ -5,9 +5,14 @@ import { AppComponent } from './app.component';
 import { DrawComponent } from './widgets/draw/draw.component';
 import { MeasureComponent } from './widgets/measure/measure.component';
 import { MarkerComponent } from './widgets/marker/marker.component';
+import { LayerSwitcherComponent } from './widgets/layer-switcher/layer-switcher.component';
 import { MapComponent } from './components/map/map.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
-import { LeftbarComponent } from './components/leftbar/leftbar.component';
+import { MenuComponent } from './components/menu/menu.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -15,12 +20,15 @@ import { LeftbarComponent } from './components/leftbar/leftbar.component';
     DrawComponent,
     MeasureComponent,
     MarkerComponent,
+    LayerSwitcherComponent,
     MapComponent,
     TopbarComponent,
-    LeftbarComponent
+    MenuComponent  
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

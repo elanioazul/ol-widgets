@@ -6,3 +6,6 @@ a {
         text-decoration: $link-hover;
     }
 }
+button:focus { 
+    outline: none 
+}

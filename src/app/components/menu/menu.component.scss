@@ -1,0 +1,22 @@
+@import '../../../sass/variables.scss';
+@import '../../../sass/base.scss';
+.menu {
+    color: whitesmoke;
+    background: rgba(0,60,136,0.5);
+    position: absolute;
+    z-index: 100;
+    top: 11px;
+    left: 50px;
+
+    width: 55px;
+    height: 32px;
+
+    border: none;
+    border-radius: 2px;
+
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+
+}

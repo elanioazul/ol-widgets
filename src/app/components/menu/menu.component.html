@@ -1,0 +1,18 @@
+<mat-menu #appMenu="matMenu">
+    <button mat-menu-item mat-flat-button [matMenuTriggerFor]="appLayers">Layers</button>
+    <button mat-menu-item mat-flat-button [matMenuTriggerFor]="appTools">Toolskit</button>
+</mat-menu>
+
+<button mat-flat-button [matMenuTriggerFor]="appMenu" class="menu">Menu</button>
+
+<mat-menu #appLayers>
+    <button mat-menu-item>Watercolor</button>
+    <button mat-menu-item>Terrain</button>
+    <button mat-menu-item>OSM</button>
+</mat-menu>
+<mat-menu #appTools>
+    <button mat-menu-item>Draw</button>
+    <button mat-menu-item>Measure</button>
+    <button mat-menu-item>Add a marker</button>
+    <button mat-menu-item>Print</button>
+</mat-menu>

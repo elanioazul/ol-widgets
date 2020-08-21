@@ -48,17 +48,17 @@
         padding: 0 0 0 8px;
 
         &-login {
-            color: $primary;
+            color: $colorWidget;
             margin-bottom: 15px;
         }
         &-login:hover {
-            color: $colorWidget;
-        }
-        &-signup {
             color: $primary;
         }
-        &-signup:hover {
+        &-signup {
             color: $colorWidget;
+        }
+        &-signup:hover {
+            color: $primary;
         }
 
     }

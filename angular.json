@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss",
               "node_modules/ol/ol.css",
               "node_modules/ol-layerswitcher/src/ol-layerswitcher.css"
@@ -99,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -130,6 +132,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "visor-agosto"
 }
