@@ -19,4 +19,12 @@
     font-size: 0.8rem;
     letter-spacing: 1px;
 
+    -webkit-box-shadow: 0 0 10px whitesmoke;
+        box-shadow: 0 0 10px whitesmoke;
+
+}
+
+.menu:hover {
+    background-color: rgba(0, 60, 138, 0.71);
+
 }
