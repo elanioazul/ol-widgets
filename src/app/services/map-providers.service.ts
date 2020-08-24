@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import Map  from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import MVT from 'ol/format/MVT';
 import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
@@ -68,6 +71,13 @@ export class MapProvidersService {
 
   })
 
+  public vectorTileArcGISpbf = new VectorTileLayer({
+    source: new VectorTileSource({
+      format: new MVT(),
+      url: 'https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+    })
+  })
+
   constructor() { }
 
   initializeMap() {
@@ -89,7 +99,9 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.addLayer(this.stamenWaterColor);
+
     
   }
   changeToTerrain() {
@@ -98,6 +110,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.addLayer(this.stamenTerrain)
   }
   changeToOsm() {
@@ -106,6 +119,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.addLayer(this.osm);
   }
 
@@ -115,6 +129,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.addLayer(this.topMap);
   }
 
@@ -123,8 +138,9 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenWaterColor);
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.topMap);
-    this.map.addLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
   changeToVectorTileSat() {
@@ -133,7 +149,18 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.addLayer(this.vectorTileMapTilerSatMediumbres);
+  }
+
+  changeToVectorTileArcGIS() {
+    this.map.removeLayer(this.stamenTerrain);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.topMap);
+    this.map.removeLayer(this.vectorTileMapTilerHillShades);
+    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
   // changeBaseLayer(source) {

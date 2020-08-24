@@ -35,6 +35,9 @@ export class MenuComponent implements OnInit {
   switchToVectorTileSat() {
     this.providers.changeToVectorTileSat();
   }
+  switchToVectorTileArcGIS() {
+    this.providers.changeToVectorTileArcGIS();
+  }
 
 
 
