@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, Inject } from '@angular/core';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 import Map  from 'ol/Map';
 import View from 'ol/View';
@@ -10,6 +11,7 @@ import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
+import ImageTile from 'ol/ImageTile';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +80,11 @@ export class MapProvidersService {
     })
   })
 
-  constructor() { }
+
+
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService
+  ) { }
 
   initializeMap() {
     this.map = new Map ({
@@ -163,15 +169,26 @@ export class MapProvidersService {
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
-  // changeBaseLayer(source) {
-  //   let oSource;
-  //   let pixelRatio;
-  //   var url;
-  //   switch (this.baseLayerToDiplay) {
-  //      case 'osm':
-  //        this.map.addLayer(this)
-  //   }
+  // loadmbTilesLocal() {
+  //   let mbTileLocal = new XYZ({
+  //     tileLoadFunction: (tile: any, url) => {
+  //       let coords: [number, number, number] = [0, 0, 0];
+  //       let tmp: string[] = url.split('/');
+  //       for (let i in tmp) {
+  //         coords[i] = parseInt(tmp[i]);
+  //       }
+  //       coords[2] = -coords[2];
+  //       this.storage.getTile(coords).then(function (tileBase64: string) {
+  //         tile.getImage().src = tileBase64;
+  //       });
+  //     },
+  //     tileUrlFunction: (c) => {
+  //       return c[0] + '/' + c[1] + c[2];
+  //     },
+  //     projection: 'EPSG: 3857'
+  //   })
   // }
+
 
   
 
