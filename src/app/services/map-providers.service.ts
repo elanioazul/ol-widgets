@@ -52,20 +52,32 @@ export class MapProvidersService {
     })
   }
 
-  changeToWaterColor() {
+  changeToWatercolor() {
+    //let capas = this.map.getLayers();
+    //console.log(capas)
     this.map.removeLayer(this.osm);
     this.map.addLayer(this.stamenWaterColor)
   }
+  changeToTerrain() {
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.addLayer(this.stamenTerrain)
+  }
+  changeToOsm() {
+    this.map.removeLayer(this.stamenTerrain);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.addLayer(this.osm);
+  }
 
-  // changeBaseLayer(source) {
-  //   let oSource;
-  //   let pixelRatio;
-  //   var url;
-  //   switch (this.baseLayerToDiplay) {
-  //      case 'osm':
-  //        this.map.addLayer(this)
-  //   }
-  // }
+  changeBaseLayer(source) {
+    let oSource;
+    let pixelRatio;
+    var url;
+    switch (this.baseLayerToDiplay) {
+       case 'osm':
+         this.map.addLayer(this)
+    }
+  }
 
   
 

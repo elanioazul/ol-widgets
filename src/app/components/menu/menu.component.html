@@ -6,9 +6,9 @@
 <button mat-flat-button [matMenuTriggerFor]="appMenu" class="menu">Menu</button>
 
 <mat-menu #appLayers>
-    <button mat-menu-item>Watercolor</button>
-    <button mat-menu-item>Terrain</button>
-    <button mat-menu-item>OSM</button>
+    <button mat-menu-item (click)="switchToWatercolor()">Watercolor</button>
+    <button mat-menu-item (click)="switchToTerrain()">Terrain</button>
+    <button mat-menu-item (click)="switchToOsm()">OSM</button>
 </mat-menu>
 <mat-menu #appTools>
     <button mat-menu-item>Draw</button>

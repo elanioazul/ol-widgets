@@ -17,7 +17,15 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+  switchToWatercolor() {
+    this.providers.changeToWatercolor();
+  }
+  switchToTerrain() {
+    this.providers.changeToTerrain();
+  }
+  switchToOsm() {
+    this.providers.changeToOsm();
+  }
 
 
 
