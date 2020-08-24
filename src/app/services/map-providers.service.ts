@@ -10,7 +10,10 @@ import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
-import ImageTile from 'ol/ImageTile';
+
+//draw
+import {Vector as VectorSource, Vector} from 'ol/source';
+import { Vector as VectorLayer} from 'ol/layer';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,6 @@ import ImageTile from 'ol/ImageTile';
 export class MapProvidersService {
 
   public map;
-  public baseLayerToDiplay : any;
 
   public osm = new TileLayer ({
     visible: true,
@@ -164,6 +166,11 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.addLayer(this.vectorTileArcGISpbf);
+  }
+
+  drawMultilineGeometry() {
+    let vectorSource = new VectorSource({});
+    let vectorLayer = new Vector({})
   }
 
 
