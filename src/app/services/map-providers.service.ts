@@ -1,5 +1,4 @@
 import { Injectable, inject, Inject } from '@angular/core';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 import Map  from 'ol/Map';
 import View from 'ol/View';
@@ -82,9 +81,7 @@ export class MapProvidersService {
 
 
 
-  constructor(
-    @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) { }
+  constructor() { }
 
   initializeMap() {
     this.map = new Map ({
@@ -169,25 +166,7 @@ export class MapProvidersService {
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
-  // loadmbTilesLocal() {
-  //   let mbTileLocal = new XYZ({
-  //     tileLoadFunction: (tile: any, url) => {
-  //       let coords: [number, number, number] = [0, 0, 0];
-  //       let tmp: string[] = url.split('/');
-  //       for (let i in tmp) {
-  //         coords[i] = parseInt(tmp[i]);
-  //       }
-  //       coords[2] = -coords[2];
-  //       this.storage.getTile(coords).then(function (tileBase64: string) {
-  //         tile.getImage().src = tileBase64;
-  //       });
-  //     },
-  //     tileUrlFunction: (c) => {
-  //       return c[0] + '/' + c[1] + c[2];
-  //     },
-  //     projection: 'EPSG: 3857'
-  //   })
-  // }
+
 
 
   

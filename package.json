@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "~10.0.9",
     "@angular/router": "~10.0.9",
     "@types/ol": "^6.3.1",
-    "ngx-webstorage-service": "^4.1.0",
     "ol": "^6.4.3",
     "ol-layerswitcher": "^3.6.0",
     "rxjs": "~6.5.5",
