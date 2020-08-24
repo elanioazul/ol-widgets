@@ -26,6 +26,15 @@ export class MenuComponent implements OnInit {
   switchToOsm() {
     this.providers.changeToOsm();
   }
+  switchToTopoMap() {
+    this.providers.changeToTopoMap();
+  }
+  switchToVectorTileHillShade() {
+    this.providers.changeToVectorTileHillShade();
+  }
+  switchToVectorTileSat() {
+    this.providers.changeToVectorTileSat();
+  }
 
 
 
