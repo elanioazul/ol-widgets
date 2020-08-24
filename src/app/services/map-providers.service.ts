@@ -69,15 +69,15 @@ export class MapProvidersService {
     this.map.addLayer(this.osm);
   }
 
-  changeBaseLayer(source) {
-    let oSource;
-    let pixelRatio;
-    var url;
-    switch (this.baseLayerToDiplay) {
-       case 'osm':
-         this.map.addLayer(this)
-    }
-  }
+  // changeBaseLayer(source) {
+  //   let oSource;
+  //   let pixelRatio;
+  //   var url;
+  //   switch (this.baseLayerToDiplay) {
+  //      case 'osm':
+  //        this.map.addLayer(this)
+  //   }
+  // }
 
   
 
