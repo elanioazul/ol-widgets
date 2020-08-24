@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { MapProvidersService } from './services/map-providers.service'
+
 import { AppComponent } from './app.component';
 import { DrawComponent } from './widgets/draw/draw.component';
 import { MeasureComponent } from './widgets/measure/measure.component';
@@ -11,7 +13,7 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { MenuComponent } from './components/menu/menu.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -30,7 +32,7 @@ import {MatMenuModule} from '@angular/material/menu';
     BrowserAnimationsModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [MapProvidersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import Map  from 'ol/Map';
-import View from 'ol/View';
+
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
@@ -23,10 +22,11 @@ import { defaults as defaultControls, OverviewMap } from 'ol/control.js';
 export class MapComponent implements OnInit {
 
   constructor(
-    public providers: MapProvidersService
+    private providers: MapProvidersService
   ) { }
 
   ngOnInit(): void {
+    this.providers.initializeMap();
     this.addControlsToMap();
   }
 
@@ -45,8 +45,8 @@ export class MapComponent implements OnInit {
       collapsed: false,
       tipLabel: 'Mapa de referencia'
     });
-
-    this.providers.map.addControls(fullScreenControl, overviewControl);
+    this.providers.map.addControl(fullScreenControl);
+    this.providers.map.addControl(overviewControl);
   }
 
   

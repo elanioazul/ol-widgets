@@ -12,6 +12,7 @@ import Stamen from 'ol/source/Stamen';
 export class MapProvidersService {
 
   public map;
+  public baseLayerToDiplay : any;
 
   public osm = new TileLayer ({
     visible: true,
@@ -29,11 +30,11 @@ export class MapProvidersService {
     maxZoom: 18
   })
   
-  public stamenLabels = new TileLayer ({
+  public stamenWaterColor = new TileLayer ({
     visible: true,
     opacity: 0.7,
     source: new Stamen ({
-      layer: 'terrain-labels'
+      layer: 'watercolor'
     }),
     maxZoom: 17
   })
@@ -43,12 +44,29 @@ export class MapProvidersService {
   initializeMap() {
     this.map = new Map ({
       target: 'map',
-      layers: [this.osm, this.stamenTerrain, this.stamenLabels ],
+      layers: [this.osm],
       view: new View({
         center: [-360854.71, 5102324.49],
         zoom: 6,
       })
     })
   }
+
+  changeToWaterColor() {
+    this.map.removeLayer(this.osm);
+    this.map.addLayer(this.stamenWaterColor)
+  }
+
+  // changeBaseLayer(source) {
+  //   let oSource;
+  //   let pixelRatio;
+  //   var url;
+  //   switch (this.baseLayerToDiplay) {
+  //      case 'osm':
+  //        this.map.addLayer(this)
+  //   }
+  // }
+
+  
 
 }
