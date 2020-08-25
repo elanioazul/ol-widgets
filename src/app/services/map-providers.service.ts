@@ -1,5 +1,5 @@
 import { Injectable, inject, Inject } from '@angular/core';
-
+//available layers
 import Map  from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -11,9 +11,6 @@ import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
 
-//draw
-import {Vector as VectorSource, Vector} from 'ol/source';
-import { Vector as VectorLayer} from 'ol/layer';
 
 @Injectable({
   providedIn: 'root'
@@ -168,10 +165,7 @@ export class MapProvidersService {
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
-  drawMultilineGeometry() {
-    let vectorSource = new VectorSource({});
-    let vectorLayer = new Vector({})
-  }
+
 
 
 
