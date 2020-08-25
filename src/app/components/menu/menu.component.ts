@@ -11,10 +11,10 @@ import { MapProvidersService } from '../../services/map-providers.service';
 export class MenuComponent implements OnInit {
 
   //@Output() señal = new EventEmitter<boolean>();
-  @Output() public lenghtSelected = new EventEmitter();
-  lenght = false;
-  @Output() public areaSelected = new EventEmitter();
-  area = false;
+  @Output() lenghtSelected = new EventEmitter();
+  //lenght = false;
+  @Output() areaSelected = new EventEmitter();
+  //area = false;
 
   constructor(
     private providers: MapProvidersService
@@ -22,13 +22,13 @@ export class MenuComponent implements OnInit {
 
   lenghtSelection() {
     debugger
-    this.lenght = !this.lenght;
-    this.lenghtSelected.emit(this.lenght)
+    //this.lenght = !this.lenght;
+    this.lenghtSelected.emit()
   }
   areaSelection() {
     debugger
-    this.area = !this.lenght;
-    this.areaSelected.emit(this.area)
+    //this.area = !this.lenght;
+    this.areaSelected.emit()
   }
 
   ngOnInit(): void {

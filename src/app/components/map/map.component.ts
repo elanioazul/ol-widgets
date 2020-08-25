@@ -82,20 +82,23 @@ export class MapComponent implements OnInit {
     private providers: MapProvidersService
   ) { }
 
-  letsMeasureLenght(e) {
+  letsMeasureLenght() {
     debugger
     this.wantToMeasureLenght = true;
+    this.drawMultilineGeometry();
+    this.addInteraction();
   }
-  letsMeasureArea(e) {
+  letsMeasureArea() {
     debugger
     this.wantToMeasureArea = true;
+    this.drawMultilineGeometry();
+    this.addInteraction();
   }
 
   ngOnInit(): void {
     this.providers.initializeMap();
     this.addControlsToMap();
-    this.drawMultilineGeometry();
-    this.addInteraction();
+
   }
 
  
@@ -183,33 +186,7 @@ export class MapComponent implements OnInit {
   }
 
 
-  createMeasureTooltip() {
-    if (this.measureTooltipElement) {
-      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
-    }
-    this.measureTooltipElement = document.createElement('div');
-    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
-    this.measureTooltip = new Overlay({
-      element: this.measureTooltipElement,
-      offset: [0, -15]
-      //positioning: 'bottom-center',
-    });
-    this.providers.map.addOverlay(this.measureTooltip);
-  }
 
-  createHelpTooltip() {
-    if (this.helpTooltipElement) {
-      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
-    }
-    this.helpTooltipElement = document.createElement('div');
-    this.helpTooltipElement.className = 'ol-tooltip hidden';
-    this.helpTooltip = new Overlay({
-      element: this.helpTooltipElement,
-      offset: [15, 0]
-      //positioning: 'center-left',
-    });
-    this.providers.map.addOverlay(this.helpTooltip);
-  }
 
 
 
@@ -304,6 +281,34 @@ export class MapComponent implements OnInit {
       unByKey(listener);
     });
 
+  }
+
+  createMeasureTooltip() {
+    if (this.measureTooltipElement) {
+      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+    }
+    this.measureTooltipElement = document.createElement('div');
+    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    this.measureTooltip = new Overlay({
+      element: this.measureTooltipElement,
+      offset: [0, -15]
+      //positioning: 'bottom-center',
+    });
+    this.providers.map.addOverlay(this.measureTooltip);
+  }
+
+  createHelpTooltip() {
+    if (this.helpTooltipElement) {
+      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
+    }
+    this.helpTooltipElement = document.createElement('div');
+    this.helpTooltipElement.className = 'ol-tooltip hidden';
+    this.helpTooltip = new Overlay({
+      element: this.helpTooltipElement,
+      offset: [15, 0]
+      //positioning: 'center-left',
+    });
+    this.providers.map.addOverlay(this.helpTooltip);
   }
 
 
