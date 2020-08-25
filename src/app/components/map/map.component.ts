@@ -21,6 +21,7 @@ import Polygon from 'ol/geom/Polygon';
 import {getArea, getLength} from 'ol/sphere';
 import Draw from 'ol/interaction/Draw';
 import {unByKey} from 'ol/Observable';
+import Overlay from 'ol/Overlay';
 
 
 
@@ -36,7 +37,52 @@ export class MapComponent implements OnInit {
   public wantToMeasureLenght;
   public wantToMeasureArea;
 
-  
+        /**
+   * Currently drawn feature.
+   * @type {import("../src/ol/Feature.js").default}
+   */
+  public sketch;
+
+  /**
+   * The help tooltip element.
+   * @type {HTMLElement}
+   */
+  public helpTooltipElement;
+
+  /**
+   * Overlay to show the help messages.
+   * @type {Overlay}
+   */
+  public helpTooltip;
+
+  /**
+   * The measure tooltip element.
+   * @type {HTMLElement}
+   */
+  public measureTooltipElement;
+
+  /**
+   * Overlay to show the measurement.
+   * @type {Overlay}
+   */
+  public measureTooltip;
+
+  /**
+   * Message to show when the user is drawing a polygon.
+   * @type {string}
+   */
+  public continuePolygonMsg = 'Click to continue drawing the polygon';
+
+  /**
+   * Message to show when the user is drawing a line.
+   * @type {string}
+   */
+  public continueLineMsg = 'Click to continue drawing the line';
+    /**
+
+    * Handle pointer move.
+    * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
+    */
 
 
   constructor(
@@ -77,52 +123,7 @@ export class MapComponent implements OnInit {
   }
 
   drawMultilineGeometry() {
-        /**
-     * Currently drawn feature.
-     * @type {import("../src/ol/Feature.js").default}
-     */
-    let sketch;
 
-    /**
-     * The help tooltip element.
-     * @type {HTMLElement}
-     */
-    let helpTooltipElement;
-
-    /**
-     * Overlay to show the help messages.
-     * @type {Overlay}
-     */
-    let helpTooltip;
-
-    /**
-     * The measure tooltip element.
-     * @type {HTMLElement}
-     */
-    let measureTooltipElement;
-
-    /**
-     * Overlay to show the measurement.
-     * @type {Overlay}
-     */
-    let measureTooltip;
-
-    /**
-     * Message to show when the user is drawing a polygon.
-     * @type {string}
-     */
-    let continuePolygonMsg = 'Click to continue drawing the polygon';
-
-    /**
-     * Message to show when the user is drawing a line.
-     * @type {string}
-     */
-    let continueLineMsg = 'Click to continue drawing the line';
-    /**
-
-    * Handle pointer move.
-    * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
-    */
 
     let pointerMoveHandler = function (evt) {
       if (evt.dragging) {
@@ -131,24 +132,24 @@ export class MapComponent implements OnInit {
       /** @type {string} */
       var helpMsg = 'Click to start drawing';
     
-      if (sketch) {
-        var geom = sketch.getGeometry();
+      if (this.sketch) {
+        var geom = this.sketch.getGeometry();
         if (geom instanceof Polygon) {
-          helpMsg = continuePolygonMsg;
+          helpMsg = this.continuePolygonMsg;
         } else if (geom instanceof LineString) {
-          helpMsg = continueLineMsg;
+          helpMsg = this.continueLineMsg;
         }
       }
     
-      helpTooltipElement.innerHTML = helpMsg;
-      helpTooltip.setPosition(evt.coordinate);
+      this.helpTooltipElement.innerHTML = helpMsg;
+      this.helpTooltip.setPosition(evt.coordinate);
     
-      helpTooltipElement.classList.remove('hidden');
+      this.helpTooltipElement.classList.remove('hidden');
     }
 
     this.providers.map.on('pointermove', pointerMoveHandler);
     this.providers.map.getViewport().addEventListener('mouseout', function () {
-      helpTooltipElement.classList.add('hidden');
+      this.helpTooltipElement.classList.add('hidden');
     });
     
 
@@ -278,10 +279,31 @@ export class MapComponent implements OnInit {
   }
 
   createMeasureTooltip() {
-
+    if (this.measureTooltipElement) {
+      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+    }
+    this.measureTooltipElement = document.createElement('div');
+    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    this.measureTooltip = new Overlay({
+      element: this.measureTooltipElement,
+      offset: [0, -15]
+      //positioning: 'bottom-center',
+    });
+    this.providers.map.addOverlay(this.measureTooltip);
   }
-  createHelpTooltip() {
 
+  createHelpTooltip() {
+    if (this.helpTooltipElement) {
+      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
+    }
+    this.helpTooltipElement = document.createElement('div');
+    this.helpTooltipElement.className = 'ol-tooltip hidden';
+    this.helpTooltip = new Overlay({
+      element: this.helpTooltipElement,
+      offset: [15, 0]
+      //positioning: 'center-left',
+    });
+    this.providers.map.addOverlay(this.helpTooltip);
   }
 
   
