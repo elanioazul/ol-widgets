@@ -10,24 +10,17 @@ import { MapProvidersService } from '../../services/map-providers.service';
 })
 export class MenuComponent implements OnInit {
 
-  //@Output() señal = new EventEmitter<boolean>();
   @Output() lenghtSelected = new EventEmitter();
-  //lenght = false;
   @Output() areaSelected = new EventEmitter();
-  //area = false;
 
   constructor(
     private providers: MapProvidersService
   ) { }
 
   lenghtSelection() {
-    debugger
-    //this.lenght = !this.lenght;
     this.lenghtSelected.emit()
   }
   areaSelection() {
-    debugger
-    //this.area = !this.lenght;
     this.areaSelected.emit()
   }
 

@@ -82,26 +82,25 @@ export class MapComponent implements OnInit {
     private providers: MapProvidersService
   ) { }
 
-  letsMeasureLenght() {
-    debugger
-    this.wantToMeasureLenght = true;
-    this.drawMultilineGeometry();
-    this.addInteraction();
-  }
-  letsMeasureArea() {
-    debugger
-    this.wantToMeasureArea = true;
-    this.drawMultilineGeometry();
-    this.addInteraction();
-  }
-
   ngOnInit(): void {
     this.providers.initializeMap();
     this.addControlsToMap();
 
   }
 
- 
+  letsMeasureLenght() {
+    debugger
+    this.wantToMeasureLenght = true;
+    this.drawPointer();
+    this.addInteraction();
+  }
+  letsMeasureArea() {
+    debugger
+    this.wantToMeasureArea = true;
+    this.drawPointer();
+    this.addInteraction();
+  }
+
 
   addControlsToMap() {
     let fullScreenControl = new FullScreen();
@@ -121,7 +120,34 @@ export class MapComponent implements OnInit {
   }
 
 
+  //3 funciones manejadoras a continuación
 
+    /**
+   * Handle pointer move.
+   * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
+   */
+  public pointerMoveHandler = function (evt) {
+    debugger
+    if (evt.dragging) {
+      return;
+    }
+    /** @type {string} */
+    var helpMsg = 'Click to start drawing';
+  
+    if (this.sketch) {
+      var geom = this.sketch.getGeometry();
+      if (geom instanceof Polygon) {
+        helpMsg = this.continuePolygonMsg;
+      } else if (geom instanceof LineString) {
+        helpMsg = this.continueLineMsg;
+      }
+    }
+  
+    this.helpTooltipElement.innerHTML = helpMsg;
+    this.helpTooltip.setPosition(evt.coordinate);
+  
+    this.helpTooltipElement.classList.remove('hidden');
+  }
 
         /**
     * Format length output.
@@ -155,30 +181,13 @@ export class MapComponent implements OnInit {
     return output;
   };
 
-  drawMultilineGeometry() {
-    let pointerMoveHandler = function (evt) {
-      if (evt.dragging) {
-        return;
-      }
-      /** @type {string} */
-      var helpMsg = 'Click to start drawing';
-    
-      if (this.sketch) {
-        var geom = this.sketch.getGeometry();
-        if (geom instanceof Polygon) {
-          helpMsg = this.continuePolygonMsg;
-        } else if (geom instanceof LineString) {
-          helpMsg = this.continueLineMsg;
-        }
-      }
-    
-      this.helpTooltipElement.innerHTML = helpMsg;
-      this.helpTooltip.setPosition(evt.coordinate);
-    
-      this.helpTooltipElement.classList.remove('hidden');
-    }
 
-    this.providers.map.on('pointermove', pointerMoveHandler);
+
+  drawPointer() {
+    this.createHelpTooltip();
+    debugger
+    this.providers.map.on('pointermove', this.pointerMoveHandler(event));
+    debugger
     this.providers.map.getViewport().addEventListener('mouseout', function () {
       this.helpTooltipElement.classList.add('hidden');
     });
@@ -245,7 +254,7 @@ export class MapComponent implements OnInit {
     this.providers.map.addInteraction(this.draw);
 
     this.createMeasureTooltip();
-    this.createHelpTooltip();
+
 
     let listener;
     this.draw.on('drawstart', function (e) {
