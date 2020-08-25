@@ -21,10 +21,12 @@ export class MenuComponent implements OnInit {
   ) { }
 
   lenghtSelection() {
+    debugger
     this.lenght = !this.lenght;
     this.lenghtSelected.emit(this.lenght)
   }
   areaSelection() {
+    debugger
     this.area = !this.lenght;
     this.areaSelected.emit(this.area)
   }

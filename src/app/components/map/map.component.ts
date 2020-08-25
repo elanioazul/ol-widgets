@@ -34,45 +34,38 @@ export class MapComponent implements OnInit {
 
   public draw;
   public whatToDraw;
-  public wantToMeasureLenght;
-  public wantToMeasureArea;
-
+  public wantToMeasureLenght = false;
+  public wantToMeasureArea = false;
         /**
    * Currently drawn feature.
    * @type {import("../src/ol/Feature.js").default}
    */
   public sketch;
-
   /**
    * The help tooltip element.
    * @type {HTMLElement}
    */
   public helpTooltipElement;
-
   /**
    * Overlay to show the help messages.
    * @type {Overlay}
    */
   public helpTooltip;
-
   /**
    * The measure tooltip element.
    * @type {HTMLElement}
    */
   public measureTooltipElement;
-
   /**
    * Overlay to show the measurement.
    * @type {Overlay}
    */
   public measureTooltip;
-
   /**
    * Message to show when the user is drawing a polygon.
    * @type {string}
    */
   public continuePolygonMsg = 'Click to continue drawing the polygon';
-
   /**
    * Message to show when the user is drawing a line.
    * @type {string}
@@ -90,9 +83,11 @@ export class MapComponent implements OnInit {
   ) { }
 
   letsMeasureLenght(e) {
+    debugger
     this.wantToMeasureLenght = true;
   }
   letsMeasureArea(e) {
+    debugger
     this.wantToMeasureArea = true;
   }
 
@@ -122,9 +117,42 @@ export class MapComponent implements OnInit {
     this.providers.map.addControl(overviewControl);
   }
 
+
+
+
+        /**
+    * Format length output.
+    * @param {LineString} line The line.
+    * @return {string} The formatted length.
+    */
+  public formatLength = function (line) {
+    let length = getLength(line);
+    let output;
+    if (length > 100) {
+      output = Math.round((length / 1000) * 100) / 100 + ' ' + 'km';
+    } else {
+      output = Math.round(length * 100) / 100 + ' ' + 'm';
+    }
+    return output;
+  };
+
+    /**
+  * Format area output.
+  * @param {Polygon} polygon The polygon.
+  * @return {string} Formatted area.
+  */
+  public formatArea = function (polygon) {
+    var area = getArea(polygon);
+    var output;
+    if (area > 10000) {
+      output = Math.round((area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
+    } else {
+      output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
+    }
+    return output;
+  };
+
   drawMultilineGeometry() {
-
-
     let pointerMoveHandler = function (evt) {
       if (evt.dragging) {
         return;
@@ -152,44 +180,42 @@ export class MapComponent implements OnInit {
       this.helpTooltipElement.classList.add('hidden');
     });
     
-
-      /**
-    * Format length output.
-    * @param {LineString} line The line.
-    * @return {string} The formatted length.
-    */
-    let formatLength = function (line) {
-      let length = getLength(line);
-      let output;
-      if (length > 100) {
-        output = Math.round((length / 1000) * 100) / 100 + ' ' + 'km';
-      } else {
-        output = Math.round(length * 100) / 100 + ' ' + 'm';
-      }
-      return output;
-    };
-
-      /**
-    * Format area output.
-    * @param {Polygon} polygon The polygon.
-    * @return {string} Formatted area.
-    */
-    let formatArea = function (polygon) {
-      var area = getArea(polygon);
-      var output;
-      if (area > 10000) {
-        output = Math.round((area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
-      } else {
-        output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
-      }
-      return output;
-    };
-
   }
+
+
+  createMeasureTooltip() {
+    if (this.measureTooltipElement) {
+      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+    }
+    this.measureTooltipElement = document.createElement('div');
+    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    this.measureTooltip = new Overlay({
+      element: this.measureTooltipElement,
+      offset: [0, -15]
+      //positioning: 'bottom-center',
+    });
+    this.providers.map.addOverlay(this.measureTooltip);
+  }
+
+  createHelpTooltip() {
+    if (this.helpTooltipElement) {
+      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
+    }
+    this.helpTooltipElement = document.createElement('div');
+    this.helpTooltipElement.className = 'ol-tooltip hidden';
+    this.helpTooltip = new Overlay({
+      element: this.helpTooltipElement,
+      offset: [15, 0]
+      //positioning: 'center-left',
+    });
+    this.providers.map.addOverlay(this.helpTooltip);
+  }
+
+
 
   addInteraction() {
     let source = new VectorSource({});
-    let vector = new VectorLayer({
+    let vectortoDrawAndMeasure = new VectorLayer({
       source: source,
       style: new Style({
         fill: new Fill({
@@ -207,6 +233,8 @@ export class MapComponent implements OnInit {
         }),
       }),
     });
+
+    this.providers.map.addLayer(vectortoDrawAndMeasure);
     
     if(this.wantToMeasureLenght == true) {
       this.whatToDraw = 'LineString'
@@ -278,33 +306,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  createMeasureTooltip() {
-    if (this.measureTooltipElement) {
-      this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
-    }
-    this.measureTooltipElement = document.createElement('div');
-    this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
-    this.measureTooltip = new Overlay({
-      element: this.measureTooltipElement,
-      offset: [0, -15]
-      //positioning: 'bottom-center',
-    });
-    this.providers.map.addOverlay(this.measureTooltip);
-  }
 
-  createHelpTooltip() {
-    if (this.helpTooltipElement) {
-      this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
-    }
-    this.helpTooltipElement = document.createElement('div');
-    this.helpTooltipElement.className = 'ol-tooltip hidden';
-    this.helpTooltip = new Overlay({
-      element: this.helpTooltipElement,
-      offset: [15, 0]
-      //positioning: 'center-left',
-    });
-    this.providers.map.addOverlay(this.helpTooltip);
-  }
 
   
 
