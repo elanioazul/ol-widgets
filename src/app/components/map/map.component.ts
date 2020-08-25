@@ -22,6 +22,7 @@ import {getArea, getLength} from 'ol/sphere';
 import Draw from 'ol/interaction/Draw';
 import {unByKey} from 'ol/Observable';
 import Overlay from 'ol/Overlay';
+import OverlayPositioning from 'ol/OverlayPositioning';
 
 
 
@@ -36,10 +37,8 @@ export class MapComponent implements OnInit {
   public whatToDraw;
   public wantToMeasureLenght = false;
   public wantToMeasureArea = false;
-        /**
-   * Currently drawn feature.
-   * @type {import("../src/ol/Feature.js").default}
-   */
+
+  
   public sketch;
   /**
    * The help tooltip element.
@@ -76,6 +75,8 @@ export class MapComponent implements OnInit {
     * Handle pointer move.
     * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
     */
+
+   private listener;
 
 
   constructor(
@@ -122,10 +123,6 @@ export class MapComponent implements OnInit {
 
   //3 funciones manejadoras a continuación
 
-    /**
-   * Handle pointer move.
-   * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
-   */
   public pointerMoveHandler = function (evt) {
     debugger
     if (evt.dragging) {
@@ -142,18 +139,14 @@ export class MapComponent implements OnInit {
         helpMsg = this.continueLineMsg;
       }
     }
-  
+
+    this.createHelpTooltip();
     this.helpTooltipElement.innerHTML = helpMsg;
     this.helpTooltip.setPosition(evt.coordinate);
-  
     this.helpTooltipElement.classList.remove('hidden');
   }
 
-        /**
-    * Format length output.
-    * @param {LineString} line The line.
-    * @return {string} The formatted length.
-    */
+
   public formatLength = function (line) {
     let length = getLength(line);
     let output;
@@ -165,11 +158,7 @@ export class MapComponent implements OnInit {
     return output;
   };
 
-    /**
-  * Format area output.
-  * @param {Polygon} polygon The polygon.
-  * @return {string} Formatted area.
-  */
+
   public formatArea = function (polygon) {
     var area = getArea(polygon);
     var output;
@@ -193,11 +182,6 @@ export class MapComponent implements OnInit {
     });
     
   }
-
-
-
-
-
 
   addInteraction() {
     let source = new VectorSource({});
@@ -256,15 +240,16 @@ export class MapComponent implements OnInit {
     this.createMeasureTooltip();
 
 
-    let listener;
-    this.draw.on('drawstart', function (e) {
+    
+    this.draw.on('drawstart', (e) => {
+      
       // set sketch
       this.sketch = e.feature;
 
       /** @type {import("../src/ol/coordinate.js").Coordinate|undefined} */
       let tooltipCoord = e.coordinate;
 
-      this.listener = this.sketch.getGeometry().on('change', function (evt) {
+      this.listener = this.sketch.getGeometry().on('change',  (evt) => {
         let geom = evt.target;
         let output;
         if (geom instanceof Polygon) {
@@ -287,7 +272,7 @@ export class MapComponent implements OnInit {
       // unset tooltip so that a new one can be created
       this.measureTooltipElement = null;
       this.createMeasureTooltip();
-      unByKey(listener);
+      unByKey(this.listener);
     });
 
   }
@@ -300,8 +285,8 @@ export class MapComponent implements OnInit {
     this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
     this.measureTooltip = new Overlay({
       element: this.measureTooltipElement,
-      offset: [0, -15]
-      //positioning: 'bottom-center',
+      offset: [0, -15],
+      positioning: OverlayPositioning.CENTER_LEFT
     });
     this.providers.map.addOverlay(this.measureTooltip);
   }
@@ -314,8 +299,8 @@ export class MapComponent implements OnInit {
     this.helpTooltipElement.className = 'ol-tooltip hidden';
     this.helpTooltip = new Overlay({
       element: this.helpTooltipElement,
-      offset: [15, 0]
-      //positioning: 'center-left',
+      offset: [15, 0],
+      positioning: OverlayPositioning.CENTER_CENTER
     });
     this.providers.map.addOverlay(this.helpTooltip);
   }
