@@ -86,7 +86,6 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.providers.initializeMap();
     this.addControlsToMap();
-
   }
 
   letsMeasureLenght() {
@@ -95,13 +94,13 @@ export class MapComponent implements OnInit {
     this.drawPointer();
     this.addInteraction();
   }
+
   letsMeasureArea() {
     debugger
     this.wantToMeasureArea = true;
     this.drawPointer();
     this.addInteraction();
   }
-
 
   addControlsToMap() {
     let fullScreenControl = new FullScreen();
@@ -139,13 +138,14 @@ export class MapComponent implements OnInit {
         helpMsg = this.continueLineMsg;
       }
     }
-
+    debugger
     this.createHelpTooltip();
+    debugger
+    //document.getElementsByClassName('ol-tooltip');
     this.helpTooltipElement.innerHTML = helpMsg;
     this.helpTooltip.setPosition(evt.coordinate);
     this.helpTooltipElement.classList.remove('hidden');
   }
-
 
   public formatLength = function (line) {
     let length = getLength(line);
@@ -158,7 +158,6 @@ export class MapComponent implements OnInit {
     return output;
   };
 
-
   public formatArea = function (polygon) {
     var area = getArea(polygon);
     var output;
@@ -169,7 +168,6 @@ export class MapComponent implements OnInit {
     }
     return output;
   };
-
 
 
   drawPointer() {
@@ -292,6 +290,7 @@ export class MapComponent implements OnInit {
   }
 
   createHelpTooltip() {
+    debugger
     if (this.helpTooltipElement) {
       this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
     }
