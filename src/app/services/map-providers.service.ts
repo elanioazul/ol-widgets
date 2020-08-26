@@ -11,8 +11,8 @@ import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
-import olms from 'ol-mapbox-style';
-import apply from 'ol-mapbox-style';
+import  {applyStyle, stylefunction, applyBackground, olms, apply, getLayer, getLayers, getSource}  from 'ol-mapbox-style';
+import UrlTile from 'ol/source/UrlTile';
 
 @Injectable({
   providedIn: 'root'
@@ -82,13 +82,6 @@ export class MapProvidersService {
     })
   })
 
-  // public vectorTileMapTiler = new VectorTileLayer({
-  //   source: new VectorTileSource({
-  //     attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-  //     url: 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe',
-
-  //   })
-  // })
 
 
 
@@ -192,12 +185,12 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    //this.map.addLayer(this.vectorTileMapTiler);
-     apply(
-       this.map,
-       'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
-     )
-    //let styleJson = 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe';
+    apply(
+      this.map,
+      '../../assets/vectorTileStyles/Streets_try1.json'
+      //'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
+    )
+    debugger
     //olms.apply(this.map.addLayer(), styleJson);
 
   }
