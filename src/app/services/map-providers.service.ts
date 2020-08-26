@@ -12,7 +12,6 @@ import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
 import  {applyStyle, stylefunction, applyBackground, olms, apply, getLayer, getLayers, getSource}  from 'ol-mapbox-style';
-import UrlTile from 'ol/source/UrlTile';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ import UrlTile from 'ol/source/UrlTile';
 export class MapProvidersService {
 
   public map;
-  public baseLayerToDiplay : any;
+  public execute: boolean;
 
   public osm = new TileLayer ({
     visible: true,
@@ -99,8 +98,6 @@ export class MapProvidersService {
   }
 
   changeToWatercolor() {
-    //let capas = this.map.getLayers();
-    //console.log(capas)
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.stamenTerrain);
     this.map.removeLayer(this.topMap);
@@ -108,6 +105,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    debugger
+    this.execute = false;
     this.map.addLayer(this.stamenWaterColor);
 
     
@@ -120,6 +119,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.stamenTerrain)
   }
   changeToOsm() {
@@ -130,6 +130,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.osm);
   }
 
@@ -141,6 +142,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.topMap);
   }
 
@@ -152,6 +154,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
@@ -163,6 +166,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.vectorTileMapTilerSatMediumbres);
   }
 
@@ -174,22 +178,23 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     //this.map.removeLayer(this.vectorTileMapTiler);
+    this.execute = false;
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
   changeToVectorTileMapTilerEmbebedJson() {
-    this.map.removeLayer(this.stamenTerrain);
-    this.map.removeLayer(this.stamenWaterColor);
-    this.map.removeLayer(this.osm);
-    this.map.removeLayer(this.topMap);
-    this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
-    this.map.removeLayer(this.vectorTileArcGISpbf);
     apply(
       this.map,
       //'../../assets/vectorTileStyles/Streets_try1.json'
       'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
     )
+    .then(() => this.map.removeLayer(this.stamenTerrain))
+    .then(() => this.map.removeLayer(this.stamenWaterColor))
+    .then(() => this.map.removeLayer(this.osm))
+    .then(() => this.map.removeLayer(this.topMap))
+    .then(() => this.map.removeLayer(this.vectorTileMapTilerHillShades))
+    .then(() => this.map.removeLayer(this.vectorTileMapTilerSatMediumbres))
+    .then(() => this.map.removeLayer(this.vectorTileArcGISpbf))
     debugger
     //olms.apply(this.map.addLayer(), styleJson);
 

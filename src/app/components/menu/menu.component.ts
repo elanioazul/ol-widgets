@@ -18,6 +18,7 @@ export class MenuComponent implements OnInit {
   }
 
   switchToWatercolor() {
+    debugger
     this.providers.changeToWatercolor();
   }
   switchToTerrain() {
@@ -40,7 +41,9 @@ export class MenuComponent implements OnInit {
   }
 
   switchToVectorMapTilerEmbebed() {
+    debugger
     this.providers.changeToVectorTileMapTilerEmbebedJson();
+
   }
 
 
