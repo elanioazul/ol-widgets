@@ -10,8 +10,9 @@ import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
-import ImageTile from 'ol/ImageTile';
-import { apply } from 'ol/transform';
+//mapbox specification style https://github.com/openlayers/ol-mapbox-style
+import olms from 'ol-mapbox-style';
+import apply from 'ol-mapbox-style';
 
 @Injectable({
   providedIn: 'root'
@@ -81,13 +82,13 @@ export class MapProvidersService {
     })
   })
 
-  public vectorTileMapTiler = new VectorTileLayer({
-    source: new VectorTileSource({
-      attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-      url: 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe',
+  // public vectorTileMapTiler = new VectorTileLayer({
+  //   source: new VectorTileSource({
+  //     attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+  //     url: 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe',
 
-    })
-  })
+  //   })
+  // })
 
 
 
@@ -113,7 +114,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.stamenWaterColor);
 
     
@@ -125,7 +126,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.stamenTerrain)
   }
   changeToOsm() {
@@ -135,7 +136,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.osm);
   }
 
@@ -146,7 +147,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.topMap);
   }
 
@@ -157,7 +158,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
@@ -168,7 +169,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileMapTilerSatMediumbres);
   }
 
@@ -179,7 +180,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
-    this.map.removeLayer(this.vectorTileMapTiler);
+    //this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
@@ -192,10 +193,12 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     //this.map.addLayer(this.vectorTileMapTiler);
-    // apply(
-    //   this.map,
-    //   'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
-    // )
+     apply(
+       this.map,
+       'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
+     )
+    //let styleJson = 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe';
+    //olms.apply(this.map.addLayer(), styleJson);
 
   }
 
