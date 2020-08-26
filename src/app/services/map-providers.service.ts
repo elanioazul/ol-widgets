@@ -11,6 +11,7 @@ import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
 import ImageTile from 'ol/ImageTile';
+import { apply } from 'ol/transform';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,16 @@ export class MapProvidersService {
   public vectorTileArcGISpbf = new VectorTileLayer({
     source: new VectorTileSource({
       format: new MVT(),
+      //url: 'https://tile.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.mvt?api_key=PC7P8wB2R0G-uaFxASYVxw'
       url: 'https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+    })
+  })
+
+  public vectorTileMapTiler = new VectorTileLayer({
+    source: new VectorTileSource({
+      attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+      url: 'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe',
+
     })
   })
 
@@ -103,6 +113,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.stamenWaterColor);
 
     
@@ -114,6 +125,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.stamenTerrain)
   }
   changeToOsm() {
@@ -123,6 +135,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.osm);
   }
 
@@ -133,6 +146,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.topMap);
   }
 
@@ -143,6 +157,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
@@ -153,6 +168,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileMapTilerSatMediumbres);
   }
 
@@ -163,9 +179,25 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileMapTiler);
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
+  changeToVectorTileMapTilerEmbebedJson() {
+    this.map.removeLayer(this.stamenTerrain);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.topMap);
+    this.map.removeLayer(this.vectorTileMapTilerHillShades);
+    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
+    //this.map.addLayer(this.vectorTileMapTiler);
+    // apply(
+    //   this.map,
+    //   'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
+    // )
+
+  }
 
 
 

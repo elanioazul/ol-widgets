@@ -39,6 +39,10 @@ export class MenuComponent implements OnInit {
     this.providers.changeToVectorTileArcGIS();
   }
 
+  switchToVectorMapTilerEmbebed() {
+    this.providers.changeToVectorTileMapTilerEmbebedJson();
+  }
+
 
 
 }
