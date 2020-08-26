@@ -78,6 +78,8 @@ export class MapComponent implements OnInit {
 
    private listener;
 
+   private vectortoDrawAndMeasure;
+
 
   constructor(
     private providers: MapProvidersService
@@ -90,6 +92,7 @@ export class MapComponent implements OnInit {
 
   letsMeasureLenght() {
     debugger
+    this.restartInteraction();
     this.wantToMeasureLenght = true;
     this.drawPointer();
     this.addInteraction();
@@ -97,6 +100,7 @@ export class MapComponent implements OnInit {
 
   letsMeasureArea() {
     debugger
+    this.restartInteraction();
     this.wantToMeasureArea = true;
     this.drawPointer();
     this.addInteraction();
@@ -128,7 +132,7 @@ export class MapComponent implements OnInit {
       return;
     }
     /** @type {string} */
-    var helpMsg = 'Click to start drawing';
+    let helpMsg = 'Click to start drawing';
   
     if (this.sketch) {
       var geom = this.sketch.getGeometry();
@@ -171,7 +175,6 @@ export class MapComponent implements OnInit {
 
 
   drawPointer() {
-    this.createHelpTooltip();
     debugger
     this.providers.map.on('pointermove', this.pointerMoveHandler(event));
     debugger
@@ -183,7 +186,7 @@ export class MapComponent implements OnInit {
 
   addInteraction() {
     let source = new VectorSource({});
-    let vectortoDrawAndMeasure = new VectorLayer({
+    this.vectortoDrawAndMeasure = new VectorLayer({
       source: source,
       style: new Style({
         fill: new Fill({
@@ -202,8 +205,8 @@ export class MapComponent implements OnInit {
       }),
     });
 
-    this.providers.map.addLayer(vectortoDrawAndMeasure);
-    
+    this.providers.map.addLayer(this.vectortoDrawAndMeasure);
+    debugger
     if(this.wantToMeasureLenght == true) {
       this.whatToDraw = 'LineString'
     } else if (this.wantToMeasureArea == true) {
@@ -257,6 +260,7 @@ export class MapComponent implements OnInit {
           output = this.formatLength(geom);
           tooltipCoord = geom.getLastCoordinate();
         }
+        debugger
         this.measureTooltipElement.innerHTML = output;
         this.measureTooltip.setPosition(tooltipCoord);
       });
@@ -275,6 +279,12 @@ export class MapComponent implements OnInit {
 
   }
 
+  restartInteraction() {
+    if (this.vectortoDrawAndMeasure) {
+      this.providers.map.removeLayer(this.vectortoDrawAndMeasure)
+    }
+  }
+
   createMeasureTooltip() {
     if (this.measureTooltipElement) {
       this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
@@ -284,7 +294,7 @@ export class MapComponent implements OnInit {
     this.measureTooltip = new Overlay({
       element: this.measureTooltipElement,
       offset: [0, -15],
-      positioning: OverlayPositioning.CENTER_LEFT
+      positioning: OverlayPositioning.BOTTOM_LEFT
     });
     this.providers.map.addOverlay(this.measureTooltip);
   }
@@ -298,8 +308,8 @@ export class MapComponent implements OnInit {
     this.helpTooltipElement.className = 'ol-tooltip hidden';
     this.helpTooltip = new Overlay({
       element: this.helpTooltipElement,
-      offset: [15, 0],
-      positioning: OverlayPositioning.CENTER_CENTER
+      offset: [1, 0],
+      positioning: OverlayPositioning.TOP_RIGHT
     });
     this.providers.map.addOverlay(this.helpTooltip);
   }
