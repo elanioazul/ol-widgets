@@ -1,0 +1,10 @@
+{
+    "/visor-agosto": {
+      "target": "https://cloud.maptiler.com/acpi/sprites",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/visor-agosto": ""
+      }
+    }
+  }

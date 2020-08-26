@@ -187,8 +187,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     apply(
       this.map,
-      '../../assets/vectorTileStyles/Streets_try1.json'
-      //'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
+      //'../../assets/vectorTileStyles/Streets_try1.json'
+      'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
     )
     debugger
     //olms.apply(this.map.addLayer(), styleJson);
