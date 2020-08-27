@@ -10,8 +10,11 @@ import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
+import GeoJSON from 'ol/format/GeoJSON';
+import { bbox as bboxStrategy} from 'ol/loadingstrategy';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
 import  {applyStyle, stylefunction, applyBackground, olms, apply, getLayer, getLayers, getSource}  from 'ol-mapbox-style';
+import VectorSource from 'ol/source/Vector';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +83,19 @@ export class MapProvidersService {
       url: 'https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf'
     })
   })
+
+  public portalesGeoserverWFS = new VectorSource({
+    format: new GeoJSON(),
+    strategy: bboxStrategy,
+    url: function (extent) {
+      return (
+        'http://localhost:8080/geoserver/visor-agosto/wfs?service=WFS&' +
+        'version=2.0.0&request=GetFeature&typeName=visor-agosto:portales-callejero-burgos&' +
+        'outputformat=application/json'
+      );
+
+    }
+  });
 
 
 
