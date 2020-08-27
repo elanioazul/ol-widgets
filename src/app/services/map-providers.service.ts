@@ -1,4 +1,5 @@
 import { Injectable, inject, Inject } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import Map  from 'ol/Map';
 import View from 'ol/View';
@@ -11,10 +12,21 @@ import Stamen from 'ol/source/Stamen';
 import XYZ from 'ol/source/XYZ';
 import TileJSON from 'ol/source/TileJSON';
 import GeoJSON from 'ol/format/GeoJSON';
+//geoserver launching vector
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
 import { bbox as bboxStrategy} from 'ol/loadingstrategy';
+//geoserver launching vector.Styling
+import Style from 'ol/style/Style';
+import Stroke from 'ol/style/Stroke';
+import Fill from 'ol/style/Fill';
+//geoserver launching images
+import ImageWMS from 'ol/source/ImageWMS';
+import { Image as ImageLayer } from 'ol/layer.js';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
 import  {applyStyle, stylefunction, applyBackground, olms, apply, getLayer, getLayers, getSource}  from 'ol-mapbox-style';
-import VectorSource from 'ol/source/Vector';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +34,6 @@ import VectorSource from 'ol/source/Vector';
 export class MapProvidersService {
 
   public map;
-  public execute: boolean;
 
   public osm = new TileLayer ({
     visible: true,
@@ -67,14 +78,7 @@ export class MapProvidersService {
 
   })
 
-  public vectorTileMapTilerSatMediumbres = new TileLayer ({
-    source: new TileJSON ({
-      url: 'https://api.maptiler.com/tiles/satellite-mediumres-2018/tiles.json?key=TihHLtBNpTt2U1j9teAe',
-      tileSize: 256,
-      crossOrigin: 'anonymous'
-    })
 
-  })
 
   public vectorTileArcGISpbf = new VectorTileLayer({
     source: new VectorTileSource({
@@ -84,23 +88,48 @@ export class MapProvidersService {
     })
   })
 
-  public portalesGeoserverWFS = new VectorSource({
-    format: new GeoJSON(),
-    strategy: bboxStrategy,
-    url: function (extent) {
-      return (
-        'http://localhost:8080/geoserver/visor-agosto/wfs?service=WFS&' +
-        'version=2.0.0&request=GetFeature&typeName=visor-agosto:portales-callejero-burgos&' +
-        'outputformat=application/json'
-      );
+  public portalesGeoserverWFS = new VectorLayer({
+    source: new VectorSource({
+      format: new GeoJSON(),
+      url: function (extent) {
+        return (
+          'http://localhost:8080/geoserver/visor-agosto/wfs?service=WFS&' +
+          'version=2.0.0&request=GetFeature&typeName=visor-agosto:portales-callejero-burgos&' +
+          'outputformat=application/json'
+        );
+      },
+      strategy: bboxStrategy,
+    }),
+    style: new Style({
+      fill: new Fill({
+            color: 'rgba(0, 0, 255, 0.5)',
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255, 0, 255, 1.0)',
+        width: 2
+      })
+    })
+  })
 
-    }
-  });
+  public portalesGeoserverWMS = new ImageLayer({
+    extent: [-858540.701699, 74847.915915, -145536.101855, 5365267.889393],
+    source: new ImageWMS({
+      url: 'http://localhost:8080/geoserver/wms',
+      params: {
+          'LAYERS': 'portales-callejero-burgos',
+          'FORMAT': 'image/png'
+      },
+      ratio: 1,
+      serverType: 'geoserver',
+    }),
+    opacity: 0.8,
+  })
 
 
 
 
-  constructor() { }
+
+  constructor(private http:HttpClient) { }
 
   initializeMap() {
     this.map = new Map ({
@@ -118,11 +147,10 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenTerrain);
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
     debugger
-    this.execute = false;
     this.map.addLayer(this.stamenWaterColor);
 
     
@@ -132,10 +160,9 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenWaterColor);
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
     this.map.addLayer(this.stamenTerrain)
   }
   changeToOsm() {
@@ -143,10 +170,9 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenWaterColor);
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
     this.map.addLayer(this.osm);
   }
 
@@ -155,10 +181,9 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenWaterColor);
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
     this.map.addLayer(this.topMap);
   }
 
@@ -167,24 +192,13 @@ export class MapProvidersService {
     this.map.removeLayer(this.stamenWaterColor);
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.topMap);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
     this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
-  changeToVectorTileSat() {
-    this.map.removeLayer(this.stamenTerrain);
-    this.map.removeLayer(this.stamenWaterColor);
-    this.map.removeLayer(this.osm);
-    this.map.removeLayer(this.topMap);
-    this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileArcGISpbf);
-    //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
-    this.map.addLayer(this.vectorTileMapTilerSatMediumbres);
-  }
+
 
   changeToVectorTileArcGIS() {
     this.map.removeLayer(this.stamenTerrain);
@@ -192,9 +206,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileMapTilerSatMediumbres);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     //this.map.removeLayer(this.vectorTileMapTiler);
-    this.execute = false;
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
@@ -209,11 +222,33 @@ export class MapProvidersService {
     .then(() => this.map.removeLayer(this.osm))
     .then(() => this.map.removeLayer(this.topMap))
     .then(() => this.map.removeLayer(this.vectorTileMapTilerHillShades))
-    .then(() => this.map.removeLayer(this.vectorTileMapTilerSatMediumbres))
     .then(() => this.map.removeLayer(this.vectorTileArcGISpbf))
     debugger
     //olms.apply(this.map.addLayer(), styleJson);
 
+  }
+
+  changeToPortalesGeoserverWMS() {
+    this.map.removeLayer(this.stamenTerrain);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.topMap);
+    this.map.removeLayer(this.vectorTileMapTilerHillShades);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWFS);
+    //this.map.removeLayer(this.vectorTileMapTiler);
+    this.map.addLayer(this.portalesGeoserverWMS);
+  }
+
+  changeToPortalesGeoserverWFS() {
+    this.map.removeLayer(this.stamenTerrain);
+    this.map.removeLayer(this.stamenWaterColor);
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.topMap);
+    this.map.removeLayer(this.vectorTileMapTilerHillShades);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.portalesGeoserverWMS);
+    this.map.addLayer(this.portalesGeoserverWFS);
   }
 
 

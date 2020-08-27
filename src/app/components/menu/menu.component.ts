@@ -33,17 +33,19 @@ export class MenuComponent implements OnInit {
   switchToVectorTileHillShade() {
     this.providers.changeToVectorTileHillShade();
   }
-  switchToVectorTileSat() {
-    this.providers.changeToVectorTileSat();
-  }
+
   switchToVectorTileArcGIS() {
     this.providers.changeToVectorTileArcGIS();
   }
-
   switchToVectorMapTilerEmbebed() {
     debugger
     this.providers.changeToVectorTileMapTilerEmbebedJson();
-
+  }
+  switchToGeoserverWMS() {
+    this.providers.changeToPortalesGeoserverWMS();
+  }
+  switchToGeoserverWFS() {
+    this.providers.changeToPortalesGeoserverWFS();
   }
 
 

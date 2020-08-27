@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MapProvidersService } from './services/map-providers.service'
 
@@ -30,6 +31,7 @@ import { MatMenuModule } from '@angular/material/menu';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatMenuModule
   ],
   providers: [MapProvidersService],
