@@ -21,9 +21,6 @@ export class MenuComponent implements OnInit {
     debugger
     this.providers.changeToWatercolor();
   }
-  switchToTerrain() {
-    this.providers.changeToTerrain();
-  }
   switchToOsm() {
     this.providers.changeToOsm();
   }
@@ -46,6 +43,10 @@ export class MenuComponent implements OnInit {
   }
   switchToGeoserverWFS() {
     this.providers.changeToPortalesGeoserverWFS();
+  }
+
+  switchToGeoserverManzanasVectorTile() {
+    this.providers.changeToManzanasGeoserverVectorTile();
   }
 
 
