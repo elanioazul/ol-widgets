@@ -161,11 +161,16 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
-    debugger
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.stamenWaterColor);
-
-    
+       
   }
 
   changeToOsm() {
@@ -175,7 +180,14 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.osm);
   }
 
@@ -186,7 +198,14 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.topMap);
   }
 
@@ -197,7 +216,14 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.vectorTileMapTilerHillShades);
   }
 
@@ -210,23 +236,29 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.vectorTileArcGISpbf);
   }
 
   changeToVectorTileMapTilerEmbebedJson() {
+    this.map.removeLayer(this.stamenWaterColor)
+    this.map.removeLayer(this.osm)
+    this.map.removeLayer(this.topMap)
+    this.map.removeLayer(this.vectorTileMapTilerHillShades)
+    this.map.removeLayer(this.vectorTileArcGISpbf)
+    this.map.removeLayer(this.manzanasGeoserverVectorTile)
     apply(
       this.map,
       //'../../assets/vectorTileStyles/Streets_try1.json'
       'https://api.maptiler.com/maps/b3265770-0173-4415-909d-264ef9934779/style.json?key=TihHLtBNpTt2U1j9teAe'
     )
-    .then(() => this.map.removeLayer(this.stamenWaterColor))
-    .then(() => this.map.removeLayer(this.osm))
-    .then(() => this.map.removeLayer(this.topMap))
-    .then(() => this.map.removeLayer(this.vectorTileMapTilerHillShades))
-    .then(() => this.map.removeLayer(this.vectorTileArcGISpbf))
-    .then(() => this.map.removeLayer(this.manzanasGeoserverVectorTile))
-    debugger
     //olms.apply(this.map.addLayer(), styleJson);
 
   }
@@ -237,9 +269,16 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.portalesGeoserverWFS);
+    this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
-    //this.map.removeLayer(this.vectorTileMapTiler);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.portalesGeoserverWMS);
   }
 
@@ -251,6 +290,14 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.portalesGeoserverWFS);
   }
 
@@ -262,6 +309,14 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.portalesGeoserverWFS);
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach( layer => {
+      this.map.removeLayer(layer)
+    })
     this.map.addLayer(this.manzanasGeoserverVectorTile);
   }
 
