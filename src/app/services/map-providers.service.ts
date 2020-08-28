@@ -14,6 +14,9 @@ import GeoJSON from 'ol/format/GeoJSON';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
+//reaching vector tiles features
+import * as olPixel from 'ol/pixel';
+import Feature from 'ol/Feature';
 //consuming vector layers from geoserver
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -27,6 +30,7 @@ import ImageWMS from 'ol/source/ImageWMS';
 import { Image as ImageLayer } from 'ol/layer.js';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
 import  { apply }  from 'ol-mapbox-style';
+
 
 
 
@@ -117,15 +121,18 @@ export class MapProvidersService {
     opacity: 0.8,
   })
 
+
+  public manzanasVectorTileSource = new VectorTileSource({
+    maxZoom: 15,
+    format: new MVT(),
+    url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
+          'visor-agosto:manzanas-callejero-burgos' +
+          '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf' 
+  });
+
   public manzanasGeoserverVectorTile = new VectorTileLayer({
     declutter: true,
-    source: new VectorTileSource({
-      maxZoom: 15,
-      format: new MVT(),
-      url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
-            'visor-agosto:manzanas-callejero-burgos' +
-            '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf' 
-    }),
+    source: this.manzanasVectorTileSource,
     style: new Style({
       fill: new Fill({
         color: '#e0a53f'
@@ -269,7 +276,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.portalesGeoserverWMS);
+    this.map.removeLayer(this.portalesGeoserverWFS);
     this.map.removeLayer(this.manzanasGeoserverVectorTile);
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
@@ -318,6 +325,31 @@ export class MapProvidersService {
       this.map.removeLayer(layer)
     })
     this.map.addLayer(this.manzanasGeoserverVectorTile);
+    
+
+    debugger
+    this.manzanasVectorTileSource.on('tileloadend', function(evt) {
+      let tilemia = evt.tile;
+      console.log(tilemia);
+      //features = evt.tile.getFeatures();
+   });
+
+   
+
+  }
+
+  getInfoByClicking() {
+    let pixelito = new Feature();
+    this.map.on('click', function(e) {
+      this.manzanasGeoserverVectorTile.getFeatures(pixelito).then(
+        function(result) {
+          console.log(result)
+        },
+        function(error) {
+          console.log(error)
+        }
+      );
+    })
   }
 
 
