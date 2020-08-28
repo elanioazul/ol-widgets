@@ -133,6 +133,7 @@ export class MapProvidersService {
   public manzanasGeoserverVectorTile = new VectorTileLayer({
     declutter: true,
     source: this.manzanasVectorTileSource,
+    //style: []
     style: new Style({
       fill: new Fill({
         color: '#e0a53f'
@@ -332,25 +333,26 @@ export class MapProvidersService {
       let tilemia = evt.tile;
       console.log(tilemia);
       //features = evt.tile.getFeatures();
-   });
+    });
+
 
    
 
   }
 
-  getInfoByClicking() {
-    let pixelito = new Feature();
-    this.map.on('click', function(e) {
-      this.manzanasGeoserverVectorTile.getFeatures(pixelito).then(
-        function(result) {
-          console.log(result)
-        },
-        function(error) {
-          console.log(error)
-        }
-      );
-    })
-  }
+  // getInfoByClicking() {
+  //   let pixelito = new Feature();
+  //   this.map.on('click', function(e) {
+  //     this.manzanasGeoserverVectorTile.getFeatures(pixelito).then(
+  //       function(result) {
+  //         console.log(result)
+  //       },
+  //       function(error) {
+  //         console.log(error)
+  //       }
+  //     );
+  //   })
+  //}
 
 
 
