@@ -27,7 +27,6 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.providers.initializeMap();
-    //this.providers.getInfoByClicking();
     this.addControlsToMap();
   }
 
