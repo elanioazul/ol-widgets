@@ -30,6 +30,8 @@ import ImageWMS from 'ol/source/ImageWMS';
 import { Image as ImageLayer } from 'ol/layer.js';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
 import  { apply }  from 'ol-mapbox-style';
+import Text from 'ol/style/Text';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -339,27 +341,47 @@ export class MapProvidersService {
     //45001 features segun qgis count aggregate functions y 371 segun count_distinct( "INE_MUN" )
 
 
-    let manzanasStyleFunction3Cat = function (feature, resolution) {
+
+    let manzanasStyleFunction = function (feature, resolution) {
       let id = feature.getProperties().INE_MUN;
+      let textStyle = new Text({
+        font: '12px Calibri,sans-serif',
+        overflow: true,
+        fill: new Fill({
+          color: '#000',
+        }),
+        stroke: new Stroke({
+          color: '#fff',
+          width: 3,
+        }),
+        text: stringify(id)
+      });
       if (id >= 9001 && id < 9500 ) {
         return new Style({
           fill: new Fill({
             color: '#adc24c',
-          })
+          }),
+          stroke: new Stroke({
+            color: 'black',
+            width: 2
+          }),
+          text: textStyle
         })
       } else if (id > 9500) {
         return new Style({
           fill: new Fill({
             color: '#ee5f4c'
-          })
+          }),
+          stroke: new Stroke({
+            color: 'blue',
+            width: 2
+          }),
+          text: textStyle
         })
       }
-
     }
 
-
-
-    this.manzanasVectorTileLayer.setStyle(manzanasStyleFunction3Cat);
+    this.manzanasVectorTileLayer.setStyle(manzanasStyleFunction);
 
 
   }
