@@ -340,12 +340,11 @@ export class MapProvidersService {
 
     //45001 features segun qgis count aggregate functions y 371 segun count_distinct( "INE_MUN" )
 
-
-
     let manzanasStyleFunction = function (feature, resolution) {
       let id = feature.getProperties().INE_MUN;
+      let textSize = 10 / resolution;
       let textStyle = new Text({
-        font: '12px Calibri,sans-serif',
+        font: textSize + 'px Calibri,sans-serif',
         overflow: true,
         fill: new Fill({
           color: '#000',
