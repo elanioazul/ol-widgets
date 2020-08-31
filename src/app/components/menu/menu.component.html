@@ -21,7 +21,7 @@
     <button mat-menu-item>Print</button>
 </mat-menu>
 <mat-menu #appToDraw>
-    <button mat-menu-item>Point</button>
-    <button mat-menu-item>LineString</button>
-    <button mat-menu-item>Polygon</button>
+    <button mat-menu-item (click)="drawPoint()">Point</button>
+    <button mat-menu-item (click)="drawLine()">LineString</button>
+    <button mat-menu-item (click)="drawPolygon()">Polygon</button>
 </mat-menu>

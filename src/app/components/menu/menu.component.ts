@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 //services
 import { MapProvidersService } from '../../services/map-providers.service';
@@ -9,6 +9,10 @@ import { MapProvidersService } from '../../services/map-providers.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+
+  @Output() drawPointSelected = new EventEmitter();
+  @Output() drawLineSelected = new EventEmitter();
+  @Output() drawPolygonSelected = new EventEmitter();
 
   constructor(
     private providers: MapProvidersService
@@ -37,6 +41,17 @@ export class MenuComponent implements OnInit {
   }
   switchToVectorTileArcGIS() {
     this.providers.changeToVectorTileArcGIS();
+  }
+
+  drawPoint() {
+    debugger
+    this.drawPointSelected.emit();
+  }
+  drawLine() {
+    this.drawLineSelected.emit();
+  }
+  drawPolygon() {
+    this.drawPolygonSelected.emit();
   }
 
 

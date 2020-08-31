@@ -1,5 +1,7 @@
 <div id="map">
-    <app-menu></app-menu>
+    <app-menu (drawPointSelected)="drawPoint()" (drawLineSelected)="drawLine()" (drawPolygonSelected)="drawPolygon()"></app-menu>
+    <!-- <div id="todraw"></div> -->
+
 </div>
 
 <!-- <div>{{ map }}</div> -->
