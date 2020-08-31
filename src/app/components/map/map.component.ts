@@ -94,6 +94,7 @@ export class MapComponent implements OnInit {
       snap = new Snap({source: source});
       this.providers.map.addInteraction(snap);
     }
+    addInteraction();
   }
 
   drawLine() {
@@ -131,6 +132,7 @@ export class MapComponent implements OnInit {
       snap = new Snap({source: source});
       this.providers.map.addInteraction(snap);
     }
+    addInteraction();
   }
 
   drawPolygon() {
@@ -168,6 +170,7 @@ export class MapComponent implements OnInit {
       snap = new Snap({source: source});
       this.providers.map.addInteraction(snap);
     }
+    addInteraction();
   }
 
 
