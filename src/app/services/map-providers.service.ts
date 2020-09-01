@@ -86,7 +86,7 @@ export class MapProvidersService {
     })
   })
 
-
+  //portales WMS
   public portalesGeoserverWMS = new ImageLayer({
     extent: [-858540.701699, 74847.915915, -145536.101855, 5365267.889393],
     source: new ImageWMS({
@@ -101,7 +101,7 @@ export class MapProvidersService {
     opacity: 0.8,
   })
 
-
+  //manzanas vectorTileLayer
   public manzanasVectorTileSource = new VectorTileSource({
     maxZoom: 15,
     format: new MVT({
@@ -128,6 +128,14 @@ export class MapProvidersService {
     style: this.manzanasBasicStyle
   })
 
+  //accordingly to https://docs.geoserver.org/stable/en/user/styling/mbstyle/source.html
+  public manzanasMapBoxStyle = new VectorTileLayer({
+    declutter: true,
+    source: new VectorTileSource({
+      format: new MVT(),
+      url: 'http://localhost:8080/geoserver/gwc/service/wtms/REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=visor-agosto:manzanas-callejero-burgos&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}'
+    })
+  })
 
 
 
