@@ -86,28 +86,6 @@ export class MapProvidersService {
     })
   })
 
-  public portalesGeoserverWFS = new VectorLayer({
-    source: new VectorSource({
-      format: new GeoJSON(),
-      url: function (extent) {
-        return (
-          'http://localhost:8080/geoserver/visor-agosto/wfs?service=WFS&' +
-          'version=2.0.0&request=GetFeature&typeName=visor-agosto:portales-callejero-burgos&' +
-          'outputformat=application/json'
-        );
-      },
-      strategy: bboxStrategy,
-    }),
-    style: new Style({
-      fill: new Fill({
-            color: 'rgba(0, 0, 255, 0.5)',
-      }),
-      stroke: new Stroke({
-        color: 'rgba(255, 0, 255, 1.0)',
-        width: 2
-      })
-    })
-  })
 
   public portalesGeoserverWMS = new ImageLayer({
     extent: [-858540.701699, 74847.915915, -145536.101855, 5365267.889393],
@@ -282,7 +260,6 @@ export class MapProvidersService {
     this.map.removeLayer(this.topMap);
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.portalesGeoserverWFS);
     this.map.removeLayer(this.manzanasVectorTileLayer);
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
@@ -295,24 +272,7 @@ export class MapProvidersService {
     this.map.addLayer(this.portalesGeoserverWMS);
   }
 
-  changeToPortalesGeoserverWFS() {
-    this.map.removeLayer(this.stamenWaterColor);
-    this.map.removeLayer(this.osm);
-    this.map.removeLayer(this.topMap);
-    this.map.removeLayer(this.vectorTileMapTilerHillShades);
-    this.map.removeLayer(this.vectorTileArcGISpbf);
-    this.map.removeLayer(this.portalesGeoserverWMS);
-    this.map.removeLayer(this.manzanasVectorTileLayer);
-    //para eliminar la ol-mapbox-style vector tile layer:
-    this.map.getLayers().getArray().filter(
-      layer => {
-        return layer.get('mapbox-source')
-      }
-    ).forEach( layer => {
-      this.map.removeLayer(layer)
-    })
-    this.map.addLayer(this.portalesGeoserverWFS);
-  }
+
 
   changeToManzanasGeoserverVectorTile() {
     this.map.removeLayer(this.stamenWaterColor);
@@ -321,7 +281,6 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileMapTilerHillShades);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.portalesGeoserverWMS);
-    this.map.removeLayer(this.portalesGeoserverWFS);
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {

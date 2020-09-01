@@ -41,9 +41,6 @@ export class MenuComponent implements OnInit {
   switchToGeoserverWMS() {
     this.providers.changeToPortalesGeoserverWMS();
   }
-  switchToGeoserverWFS() {
-    this.providers.changeToPortalesGeoserverWFS();
-  }
 
   switchToGeoserverManzanasVectorTile() {
     this.providers.changeToManzanasGeoserverVectorTile();
