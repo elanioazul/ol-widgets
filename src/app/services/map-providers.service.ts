@@ -14,9 +14,6 @@ import GeoJSON from 'ol/format/GeoJSON';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
-//reaching vector tiles features
-import * as olPixel from 'ol/pixel';
-import Feature from 'ol/Feature';
 //consuming vector layers from geoserver
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -90,9 +87,9 @@ export class MapProvidersService {
   public portalesGeoserverWMS = new ImageLayer({
     extent: [-858540.701699, 74847.915915, -145536.101855, 5365267.889393],
     source: new ImageWMS({
-      url: 'http://localhost:8080/geoserver/wms',
+      url: 'http://localhost:8080/geoserver/visor-agosto/wms',
       params: {
-          'LAYERS': 'portales-callejero-burgos',
+          'LAYERS': 'PORTAL_PK',
           'FORMAT': 'image/png'
       },
       ratio: 1,
@@ -108,7 +105,7 @@ export class MapProvidersService {
       idProperty: 'iso_a3',
     }),
     url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
-          'visor-agosto:manzanas-callejero-burgos' +
+          'visor-agosto:MANZANA' +
           '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf' 
   });
 
@@ -129,7 +126,7 @@ export class MapProvidersService {
   })
 
   //accordingly to https://docs.geoserver.org/stable/en/user/styling/mbstyle/source.html
-  public manzanasMapBoxStyle = new VectorTileLayer({
+  public manzanasMbStyle = new VectorTileLayer({
     declutter: true,
     source: new VectorTileSource({
       format: new MVT(),

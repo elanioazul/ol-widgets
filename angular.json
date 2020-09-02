@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "MVT", "pbf", "util", "@angular/compiler/src/util"
+            ],
             "outputPath": "dist/visor-agosto",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -75,7 +78,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "visor-agosto:build",
-            "proxyConfig": "./proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
