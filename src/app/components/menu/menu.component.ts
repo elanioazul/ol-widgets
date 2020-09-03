@@ -46,6 +46,10 @@ export class MenuComponent implements OnInit {
     this.providers.changeToManzanasGeoserverVectorTile();
   }
 
+  switchToManzanasMapboxStyle() {
+    this.providers.changeToManzanasMboxspecification1();
+  }
+
 
 
 }

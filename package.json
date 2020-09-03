@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~10.0.9",
     "@angular/router": "~10.0.9",
     "@types/ol": "^6.3.1",
+    "mapbox-gl": "^1.12.0",
     "ol": "^6.4.3",
     "ol-layerswitcher": "^3.6.0",
     "ol-mapbox-style": "^6.1.4",

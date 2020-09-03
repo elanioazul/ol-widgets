@@ -125,16 +125,6 @@ export class MapProvidersService {
     style: this.manzanasBasicStyle
   })
 
-  //accordingly to https://docs.geoserver.org/stable/en/user/styling/mbstyle/source.html
-  public manzanasMbStyle = new VectorTileLayer({
-    declutter: true,
-    source: new VectorTileSource({
-      format: new MVT(),
-      url: 'http://localhost:8080/geoserver/gwc/service/wtms/REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=visor-agosto:manzanas-callejero-burgos&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}'
-    })
-  })
-
-
 
 
   constructor(private http:HttpClient) { }
@@ -345,8 +335,19 @@ export class MapProvidersService {
     }
 
     this.manzanasVectorTileLayer.setStyle(manzanasStyleFunction);
+  }
 
-
+  changeToManzanasMboxspecification1() {
+    this.map.removeLayer(this.stamenWaterColor)
+    this.map.removeLayer(this.osm)
+    this.map.removeLayer(this.topMap)
+    this.map.removeLayer(this.vectorTileMapTilerHillShades)
+    this.map.removeLayer(this.vectorTileArcGISpbf)
+    this.map.removeLayer(this.manzanasVectorTileLayer)
+    apply(
+      this.map,
+      '../../assets/vectorTileStyles/manzanasMapboxStyle.json'
+    )
   }
 
 
