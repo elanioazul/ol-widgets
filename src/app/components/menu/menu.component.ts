@@ -47,8 +47,10 @@ export class MenuComponent implements OnInit {
   }
 
   switchToManzanasMapboxStyle() {
-    this.providers.changeToManzanasMboxspecification1();
+    this.providers.changeToManzanasJsonStyle();
   }
+
+
 
 
 

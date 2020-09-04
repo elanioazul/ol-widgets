@@ -1,0 +1,25 @@
+{
+    "version": 8,
+    "name": "Blank",
+    "metadata": {
+        "mapbox:autocomposite": true,
+        "mapbox:type": "template",
+        "mapbox:sdk-support": {
+            "android": "9.3.0",
+            "ios": "5.10.0",
+            "js": "1.10.0"
+        }
+    },
+    "center": [0, 0],
+    "zoom": 0,
+    "sources": {},
+    "sprite": "mapbox://sprites/huguete/ckemg9gdd29mq1as5j9ccc8o4/ck2u8j60r58fu0sgyxrigm3cu",
+    "glyphs": "mapbox://fonts/huguete/{fontstack}/{range}.pbf",
+    "layers": [],
+    "created": "2020-09-03T06:50:05.489Z",
+    "id": "ckemg9gdd29mq1as5j9ccc8o4",
+    "modified": "2020-09-03T06:50:05.489Z",
+    "owner": "huguete",
+    "visibility": "private",
+    "draft": false
+}

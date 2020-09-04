@@ -127,6 +127,8 @@ export class MapProvidersService {
 
 
 
+
+
   constructor(private http:HttpClient) { }
 
   initializeMap() {
@@ -185,6 +187,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.portalesGeoserverWMS);
     this.map.removeLayer(this.manzanasVectorTileLayer);
     //para eliminar la ol-mapbox-style vector tile layer:
+    debugger
     this.map.getLayers().getArray().filter(
       layer => {
         return layer.get('mapbox-source')
@@ -337,7 +340,7 @@ export class MapProvidersService {
     this.manzanasVectorTileLayer.setStyle(manzanasStyleFunction);
   }
 
-  changeToManzanasMboxspecification1() {
+  changeToManzanasJsonStyle() {
     this.map.removeLayer(this.stamenWaterColor)
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.topMap)
@@ -346,9 +349,11 @@ export class MapProvidersService {
     this.map.removeLayer(this.manzanasVectorTileLayer)
     apply(
       this.map,
-      '../../assets/vectorTileStyles/manzanasMapboxStyle.json'
+      '../../assets/vectorTileStyles/burgos-callejero.json'
     )
   }
+
+
 
 
 
