@@ -17,39 +17,26 @@
     },
     "layers": [
         {
-            "id": "portales",
-            "type": "fill",
+            "id": "PORTAL_PK",
             "source": "burgos-callejero",
-            "source-layer": "portales",
-            "layout": {
-                "visibility": "visible"
-            },
+            "source-layer": "PORTAL_PK",
+            "type": "circle",
             "paint": {
-                "fill-color": "#ff0000",
-                "fill-opacity": {
-                "base": 1,
-                "stops": [
-                    [
-                        9,
-                        0.9
-                    ],
-                    [
-                        22,
-                        0.3
-                    ]
-                ]
+                "circle-radius": 3,
+                "circle-color": "#aa16db",
+                "circle-stroke-width": 6
+
             }
-          }
         },
         {
-            "id": "manzanas",
+            "id": "MANZANA",
             "source": "burgos-callejero",
-            "source-layer": "manzanas",
+            "source-layer": "MANZANA",
             "type": "fill",
             "paint": {
                 "fill-opacity": 0.6,
                 "fill-color": "#fcc",
-                "fill-outline-color": "#000"
+                "fill-outline-color": "#1931cf"
             }
         }
     ]
