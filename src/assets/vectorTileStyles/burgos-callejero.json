@@ -22,9 +22,12 @@
             "source-layer": "PORTAL_PK",
             "type": "circle",
             "paint": {
-                "circle-radius": 3,
-                "circle-color": "#aa16db",
-                "circle-stroke-width": 6
+                "circle-radius": 4,
+                "circle-color": "#53993a",
+                "circle-blur": 2,
+                "circle-stroke-width": 1,
+                "circle-stroke-color": "black",
+                "circle-pitch-scale": "map"
 
             }
         },
@@ -35,7 +38,7 @@
             "type": "fill",
             "paint": {
                 "fill-opacity": 0.6,
-                "fill-color": "#fcc",
+                "fill-color": "#d9850f",
                 "fill-outline-color": "#1931cf"
             }
         }
