@@ -23,8 +23,8 @@
             "filter": ["==", "TIPO", "Fondo de valle o vertiente"],
             "type": "fill",
             "paint": {
-                "fill-color": "#8DD3C7",
-                "fill-outline-color": "gray"
+                "fill-color": "#a6611a",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -35,8 +35,8 @@
             "filter": ["==", "TIPO", "Masa de agua"],
             "type": "fill",
             "paint": {
-                "fill-color": "#FFFFB3",
-                "fill-outline-color": "gray"
+                "fill-color": "#c08c46",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -47,8 +47,8 @@
             "filter": ["==", "TIPO", "Relieve estructural"],
             "type": "fill",
             "paint": {
-                "fill-color": "#BEBADA",
-                "fill-outline-color": "gray"
+                "fill-color": "#d9b772",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -59,8 +59,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión degradada miocena"],
             "type": "fill",
             "paint": {
-                "fill-color": "#FB8072",
-                "fill-outline-color": "gray"
+                "fill-color": "#e7d3a5",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -71,8 +71,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión degradada pleistoc. inf. med."],
             "type": "fill",
             "paint": {
-                "fill-color": "#80B1D3",
-                "fill-outline-color": "gray"
+                "fill-color": "#f1eadb",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -83,8 +83,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión degradada pliocena"],
             "type": "fill",
             "paint": {
-                "fill-color": "#FDB462",
-                "fill-outline-color": "gray"
+                "fill-color": "#dbedea",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -95,8 +95,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión retocada miocena"],
             "type": "fill",
             "paint": {
-                "fill-color": "#B3DE69",
-                "fill-outline-color": "gray"
+                "fill-color": "#a7dbd3",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -107,8 +107,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión retocada pleistoc. inf. med."],
             "type": "fill",
             "paint": {
-                "fill-color": "#FCCDE5",
-                "fill-outline-color": "gray"
+                "fill-color": "#72c5b8",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -119,8 +119,8 @@
             "filter": ["==", "TIPO", "Superficie de erosión retocada pliocena"],
             "type": "fill",
             "paint": {
-                "fill-color": "#D9D9D9",
-                "fill-outline-color": "gray"
+                "fill-color": "#39a595",
+                "fill-outline-color": "#232323"
             }
 
         },
@@ -147,7 +147,7 @@
             "type": "line",
             "paint": {
                 "line-color": "brown",
-                "line-width": 2,
+                "line-width": 1,
                 "line-dasharray": [5, 2]
             }
         }

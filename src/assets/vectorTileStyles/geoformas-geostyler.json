@@ -1,0 +1,173 @@
+{
+    "name": "ge.geomorf_cyl_ad_di_s",
+    "rules": [
+      {
+        "name": "Fondo de valle o vertiente",
+        "filter": [
+          "==",
+          "TIPO",
+          "Fondo de valle o vertiente"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#a6611a",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Masa de agua",
+        "filter": [
+          "==",
+          "TIPO",
+          "Masa de agua"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#c08c46",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Relieve estructural",
+        "filter": [
+          "==",
+          "TIPO",
+          "Relieve estructural"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#d9b772",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión degradada miocena",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión degradada miocena"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#e7d3a5",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión degradada pleistoc. inf. med.",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión degradada pleistoc. inf. med."
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#f1eadb",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión degradada pliocena",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión degradada pliocena"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#dbedea",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión retocada miocena",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión retocada miocena"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#a7dbd3",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión retocada pleistoc. inf. med.",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión retocada pleistoc. inf. med."
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#72c5b8",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "Superficie de erosión retocada pliocena",
+        "filter": [
+          "==",
+          "TIPO",
+          "Superficie de erosión retocada pliocena"
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#39a595",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      },
+      {
+        "name": "",
+        "filter": [
+          "||",
+          [
+            "==",
+            "TIPO",
+            ""
+          ],
+          [
+            "==",
+            "TIPO",
+            null
+          ]
+        ],
+        "symbolizers": [
+          {
+            "kind": "Fill",
+            "color": "#018571",
+            "outlineColor": "#232323",
+            "outlineWidth": 1
+          }
+        ]
+      }
+    ]
+  }

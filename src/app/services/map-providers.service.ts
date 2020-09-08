@@ -242,7 +242,7 @@ export class MapProvidersService {
     })
     apply(
       this.map,
-      '../../assets/vectorTileStyles/geoformas.json'
+      '../../assets/vectorTileStyles/geoformas-apelo.json'
     )
   }
  
