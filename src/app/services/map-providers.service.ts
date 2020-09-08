@@ -101,6 +101,32 @@ export class MapProvidersService {
     })
   });
 
+  public geoformasLinesVectorTileLayer = new VectorTileLayer({
+    declutter: true,
+    source: new VectorTileSource({
+      maxZoom: 15,
+      format: new MVT({
+        idProperty: 'iso_a3',
+      }),
+      url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
+        'visor-agosto:ge.geomorf_cyl_ad_di_l' +
+        '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
+    })
+  });
+
+  public geoformasPointsVectorTileLayer = new VectorTileLayer({
+    declutter: true,
+    source: new VectorTileSource({
+      maxZoom: 15,
+      format: new MVT({
+        idProperty: 'iso_a3',
+      }),
+      url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
+        'visor-agosto:ge.geomorf_cyl_ad_di_p' +
+        '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
+    })
+  });
+
 
 
   constructor(private http: HttpClient) { }
@@ -121,6 +147,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.manzanasVectorTileLayer);
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -140,6 +168,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.manzanasVectorTileLayer);
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -156,6 +186,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     apply(
       this.map,
       //'../../assets/vectorTileStyles/Streets_try1.json'
@@ -172,6 +204,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -238,6 +272,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     this.map.getLayers().getArray().filter(
       layer => {
         return layer.get('mapbox-source')
@@ -256,6 +292,8 @@ export class MapProvidersService {
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
     this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
     this.map.getLayers().getArray().filter(
       layer => {
         return layer.get('mapbox-source')
@@ -281,15 +319,41 @@ export class MapProvidersService {
       this.map.removeLayer(layer)
     })
     this.map.addLayer(this.geoformasVectorTileLayer);
+    this.map.addLayer(this.geoformasLinesVectorTileLayer);
+    this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
-    const sldParser = new SLDParser();
-    const olParser = new OpenLayersParser();
+    const sldParserPolygon = new SLDParser();
+    const olParserPolygon = new OpenLayersParser();
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
       a = success;
-      sldParser.readStyle(a).then((geostylerStyle: any) => {
-        olParser.writeStyle(geostylerStyle).then((olStyle) => {
+      sldParserPolygon.readStyle(a).then((geostylerStyle: any) => {
+        olParserPolygon.writeStyle(geostylerStyle).then((olStyle) => {
           this.geoformasVectorTileLayer.setStyle(olStyle);
+        });
+      });
+    })
+
+    const sldParserLine = new SLDParser();
+    const olParserLine = new OpenLayersParser();
+    let b: any;
+    this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
+      a = success;
+      sldParserLine.readStyle(b).then((geostylerStyle: any) => {
+        olParserLine.writeStyle(geostylerStyle).then((olStyle) => {
+          this.geoformasLinesVectorTileLayer.setStyle(olStyle);
+        });
+      });
+    })
+
+    const sldParserPoint = new SLDParser();
+    const olParserPoint = new OpenLayersParser();
+    let c: any;
+    this.http.get('../../assets/vectorTileStyles/geoformas-points.sld', {responseType: 'text'}).subscribe((success) => {
+      a = success;
+      sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
+        olParserPoint.writeStyle(geostylerStyle).then((olStyle) => {
+          this.geoformasPointsVectorTileLayer.setStyle(olStyle);
         });
       });
     })
