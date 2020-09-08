@@ -280,13 +280,10 @@ export class MapProvidersService {
     ).forEach(layer => {
       this.map.removeLayer(layer)
     })
+    this.map.addLayer(this.geoformasVectorTileLayer);
 
     const sldParser = new SLDParser();
     const olParser = new OpenLayersParser();
-
-
-    this.map.addLayer(this.geoformasVectorTileLayer);
-
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
       a = success;
