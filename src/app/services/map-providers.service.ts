@@ -88,7 +88,18 @@ export class MapProvidersService {
     style: this.manzanasBasicStyle
   })
 
-
+  public geoformasVectorTileLayer = new VectorTileLayer({
+    declutter: true,
+    source: new VectorTileSource({
+      maxZoom: 15,
+      format: new MVT({
+        idProperty: 'iso_a3',
+      }),
+      url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
+        'visor-agosto:ge.geomorf_cyl_ad_di_s' +
+        '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
+    })
+  });
 
 
 
@@ -109,6 +120,7 @@ export class MapProvidersService {
   changeToOsm() {
     this.map.removeLayer(this.vectorTileArcGISpbf);
     this.map.removeLayer(this.manzanasVectorTileLayer);
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -127,6 +139,7 @@ export class MapProvidersService {
   changeToVectorTileArcGIS() {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.manzanasVectorTileLayer);
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -142,6 +155,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     apply(
       this.map,
       //'../../assets/vectorTileStyles/Streets_try1.json'
@@ -157,6 +171,7 @@ export class MapProvidersService {
   changeToManzanasGeoserverVectorTile() {
     this.map.removeLayer(this.osm);
     this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     //para eliminar la ol-mapbox-style vector tile layer:
     this.map.getLayers().getArray().filter(
       layer => {
@@ -222,6 +237,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     this.map.getLayers().getArray().filter(
       layer => {
         return layer.get('mapbox-source')
@@ -239,6 +255,7 @@ export class MapProvidersService {
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
+    this.map.removeLayer(this.geoformasVectorTileLayer)
     this.map.getLayers().getArray().filter(
       layer => {
         return layer.get('mapbox-source')
@@ -267,31 +284,20 @@ export class MapProvidersService {
     const sldParser = new SLDParser();
     const olParser = new OpenLayersParser();
 
-    let geoformasVectorTileLayer = new VectorTileLayer({
-      declutter: true,
-      source: new VectorTileSource({
-        maxZoom: 15,
-        format: new MVT({
-          idProperty: 'iso_a3',
-        }),
-        url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
-          'visor-agosto:ge.geomorf_cyl_ad_di_s' +
-          '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
-      })
-    });
-    this.map.addLayer(geoformasVectorTileLayer);
-    this.http.get('../../assets/vectorTileStyles/geoformas.sld').subscribe(sld => {
 
-    })
-    const sldToTransform = '../../assets/vectorTileStyles/geoformas.sld';
-    //let cleanedString = sldToTransform.replace("\ufeff", "");
-    sldParser.readStyle(sldToTransform).then((geostylerStyle:any) => {
-     
-      olParser.writeStyle(geostylerStyle).then((olStyle) => {
-        geoformasVectorTileLayer.setStyle(olStyle);
+    this.map.addLayer(this.geoformasVectorTileLayer);
+
+    let a: any;
+    this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
+      a = success;
+      sldParser.readStyle(a).then((geostylerStyle: any) => {
+        olParser.writeStyle(geostylerStyle).then((olStyle) => {
+          this.geoformasVectorTileLayer.setStyle(olStyle);
+        });
       });
+    })
 
-    });
+
 
 
   }
