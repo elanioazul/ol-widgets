@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit {
   }
 
   switchToGeoformasGeoStylerOL() {
-    this.providers.changeToGeoformasGeostylerOL();
+    this.providers.changeToGeoformasGeostylerSldToOL();
   }
 
 

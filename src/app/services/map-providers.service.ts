@@ -307,7 +307,7 @@ export class MapProvidersService {
     )
   }
 
-  changeToGeoformasGeostylerOL() {
+  changeToGeoformasGeostylerSldToOL() {
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
