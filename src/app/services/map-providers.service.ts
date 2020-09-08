@@ -338,7 +338,7 @@ export class MapProvidersService {
     const olParserLine = new OpenLayersParser();
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
-      a = success;
+      b = success;
       sldParserLine.readStyle(b).then((geostylerStyle: any) => {
         olParserLine.writeStyle(geostylerStyle).then((olStyle) => {
           this.geoformasLinesVectorTileLayer.setStyle(olStyle);
@@ -350,16 +350,13 @@ export class MapProvidersService {
     const olParserPoint = new OpenLayersParser();
     let c: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-points.sld', {responseType: 'text'}).subscribe((success) => {
-      a = success;
+      c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         olParserPoint.writeStyle(geostylerStyle).then((olStyle) => {
           this.geoformasPointsVectorTileLayer.setStyle(olStyle);
         });
       });
     })
-
-
-
 
   }
 
