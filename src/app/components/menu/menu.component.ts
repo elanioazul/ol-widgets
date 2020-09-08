@@ -41,6 +41,10 @@ export class MenuComponent implements OnInit {
     this.providers.changeToGeoformasJsonStyle();
   }
 
+  switchToGeoformasGeoStylerOL() {
+    this.providers.changeToGeoformasGeostylerOL();
+  }
+
 
 
 

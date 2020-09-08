@@ -1,7 +1,7 @@
 import { Injectable, inject, Inject } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import Map  from 'ol/Map';
+import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 
@@ -15,7 +15,7 @@ import MVT from 'ol/format/MVT';
 //consuming vector layers from geoserver
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { bbox as bboxStrategy} from 'ol/loadingstrategy';
+import { bbox as bboxStrategy } from 'ol/loadingstrategy';
 //vector layer styling
 import Style from 'ol/style/Style';
 import Stroke from 'ol/style/Stroke';
@@ -24,9 +24,15 @@ import Fill from 'ol/style/Fill';
 import ImageWMS from 'ol/source/ImageWMS';
 import { Image as ImageLayer } from 'ol/layer.js';
 //mapbox specification style https://github.com/openlayers/ol-mapbox-style
-import  { apply }  from 'ol-mapbox-style';
+import { apply } from 'ol-mapbox-style';
 import Text from 'ol/style/Text';
 import { stringify } from '@angular/compiler/src/util';
+//GeoStyler sld to OL
+import SLDParser from "geostyler-sld-parser";
+import OpenLayersParser from "geostyler-openlayers-parser";
+import { async } from 'rxjs/internal/scheduler/async';
+
+
 
 
 
@@ -38,7 +44,7 @@ export class MapProvidersService {
 
   public map;
 
-  public osm = new TileLayer ({
+  public osm = new TileLayer({
     visible: true,
     opacity: 0.8,
     source: new OSM(),
@@ -62,8 +68,8 @@ export class MapProvidersService {
       idProperty: 'iso_a3',
     }),
     url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
-          'visor-agosto:MANZANA' +
-          '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf' 
+      'visor-agosto:MANZANA' +
+      '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
   });
 
   public manzanasBasicStyle = new Style({
@@ -86,10 +92,10 @@ export class MapProvidersService {
 
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   initializeMap() {
-    this.map = new Map ({
+    this.map = new Map({
       target: 'map',
       layers: [this.osm],
       view: new View({
@@ -108,7 +114,7 @@ export class MapProvidersService {
       layer => {
         return layer.get('mapbox-source')
       }
-    ).forEach( layer => {
+    ).forEach(layer => {
       this.map.removeLayer(layer)
     })
     this.map.addLayer(this.osm);
@@ -126,7 +132,7 @@ export class MapProvidersService {
       layer => {
         return layer.get('mapbox-source')
       }
-    ).forEach( layer => {
+    ).forEach(layer => {
       this.map.removeLayer(layer)
     })
     this.map.addLayer(this.vectorTileArcGISpbf);
@@ -156,13 +162,13 @@ export class MapProvidersService {
       layer => {
         return layer.get('mapbox-source')
       }
-    ).forEach( layer => {
+    ).forEach(layer => {
       this.map.removeLayer(layer)
     })
     this.map.addLayer(this.manzanasVectorTileLayer);
 
 
-    this.manzanasVectorTileSource.on('tileloadend', function(evt) {
+    this.manzanasVectorTileSource.on('tileloadend', function (evt) {
       let tilemia = evt.tile;
       console.log(tilemia);
     });
@@ -184,7 +190,7 @@ export class MapProvidersService {
         }),
         text: stringify(id)
       });
-      if (id >= 9001 && id < 9500 ) {
+      if (id >= 9001 && id < 9500) {
         return new Style({
           fill: new Fill({
             color: '#adc24c',
@@ -220,7 +226,7 @@ export class MapProvidersService {
       layer => {
         return layer.get('mapbox-source')
       }
-    ).forEach( layer => {
+    ).forEach(layer => {
       this.map.removeLayer(layer)
     })
     apply(
@@ -237,7 +243,7 @@ export class MapProvidersService {
       layer => {
         return layer.get('mapbox-source')
       }
-    ).forEach( layer => {
+    ).forEach(layer => {
       this.map.removeLayer(layer)
     })
     apply(
@@ -245,13 +251,57 @@ export class MapProvidersService {
       '../../assets/vectorTileStyles/geoformas-apelo.json'
     )
   }
- 
+
+  changeToGeoformasGeostylerOL() {
+    this.map.removeLayer(this.osm)
+    this.map.removeLayer(this.vectorTileArcGISpbf)
+    this.map.removeLayer(this.manzanasVectorTileLayer)
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach(layer => {
+      this.map.removeLayer(layer)
+    })
+
+    const sldParser = new SLDParser();
+    const olParser = new OpenLayersParser();
+
+    let geoformasVectorTileLayer = new VectorTileLayer({
+      declutter: true,
+      source: new VectorTileSource({
+        maxZoom: 15,
+        format: new MVT({
+          idProperty: 'iso_a3',
+        }),
+        url: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/' +
+          'visor-agosto:ge.geomorf_cyl_ad_di_s' +
+          '@EPSG%3A' + '900913' + '@pbf/{z}/{x}/{-y}.pbf'
+      })
+    });
+    this.map.addLayer(geoformasVectorTileLayer);
+    this.http.get('../../assets/vectorTileStyles/geoformas.sld').subscribe(sld => {
+
+    })
+    const sldToTransform = '../../assets/vectorTileStyles/geoformas.sld';
+    //let cleanedString = sldToTransform.replace("\ufeff", "");
+    sldParser.readStyle(sldToTransform).then((geostylerStyle:any) => {
+     
+      olParser.writeStyle(geostylerStyle).then((olStyle) => {
+        geoformasVectorTileLayer.setStyle(olStyle);
+      });
+
+    });
+
+
+  }
 
 
 
 
 
 
-  
+
+
 
 }
