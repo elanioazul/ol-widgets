@@ -6,15 +6,12 @@
 <button mat-flat-button [matMenuTriggerFor]="appMenu" class="menu">Menu</button>
 
 <mat-menu #appLayers>
-    <button mat-menu-item (click)="switchToWatercolor()">Watercolor</button>
     <button mat-menu-item (click)="switchToOsm()">OSM</button>
-    <button mat-menu-item (click)="switchToTopoMap()">TopomapXYZ</button>
-    <button mat-menu-item (click)="switchToVectorTileHillShade()">MapTiler Hill</button>
     <button mat-menu-item (click)="switchToVectorTileArcGIS()">pbf ArcGIS</button>
     <button mat-menu-item (click)="switchToVectorMapTilerEmbebed()">MapTiler json embebed</button>
-    <button mat-menu-item (click)="switchToGeoserverWMS()">Portales WMS</button>
-    <button mat-menu-item (click)="switchToGeoserverManzanasVectorTile()">Manzanas VectorTile</button>
-    <button mat-menu-item (click)="switchToManzanasMapboxStyle()">Mapbox specific json</button>
+    <button mat-menu-item (click)="switchToGeoserverManzanasVectorTile()">Manzanas OpenLayers styled</button>
+    <button mat-menu-item (click)="switchToManzanasMapboxStyle()">Callejero-burgos json style</button>
+    <button mat-menu-item (click)="switchToGeoformasMapboxStyle()">Geoformas json style</button>
 </mat-menu>
 <mat-menu #appTools>
     <button mat-menu-item>Draw</button>

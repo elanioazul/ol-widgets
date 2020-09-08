@@ -1,0 +1,155 @@
+{
+    "version": 8,
+    "name": "VectorTiles GeoServer",
+    "id": "vectortiles-geoserver",
+    "metadata": {
+      "mapbox:autocomposite": false,
+      "mapbox:type": "template",
+      "maputnik:renderer": "mbgljs",
+      "openmaptiles:version": "3.x"
+    },
+    "sources": {
+      "geoformas": {
+        "tiles": ["http://localhost:8080/geoserver/gwc/service/tms/1.0.0/geoformas@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf"],
+        "scheme": "tms",
+        "type": "vector"
+      }
+    },
+    "layers": [
+        {
+            "id": "Fondo de valle o vertiente",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Fondo de valle o vertiente"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#8DD3C7",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Masa de agua",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Masa de agua"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#FFFFB3",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Relieve estructural",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Relieve estructural"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#BEBADA",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión degradada miocena",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión degradada miocena"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#FB8072",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión degradada pleistoc. inf. med.",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión degradada pleistoc. inf. med."],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#80B1D3",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión degradada pliocena",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión degradada pliocena"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#FDB462",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión retocada miocena",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión retocada miocena"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#B3DE69",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión retocada pleistoc. inf. med.",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión retocada pleistoc. inf. med."],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#FCCDE5",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "Superficie de erosión retocada pliocena",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_s",
+            "filter": ["==", "TIPO", "Superficie de erosión retocada pliocena"],
+            "type": "fill",
+            "paint": {
+                "fill-color": "#D9D9D9",
+                "fill-outline-color": "gray"
+            }
+
+        },
+        {
+            "id": "ge.geomorf_cyl_ad_di_l-labels",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_l",
+            "type": "symbol",
+            "layout": {
+                "text-field": "{TIPO}",
+                "symbol-placement": "line",
+                "text-offset": [0, -8],
+                "text-padding": "10",
+                "text-color": "white"
+            },
+            "paint": {
+                "text-color": "black"
+            }
+        },
+        {
+            "id": "ge.geomorf_cyl_ad_di_l",
+            "source": "geoformas",
+            "source-layer": "ge.geomorf_cyl_ad_di_l",
+            "type": "line",
+            "paint": {
+                "line-color": "brown",
+                "line-width": 2,
+                "line-dasharray": [5, 2]
+            }
+        }
+    ]
+  }

@@ -17,19 +17,10 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  switchToWatercolor() {
-    debugger
-    this.providers.changeToWatercolor();
-  }
   switchToOsm() {
     this.providers.changeToOsm();
   }
-  switchToTopoMap() {
-    this.providers.changeToTopoMap();
-  }
-  switchToVectorTileHillShade() {
-    this.providers.changeToVectorTileHillShade();
-  }
+
 
   switchToVectorTileArcGIS() {
     this.providers.changeToVectorTileArcGIS();
@@ -38,9 +29,6 @@ export class MenuComponent implements OnInit {
     debugger
     this.providers.changeToVectorTileMapTilerEmbebedJson();
   }
-  switchToGeoserverWMS() {
-    this.providers.changeToPortalesGeoserverWMS();
-  }
 
   switchToGeoserverManzanasVectorTile() {
     this.providers.changeToManzanasGeoserverVectorTile();
@@ -48,6 +36,10 @@ export class MenuComponent implements OnInit {
 
   switchToManzanasMapboxStyle() {
     this.providers.changeToManzanasJsonStyle();
+  }
+
+  switchToGeoformasMapboxStyle() {
+    this.providers.changeToGeoformasJsonStyle();
   }
 
 
