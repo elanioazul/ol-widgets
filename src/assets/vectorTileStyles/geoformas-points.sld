@@ -43,7 +43,7 @@
             </se:Label>
             <se:Font>
               <se:SvgParameter name="font-family">Lucida Console</se:SvgParameter>
-              <se:SvgParameter name="font-size">13</se:SvgParameter>
+              <se:SvgParameter name="font-size">7</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
               <se:PointPlacement>
