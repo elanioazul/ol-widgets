@@ -33,8 +33,8 @@ export class MenuComponent implements OnInit {
     this.providers.changeToManzanasGeoserverVectorTile();
   }
 
-  switchToManzanasMapboxStyle() {
-    this.providers.changeToManzanasJsonStyle();
+  switchToCallejeroBurgosJsonStyle() {
+    this.providers.changeToCallejeroBurgosJsonStyle();
   }
 
   switchToGeoformasMapboxStyle() {

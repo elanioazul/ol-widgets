@@ -267,7 +267,7 @@ export class MapProvidersService {
     this.manzanasVectorTileLayer.setStyle(manzanasStyleFunction);
   }
 
-  changeToManzanasJsonStyle() {
+  changeToCallejeroBurgosJsonStyle() {
     this.map.removeLayer(this.osm)
     this.map.removeLayer(this.vectorTileArcGISpbf)
     this.map.removeLayer(this.manzanasVectorTileLayer)
