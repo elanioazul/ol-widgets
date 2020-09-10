@@ -349,7 +349,7 @@ export class MapProvidersService {
     const sldParserPoint = new SLDParser();
     const olParserPoint = new OpenLayersParser();
     let c: any;
-    this.http.get('../../assets/vectorTileStyles/geoformas-points-encoded.sld', {responseType: 'text'}).subscribe((success) => {
+    this.http.get('../../assets/vectorTileStyles/geoformas-points.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         olParserPoint.writeStyle(geostylerStyle).then((olStyle) => {
