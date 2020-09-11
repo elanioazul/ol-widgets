@@ -34,7 +34,7 @@ export class MySldParser extends SLDParser {
                };
        */
         const externalGraphic = _get(sldSymbolizer, 'Graphic[0].ExternalGraphic[0]');
-        const onlineResource = externalGraphic.OnlineResource ? externalGraphic.OnlineResource[0] : null;// _get(sldSymbolizer, 'Graphic[0].ExternalGraphic[0].OnlineResource[0]');
+        const onlineResource = externalGraphic.OnlineResource ? externalGraphic.OnlineResource[0] : null;
         var iconSymbolizer: IconSymbolizer;
         if (onlineResource) {
             iconSymbolizer = <IconSymbolizer>{
