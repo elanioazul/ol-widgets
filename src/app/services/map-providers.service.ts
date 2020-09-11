@@ -28,11 +28,11 @@ import { apply } from 'ol-mapbox-style';
 import Text from 'ol/style/Text';
 import { stringify } from '@angular/compiler/src/util';
 //GeoStyler sld to OL
-import SLDParser from "geostyler-sld-parser";
+//import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyler-openlayers-parser";
 import { async } from 'rxjs/internal/scheduler/async';
 
-
+import {MySldParser} from '../model/MySldParser'
 
 
 
@@ -322,7 +322,7 @@ export class MapProvidersService {
     this.map.addLayer(this.geoformasLinesVectorTileLayer);
     this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
-    const sldParserPolygon = new SLDParser();
+    const sldParserPolygon = new MySldParser();
     const olParserPolygon = new OpenLayersParser();
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
@@ -334,7 +334,7 @@ export class MapProvidersService {
       });
     })
 
-    const sldParserLine = new SLDParser();
+    const sldParserLine = new MySldParser();
     const olParserLine = new OpenLayersParser();
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
@@ -346,10 +346,10 @@ export class MapProvidersService {
       });
     })
 
-    const sldParserPoint = new SLDParser();
+    const sldParserPoint = new MySldParser();
     const olParserPoint = new OpenLayersParser();
     let c: any;
-    this.http.get('../../assets/vectorTileStyles/geoformas-points.sld', {responseType: 'text'}).subscribe((success) => {
+    this.http.get('../../assets/vectorTileStyles/geoformas-points-encoded-png.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         olParserPoint.writeStyle(geostylerStyle).then((olStyle) => {
