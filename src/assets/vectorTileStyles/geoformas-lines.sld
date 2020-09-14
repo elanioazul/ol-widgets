@@ -639,7 +639,7 @@
               <ogc:PropertyName>TIPO</ogc:PropertyName>
             </se:Label>
             <se:Font>
-              <se:SvgParameter name="font-family">Terminal</se:SvgParameter>
+              <se:SvgParameter name="font-family">Tahoma</se:SvgParameter>
               <se:SvgParameter name="font-size">15</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>

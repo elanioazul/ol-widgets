@@ -31,7 +31,7 @@ import { stringify } from '@angular/compiler/src/util';
 //import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyler-openlayers-parser";
 import { async } from 'rxjs/internal/scheduler/async';
-
+//Mejora de Geostyler parsing icons base64
 import {MySldParser} from '../model/MySldParser'
 
 
