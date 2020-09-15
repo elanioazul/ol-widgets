@@ -35,20 +35,12 @@
             <se:LabelPlacement>
               <se:PointPlacement>
                 <se:AnchorPoint>
-                  <se:AnchorPointX>
-                    1
-                  </se:AnchorPointX>
-                  <se:AnchorPointY>
-                    0.5
-                  </se:AnchorPointY>
+                  <se:AnchorPointX>1</se:AnchorPointX>
+                  <se:AnchorPointY>0.5</se:AnchorPointY>
                 </se:AnchorPoint>
                 <se:Displacement>
-                  <se:DisplacementX>
-                    0
-                  </se:DisplacementX>
-                  <se:DisplacementY>
-                    -10
-                  </se:DisplacementY>
+                  <se:DisplacementX>0</se:DisplacementX>
+                  <se:DisplacementY>-10</se:DisplacementY>
                 </se:Displacement>
               </se:PointPlacement>
             </se:LabelPlacement>

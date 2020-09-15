@@ -28,7 +28,7 @@ import { apply } from 'ol-mapbox-style';
 import Text from 'ol/style/Text';
 import { stringify } from '@angular/compiler/src/util';
 //GeoStyler sld to OL
-//import SLDParser from "geostyler-sld-parser";
+import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyler-openlayers-parser";
 import { async } from 'rxjs/internal/scheduler/async';
 //Mejora de Geostyler parsing icons base64
@@ -318,10 +318,11 @@ export class MapProvidersService {
     ).forEach(layer => {
       this.map.removeLayer(layer)
     })
-    this.map.addLayer(this.geoformasVectorTileLayer);
-    this.map.addLayer(this.geoformasLinesVectorTileLayer);
+    //this.map.addLayer(this.geoformasVectorTileLayer);
+    //this.map.addLayer(this.geoformasLinesVectorTileLayer);
     this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
+    /*
     const sldParserPolygon = new MySldParser();
     const olParserPolygon = new OpenLayersParser();
     let a: any;
@@ -345,7 +346,7 @@ export class MapProvidersService {
         });
       });
     })
-
+    */
     const sldParserPoint = new MySldParser();
     const olParserPoint = new OpenLayersParser();
     let c: any;
