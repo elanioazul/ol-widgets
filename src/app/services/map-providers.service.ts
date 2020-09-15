@@ -319,8 +319,8 @@ export class MapProvidersService {
       this.map.removeLayer(layer)
     })
     //this.map.addLayer(this.geoformasVectorTileLayer);
-    //this.map.addLayer(this.geoformasLinesVectorTileLayer);
-    this.map.addLayer(this.geoformasPointsVectorTileLayer);
+    this.map.addLayer(this.geoformasLinesVectorTileLayer);
+    //this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
     /*
     const sldParserPolygon = new MySldParser();
@@ -334,7 +334,8 @@ export class MapProvidersService {
         });
       });
     })
-
+    */
+    
     const sldParserLine = new MySldParser();
     const olParserLine = new OpenLayersParser();
     let b: any;
@@ -346,7 +347,7 @@ export class MapProvidersService {
         });
       });
     })
-    */
+    /*
     const sldParserPoint = new MySldParser();
     const olParserPoint = new OpenLayersParser();
     let c: any;
@@ -358,6 +359,7 @@ export class MapProvidersService {
         });
       });
     })
+    */
 
   }
 
