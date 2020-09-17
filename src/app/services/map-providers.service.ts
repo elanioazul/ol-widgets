@@ -28,11 +28,12 @@ import { apply } from 'ol-mapbox-style';
 import Text from 'ol/style/Text';
 import { stringify } from '@angular/compiler/src/util';
 //GeoStyler sld to OL
-import SLDParser from "geostyler-sld-parser";
+//import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyler-openlayers-parser";
-import { async } from 'rxjs/internal/scheduler/async';
 //Mejora de Geostyler parsing icons base64
-import {MySldParser} from '../model/MySldParser'
+//import {MySldParser} from '../model/MySldParser'
+//geostyler-geoserver-sld-parser that extends the current sld-parser and adds parsing of the geoserver vendor options, https://github.com/geostyler/geostyler/issues/1118
+import SLDParser from "@bayer/geostyler-geoserver-sld-parser";
 
 
 
@@ -336,13 +337,15 @@ export class MapProvidersService {
     })
     */
     
-    const sldParserLine = new MySldParser();
+    const sldParserLine = new SLDParser();
     const olParserLine = new OpenLayersParser();
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
       b = success;
       sldParserLine.readStyle(b).then((geostylerStyle: any) => {
+        debugger
         olParserLine.writeStyle(geostylerStyle).then((olStyle) => {
+          debugger
           this.geoformasLinesVectorTileLayer.setStyle(olStyle);
         });
       });

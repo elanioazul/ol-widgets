@@ -659,6 +659,7 @@
             <se:Priority>1000</se:Priority>
             <se:VendorOption name="followLine">true</se:VendorOption>
             <se:VendorOption name="maxAngleDelta">25</se:VendorOption>
+            <se:VendorOption name="autoWrap">10</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
       </se:FeatureTypeStyle>
