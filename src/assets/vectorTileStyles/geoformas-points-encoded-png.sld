@@ -24,7 +24,7 @@
           <se:MaxScaleDenominator>60000</se:MaxScaleDenominator>
           <se:TextSymbolizer>
             <se:Label>
-              <ogc:PropertyName>asaTIPO</ogc:PropertyName>
+              <ogc:PropertyName>TIPO</ogc:PropertyName>
             </se:Label>
             <se:Font>
               <se:SvgParameter name="font-family">Lucida Console</se:SvgParameter>
@@ -36,10 +36,10 @@
                   <se:AnchorPointX>0</se:AnchorPointX>
                   <se:AnchorPointY>0.5</se:AnchorPointY>
                 </se:AnchorPoint>
-                <Displacement>
-                  <DisplacementX>15</DisplacementX>
-                  <DisplacementY>12</DisplacementY>
-                </Displacement>
+                <se:Displacement>
+                  <se:DisplacementX>15</se:DisplacementX>
+                  <se:DisplacementY>12</se:DisplacementY>
+                </se:Displacement>
               </se:PointPlacement>
             </se:LabelPlacement>
             <se:Fill>

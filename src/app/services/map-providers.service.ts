@@ -31,7 +31,7 @@ import { stringify } from '@angular/compiler/src/util';
 //import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyler-openlayers-parser";
 //Mejora de Geostyler parsing icons base64
-//import {MySldParser} from '../model/MySldParser'
+import {MySldParser} from '../model/MySldParser'
 //geostyler-geoserver-sld-parser that extends the current sld-parser and adds parsing of the geoserver vendor options, https://github.com/geostyler/geostyler/issues/1118
 import SLDParser from "@bayer/geostyler-geoserver-sld-parser";
 
@@ -64,7 +64,7 @@ export class MapProvidersService {
 
   //manzanas vectorTileLayer
   public manzanasVectorTileSource = new VectorTileSource({
-    maxZoom: 15,
+    maxZoom: 20,
     format: new MVT({
       idProperty: 'iso_a3',
     }),
@@ -137,8 +137,8 @@ export class MapProvidersService {
       target: 'map',
       layers: [this.osm],
       view: new View({
-        center: [-582144.407420, 5164697.127173],
-        zoom: 9,
+        center: [-696799.949848, 5091623.328132],
+        zoom: 11,
       })
     })
   }
@@ -324,7 +324,7 @@ export class MapProvidersService {
     //this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
     /*
-    const sldParserPolygon = new MySldParser();
+    const sldParserPolygon = new SLDParser();
     const olParserPolygon = new OpenLayersParser();
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
@@ -350,6 +350,7 @@ export class MapProvidersService {
         });
       });
     })
+
     /*
     const sldParserPoint = new MySldParser();
     const olParserPoint = new OpenLayersParser();
@@ -357,7 +358,9 @@ export class MapProvidersService {
     this.http.get('../../assets/vectorTileStyles/geoformas-points_2.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
+        debugger
         olParserPoint.writeStyle(geostylerStyle).then((olStyle) => {
+          debugger
           this.geoformasPointsVectorTileLayer.setStyle(olStyle);
         });
       });
