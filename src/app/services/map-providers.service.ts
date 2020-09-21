@@ -27,13 +27,17 @@ import { Image as ImageLayer } from 'ol/layer.js';
 import { apply } from 'ol-mapbox-style';
 import Text from 'ol/style/Text';
 import { stringify } from '@angular/compiler/src/util';
-//GeoStyler sld to OL
+//sld to geostyler style
 //import SLDParser from "geostyler-sld-parser";
-import OpenLayersParser from "geostyler-openlayers-parser";
-//Mejora de Geostyler parsing icons base64
-import {MySldParser} from '../model/MySldParser'
-//geostyler-geoserver-sld-parser that extends the current sld-parser and adds parsing of the geoserver vendor options, https://github.com/geostyler/geostyler/issues/1118
 import SLDParser from "@bayer/geostyler-geoserver-sld-parser";
+import {MySldParser} from '../model/MySldParser';
+//geostyler style to OL
+import OpenLayersParser from "geostyler-openlayers-parser";
+import {MyOlParser} from '../model/MyOlParser';
+
+
+
+
 
 
 
@@ -324,8 +328,8 @@ export class MapProvidersService {
     //this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
     /*
-    const sldParserPolygon = new SLDParser();
-    const olParserPolygon = new OpenLayersParser();
+    const sldParserPolygon = new MySldParser();
+    const olParserPolygon = new MyOlParser();
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
       a = success;
@@ -337,8 +341,8 @@ export class MapProvidersService {
     })
     */
     
-    const sldParserLine = new SLDParser();
-    const olParserLine = new OpenLayersParser();
+    const sldParserLine = new MySldParser();
+    const olParserLine = new MyOlParser();
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
       b = success;
@@ -353,9 +357,9 @@ export class MapProvidersService {
 
     /*
     const sldParserPoint = new MySldParser();
-    const olParserPoint = new OpenLayersParser();
+    const olParserPoint = new MyOlParser();
     let c: any;
-    this.http.get('../../assets/vectorTileStyles/geoformas-points_2.sld', {responseType: 'text'}).subscribe((success) => {
+    this.http.get('../../assets/vectorTileStyles/geoformas-points_2_desplazamientoCuadranteUp.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         debugger
@@ -366,7 +370,6 @@ export class MapProvidersService {
       });
     })
     */
-
   }
 
 

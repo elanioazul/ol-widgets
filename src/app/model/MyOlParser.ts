@@ -1,9 +1,8 @@
 import OpenLayersParser from "geostyler-openlayers-parser";
 
-import Text from 'ol/style/Text';
 
 
-var OlStyleUtil_1 = require("./Util/OlStyleUtil");
+var OlStyleUtil_1 = require("../../../node_modules/geostyler-openlayers-parser/build/dist/Util/OlStyleUtil");
 
 
 /*
@@ -38,13 +37,18 @@ const VENDOR_OPTIONS_MAP = [
         //ojo, tal vez la "placement" 'line
         //tengo que existir el tag de LinePlacement dentro de LabelPlacement, y luego el vendorOption de turno.
       
-    //textAlign y el textBaseline, tal y como como está comentado en el codigo original??????????????????
+    //textAlign y el textBaseline:
+        //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
+            //they have to be related to sld <LabelPlacement> element, specifing the placement of the label relative to the geometry being labelled.
+        //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic'.
+            //they have to be connected to 
+    
+    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez
 
 
-//hay que modificar el getOlTextSymbolizerFromTextSymbolizer
+
 export class MyOlParser extends OpenLayersParser {
     getOlTextSymbolizerFromTextSymbolizer(symbolizer): any {
-        debugger
         var _this = this;
         var baseProps = {
             font: OlStyleUtil_1.default.getTextFont(symbolizer),
@@ -64,8 +68,51 @@ export class MyOlParser extends OpenLayersParser {
             // textAlign: symbolizer.pitchAlignment,
             // textBaseline: symbolizer.anchor
         };
+        //vendorOption = 'followline'. Line, instead of the 'point' default value for the "placement" property of the New Text class of OL
         if (symbolizer.followLine && symbolizer.LabelPlacement[0].LinePlacement) {
             baseProps["placement"] = 'line';
+        }
+        //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
+        if (symbolizer.anchor) {
+            let axisX = symbolizer.anchor[0];
+            let axisY = symbolizer.anchor[1];
+            if (axisX===1 && axisY===1) {
+                baseProps["textAlign"] = 'start';
+                baseProps["textBaseline"] = 'top';
+            }
+            if (axisX===0 && axisY===0) {
+                baseProps["textAlign"] = 'end';
+                baseProps["textBaseline"] = 'bottom';
+            }
+            if (axisX===0.5 && axisY===0) {
+                baseProps["textAlign"] = 'center';
+                baseProps["textBaseline"] = 'bottom';
+            }
+            if (axisX===0 && axisY===0.5) {
+                baseProps["textAlign"] = 'end';
+                baseProps["textBaseline"] = 'middle';
+            }
+            if (axisX===0.5 && axisY===1) {
+                baseProps["textAlign"] = 'center';
+                baseProps["textBaseline"] = 'top';
+            }
+            if (axisX===1 && axisY===0.5) {
+                baseProps["textAlign"] = 'start';
+                baseProps["textBaseline"] = 'middle';
+            }
+            if (axisX===1 && axisY===0) {
+                baseProps["textAlign"] = 'start';
+                baseProps["textBaseline"] = 'bottom';
+            }
+            if (axisX===0 && axisY===1) {
+                baseProps["textAlign"] = 'end';
+                baseProps["textBaseline"] = 'top';
+            }
+            if (axisX===0.5 && axisY===0.5) {
+                baseProps["textAlign"] = 'center';
+                baseProps["textBaseline"] = 'middle';
+            }
+
         }
         // check if TextSymbolizer.label contains a placeholder
         var prefix = '\\{\\{';

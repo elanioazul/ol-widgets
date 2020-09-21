@@ -1,5 +1,7 @@
 import SLDParser from "geostyler-sld-parser";
-import { IconSymbolizer } from 'geostyler-style';
+import GeoserverSldStyleParser from "@bayer/geostyler-geoserver-sld-parser";
+import GeoserverTextSymbolizer from '../../../node_modules/@bayer/geostyler-geoserver-sld-parser/src/GeoserverTextSymbolizer';
+import { IconSymbolizer, TextSymbolizer } from 'geostyler-style';
 const _get = require('lodash/get');
 import {
     parseString,
@@ -7,7 +9,7 @@ import {
     OptionsV2
 } from 'xml2js';
 
-export class MySldParser extends SLDParser {
+export class MySldParser extends GeoserverSldStyleParser {
 
     getIconSymbolizerFromSldSymbolizer(sldSymbolizer): any {
         const externalGraphic = _get(sldSymbolizer, 'Graphic[0].ExternalGraphic[0]');
@@ -40,5 +42,25 @@ export class MySldParser extends SLDParser {
         }
         return iconSymbolizer;
     };
+
+    getTextSymbolizerFromSldSymbolizer(sldSymbolizer) : any{
+        debugger
+        var textSymbolizer = {
+            kind: 'Text'
+        };
+        const myfinalSymbolizer = super.getTextSymbolizerFromSldSymbolizer(sldSymbolizer)
+
+        //to parse AnchorPointX and AnchorPointY to be translated into textAlign and textBaseline in OL
+        var anchorpoint = _get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]')
+        if (anchorpoint) {
+            var x = anchorpoint.AnchorPointX[0];
+            var y = anchorpoint.AnchorPointY[0];
+            textSymbolizer["anchor"] = [
+                x ? parseFloat(x) : 0,
+                x ? parseFloat(y) : 0,
+            ]
+        }
+        return myfinalSymbolizer;
+    }
 
 }
