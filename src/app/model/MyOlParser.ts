@@ -49,6 +49,7 @@ const VENDOR_OPTIONS_MAP = [
 
 export class MyOlParser extends OpenLayersParser {
     getOlTextSymbolizerFromTextSymbolizer(symbolizer): any {
+        debugger
         var _this = this;
         var baseProps = {
             font: OlStyleUtil_1.default.getTextFont(symbolizer),
@@ -73,10 +74,10 @@ export class MyOlParser extends OpenLayersParser {
             baseProps["placement"] = 'line';
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
-        if (symbolizer.anchor) {
-            let axisX = symbolizer.anchor[0];
-            let axisY = symbolizer.anchor[1];
-            if (axisX===1 && axisY===1) {
+        if (symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
+            var axisX = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointX[0]);
+            var axisY = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointY[0]);
+            if (axisX === 1 && axisY ===1) {
                 baseProps["textAlign"] = 'start';
                 baseProps["textBaseline"] = 'top';
             }

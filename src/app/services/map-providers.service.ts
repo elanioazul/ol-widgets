@@ -324,8 +324,8 @@ export class MapProvidersService {
       this.map.removeLayer(layer)
     })
     //this.map.addLayer(this.geoformasVectorTileLayer);
-    this.map.addLayer(this.geoformasLinesVectorTileLayer);
-    //this.map.addLayer(this.geoformasPointsVectorTileLayer);
+    //this.map.addLayer(this.geoformasLinesVectorTileLayer);
+    this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
     /*
     const sldParserPolygon = new MySldParser();
@@ -339,7 +339,7 @@ export class MapProvidersService {
         });
       });
     })
-    */
+
     
     const sldParserLine = new MySldParser();
     const olParserLine = new MyOlParser();
@@ -354,12 +354,12 @@ export class MapProvidersService {
         });
       });
     })
+    */
 
-    /*
     const sldParserPoint = new MySldParser();
     const olParserPoint = new MyOlParser();
     let c: any;
-    this.http.get('../../assets/vectorTileStyles/geoformas-points_2_desplazamientoCuadranteUp.sld', {responseType: 'text'}).subscribe((success) => {
+    this.http.get('../../assets/vectorTileStyles/geoformas-points_2_desplazamientoCuadranteDown.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         debugger
@@ -369,7 +369,6 @@ export class MapProvidersService {
         });
       });
     })
-    */
   }
 
 
