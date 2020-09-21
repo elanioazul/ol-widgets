@@ -37,13 +37,13 @@ const VENDOR_OPTIONS_MAP = [
         //ojo, tal vez la "placement" 'line
         //tengo que existir el tag de LinePlacement dentro de LabelPlacement, y luego el vendorOption de turno.
       
-    //textAlign y el textBaseline:
-        //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
-            //they have to be related to sld <LabelPlacement> element, specifing the placement of the label relative to the geometry being labelled.
-        //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic'.
-            //they have to be connected to 
-    
-    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez
+    //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
+        //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
+            //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
+            //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic'.
+        //consigo ver que el array de estilos que llega a la VectorTileLayer de OL tiene todas las propiedades que le he metido, pero no se randeriza de acuerdo a ello.
+
+    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez, que puede quedar resuleto al lograr actuar sobre el textAlign y textBaseline de OL
 
 
 
