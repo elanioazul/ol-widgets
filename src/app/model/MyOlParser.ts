@@ -128,7 +128,7 @@ export class MyOlParser extends OpenLayersParser {
         //vendorOption = 'autoWrap". 
         var labelTextToBeWrapped = symbolizer.label;
         if (symbolizer.autoWrap && !symbolizer.LabelPlacement[0].PointPlacement) {
-            var getText = function () {
+            var getText =  () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
                     labelTextToBeWrapped = '';
 
