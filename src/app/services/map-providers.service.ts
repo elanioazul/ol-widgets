@@ -329,7 +329,7 @@ export class MapProvidersService {
 
     /* 
     const sldParserPolygon = new MySldParser();
-    const olParserPolygon = new MyOlParser();
+    const olParserPolygon = new MyOlParser(this.map);
     let a: any;
     this.http.get('../../assets/vectorTileStyles/geoformas.sld', {responseType: 'text'}).subscribe((success) => {
       a = success;
@@ -343,6 +343,7 @@ export class MapProvidersService {
    
     const sldParserLine = new MySldParser();
     const olParserLine = new MyOlParser(this.map);
+    debugger
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
       b = success;
@@ -354,10 +355,10 @@ export class MapProvidersService {
         });
       });
     })
-
+    
     /*
     const sldParserPoint = new MySldParser();
-    const olParserPoint = new MyOlParser();
+    const olParserPoint = new MyOlParser(this.map);
     let c: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-points_2_desplazamientoCuadranteDown.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;

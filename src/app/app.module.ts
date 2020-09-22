@@ -16,7 +16,6 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 
-
 @NgModule({
   declarations: [
     AppComponent,

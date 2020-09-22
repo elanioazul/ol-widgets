@@ -1,7 +1,8 @@
 import SLDParser from "geostyler-sld-parser";
 import GeoserverSldStyleParser from "@bayer/geostyler-geoserver-sld-parser";
 import GeoserverTextSymbolizer from '../../../node_modules/@bayer/geostyler-geoserver-sld-parser/src/GeoserverTextSymbolizer';
-import { IconSymbolizer, TextSymbolizer } from 'geostyler-style';
+import { IconSymbolizer } from 'geostyler-style';
+
 const _get = require('lodash/get');
 import {
     parseString,
@@ -64,3 +65,66 @@ export class MySldParser extends GeoserverSldStyleParser {
     }
 
 }
+
+
+
+// export class MySldParser extends GeoserverSldStyleParser {
+
+//     get(object, path, defaultValue=null) {
+//        var result = object == null ? undefined : baseGet(object, path);
+//        return result === undefined ? defaultValue : result;
+//     }
+
+//     getIconSymbolizerFromSldSymbolizer(sldSymbolizer): any {
+//         const externalGraphic = this.get(sldSymbolizer, 'Graphic[0].ExternalGraphic[0]');
+//         const onlineResource = externalGraphic.OnlineResource ? externalGraphic.OnlineResource[0] : null;
+//         var iconSymbolizer: IconSymbolizer;
+//         if (onlineResource) {
+//             iconSymbolizer = <IconSymbolizer>{
+//                 kind: 'Icon',
+//                 image: onlineResource.$['xlink:href']
+//             };
+//         } else if (externalGraphic.InlineContent) {
+//             let inlineContent = externalGraphic.InlineContent[0]._.trim();
+//             iconSymbolizer = <IconSymbolizer>{
+//                 kind: 'Icon',
+//                 image: inlineContent
+//             };
+//         }
+
+//         var opacity = this.get(sldSymbolizer, 'Graphic[0].Opacity[0]');
+//         var size = this.get(sldSymbolizer, 'Graphic[0].Size[0]');
+//         var rotate = this.get(sldSymbolizer, 'Graphic[0].Rotation[0]');
+//         if (opacity) {
+//             iconSymbolizer.opacity = opacity;
+//         }
+//         if (size) {
+//             iconSymbolizer.size = parseFloat(size);
+//         }
+//         if (rotate) {
+//             iconSymbolizer.rotate = parseFloat(rotate);
+//         }
+//         return iconSymbolizer;
+//     };
+
+//     getTextSymbolizerFromSldSymbolizer(sldSymbolizer) : any{
+//         debugger
+//         var textSymbolizer = {
+//             kind: 'Text'
+//         };
+//         const myfinalSymbolizer = super.getTextSymbolizerFromSldSymbolizer(sldSymbolizer);
+
+//         //to parse AnchorPointX and AnchorPointY to be translated into textAlign and textBaseline in OL
+//         var anchorpoint =this.get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]');
+//         if (anchorpoint) {
+//             var x = anchorpoint.AnchorPointX[0];
+//             var y = anchorpoint.AnchorPointY[0];
+//             textSymbolizer["anchor"] = [
+//                 x ? parseFloat(x) : 0,
+//                 x ? parseFloat(y) : 0,
+//             ]
+//         }
+//         return myfinalSymbolizer;
+//     }
+
+// }

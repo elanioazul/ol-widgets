@@ -53,10 +53,10 @@ const VENDOR_OPTIONS_MAP = [
 
 
 export class MyOlParser extends OpenLayersParser {
-    private _mapa:any;
-    constructor(mapa:any){
+    private _mapa: any;
+    constructor(map: any) {
         super();
-        this._mapa = mapa;
+        this._mapa = map;
     }
 
     getOlTextSymbolizerFromTextSymbolizer(symbolizer): any {
@@ -83,16 +83,8 @@ export class MyOlParser extends OpenLayersParser {
         if (symbolizer.followLine && symbolizer.LabelPlacement[0].LinePlacement) {
             baseProps["placement"] = 'line';
         }
-        //vendorOption = 'autoWrap". 
-        if (symbolizer.autoWrap) {
-            var getText = function (feature, resolution) {
-                if (this._map.getResolution > this._map.getMaxResolution) {
-
-                }
-            }
-        }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
-        if (symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
+        if (symbolizer.LabelPlacement[0].PointPlacement && symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
             var axisX = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointX[0]);
             var axisY = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointY[0]);
             if (axisX === 1 && axisY ===1) {
@@ -133,6 +125,39 @@ export class MyOlParser extends OpenLayersParser {
             }
 
         }
+        //vendorOption = 'autoWrap". 
+        var labelTextToBeWrapped = symbolizer.label;
+        if (symbolizer.autoWrap && !symbolizer.LabelPlacement[0].PointPlacement) {
+            var getText = function () {
+                if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
+                    labelTextToBeWrapped = '';
+
+                } else {
+                    let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
+                    return labelTextWrapped
+                }
+            }
+        }
+        //width value at your whim or the autoWrap vendorOption value, like the case
+        var stringDivider = function stringDivider(str, width, spaceReplacer) {
+            if (str.length > width) {
+              var p = width;
+              while (p > 0 && str[p] != ' ' && str[p] != '-') {
+                p--;
+              }
+              if (p > 0) {
+                var left;
+                if (str.substring(p, p + 1) == '-') {
+                  left = str.substring(0, p + 1);
+                } else {
+                  left = str.substring(0, p);
+                }
+                var right = str.substring(p + 1);
+                return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+              }
+            }
+            return str;
+        }
         // check if TextSymbolizer.label contains a placeholder
         var prefix = '\\{\\{';
         var suffix = '\\}\\}';
@@ -142,7 +167,7 @@ export class MyOlParser extends OpenLayersParser {
             // if it contains a placeholder
             // return olStyleFunction
             var olPointStyledLabelFn = function (feature, res) {
-                var text = new _this.OlStyleTextConstructor(Object.assign({ text: OlStyleUtil_1.default.resolveAttributeTemplate(feature, symbolizer.label, '') }, baseProps));
+                var text = new _this.OlStyleTextConstructor(Object.assign({ text: OlStyleUtil_1.default.resolveAttributeTemplate(feature, getText(), '') }, baseProps));
                 var style = new _this.OlStyleConstructor({
                     text: text
                 });
@@ -154,7 +179,7 @@ export class MyOlParser extends OpenLayersParser {
             // if TextSymbolizer does not contain a placeholder
             // return OlStyle
             return new this.OlStyleConstructor({
-                text: new this.OlStyleTextConstructor(Object.assign({ text: symbolizer.label }, baseProps))
+                text: new this.OlStyleTextConstructor(Object.assign({ text: getText() }, baseProps))
             });
         }
 
