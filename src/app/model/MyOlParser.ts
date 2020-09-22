@@ -134,6 +134,7 @@ export class MyOlParser extends OpenLayersParser {
 
                 } else {
                     let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
+                    debugger
                     return labelTextWrapped
                 }
             }
@@ -163,6 +164,7 @@ export class MyOlParser extends OpenLayersParser {
         var suffix = '\\}\\}';
         var regExp = new RegExp(prefix + '.*?' + suffix, 'g');
         var regExpRes = symbolizer.label ? symbolizer.label.match(regExp) : null;
+        debugger
         if (regExpRes) {
             // if it contains a placeholder
             // return olStyleFunction
