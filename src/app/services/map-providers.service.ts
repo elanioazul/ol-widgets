@@ -324,10 +324,10 @@ export class MapProvidersService {
       this.map.removeLayer(layer)
     })
     //this.map.addLayer(this.geoformasVectorTileLayer);
-    //this.map.addLayer(this.geoformasLinesVectorTileLayer);
-    this.map.addLayer(this.geoformasPointsVectorTileLayer);
+    this.map.addLayer(this.geoformasLinesVectorTileLayer);
+    //this.map.addLayer(this.geoformasPointsVectorTileLayer);
 
-    /*
+    /* 
     const sldParserPolygon = new MySldParser();
     const olParserPolygon = new MyOlParser();
     let a: any;
@@ -339,10 +339,10 @@ export class MapProvidersService {
         });
       });
     })
-
-    
+    */
+   
     const sldParserLine = new MySldParser();
-    const olParserLine = new MyOlParser();
+    const olParserLine = new MyOlParser(this.map);
     let b: any;
     this.http.get('../../assets/vectorTileStyles/geoformas-lines.sld', {responseType: 'text'}).subscribe((success) => {
       b = success;
@@ -354,8 +354,8 @@ export class MapProvidersService {
         });
       });
     })
-    */
 
+    /*
     const sldParserPoint = new MySldParser();
     const olParserPoint = new MyOlParser();
     let c: any;
@@ -369,6 +369,7 @@ export class MapProvidersService {
         });
       });
     })
+    */
   }
 
 

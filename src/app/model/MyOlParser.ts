@@ -7,11 +7,13 @@ var OlStyleUtil_1 = require("../../../node_modules/geostyler-openlayers-parser/b
 
 /*
 chequear cuales de las vendor options implementadas por @bayer/geostyler-geoserver-sld-parser
-estan implementadas por OpenLayerParser y cuales no.
+estan implementadas por OpenLayerParser y cuales no. 
+Debido a este desarrollo, las vendorOptions se almacenan ahora en "LabelPlacement" en el simbolizer de geoStyler style en cuestión
+pero no tienen su traducción a ningún otro estilo parece.
 const VENDOR_OPTIONS_MAP = [
   'partials', -----------------------------------------------no veo la propiedad del la clase new Text de OL puede dar pie a modificar esto
   'repeat',  -----------------------------------------------no veo la propiedad del la clase new Text de OL puede dar pie a modificar esto
-  'autoWrap',  -----------------------------------------------ver más abajo
+  'autoWrap',  -----------------------------------------------tal vez con truncstring, como en https://openlayers.org/en/latest/examples/vector-labels.html
   'maxDisplacements',  -----------------------------------------------no veo la propiedad del la clase new Text de OL puede dar pie a modificar esto
   'group', -----------------------------------------------no veo la propiedad del la clase new Text de OL puede dar pie a modificar esto
   'spaceAround', -----------------------------------------------no veo la propiedad del la clase new Text de OL puede dar pie a modificar esto
@@ -25,7 +27,8 @@ const VENDOR_OPTIONS_MAP = [
 
 //NOTAS:
 
-    //"@bayer/geostyler-geoserver-sld-parser" hace que el geoStylerStyle object acepte en rules de tipo TextSymbolizer, todas las vendorOptions que puedan venir en una TextSymbolizer de cualquier SLD, point, lines or polygon
+    //"@bayer/geostyler-geoserver-sld-parser" hace que el geoStylerStyle object acepte en rules de tipo TextSymbolizer,
+    //todas las vendorOptions que puedan venir en una TextSymbolizer de cualquier SLD, point, lines or polygon
 
     //querría implementar el "autoWrap" vendorOption por ejemplo
         //descubierto que al menos en Geoserver, el "followLine" vendorOption inactiva el "autoWrap"
@@ -34,22 +37,29 @@ const VENDOR_OPTIONS_MAP = [
 
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
-        //ojo, tal vez la "placement" 'line
+        //ojo, tal vez la "placement" 'lines
         //tengo que existir el tag de LinePlacement dentro de LabelPlacement, y luego el vendorOption de turno.
+            //done by hugo for OL!!!
       
     //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
         //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
             //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
             //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic'.
         //consigo ver que el array de estilos que llega a la VectorTileLayer de OL tiene todas las propiedades que le he metido, pero no se randeriza de acuerdo a ello.
+        //no se si se puede hacer más en realidad...
 
     //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez, que puede quedar resuleto al lograr actuar sobre el textAlign y textBaseline de OL
 
 
 
 export class MyOlParser extends OpenLayersParser {
+    private _mapa:any;
+    constructor(mapa:any){
+        super();
+        this._mapa = mapa;
+    }
+
     getOlTextSymbolizerFromTextSymbolizer(symbolizer): any {
-        debugger
         var _this = this;
         var baseProps = {
             font: OlStyleUtil_1.default.getTextFont(symbolizer),
@@ -72,6 +82,14 @@ export class MyOlParser extends OpenLayersParser {
         //vendorOption = 'followline'. Line, instead of the 'point' default value for the "placement" property of the New Text class of OL
         if (symbolizer.followLine && symbolizer.LabelPlacement[0].LinePlacement) {
             baseProps["placement"] = 'line';
+        }
+        //vendorOption = 'autoWrap". 
+        if (symbolizer.autoWrap) {
+            var getText = function (feature, resolution) {
+                if (this._map.getResolution > this._map.getMaxResolution) {
+
+                }
+            }
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
         if (symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
