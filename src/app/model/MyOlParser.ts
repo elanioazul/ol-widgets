@@ -34,13 +34,16 @@ const VENDOR_OPTIONS_MAP = [
         //descubierto que al menos en Geoserver, el "followLine" vendorOption inactiva el "autoWrap"
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto.
         //ojo, tal vez el the label is wrapped by inserting the character \n, como en https://openlayers.org/en/latest/examples/vector-labels.html.
+        //estoy viendo que la labelTextToBeWrapped que le paso a la función de recortar string en función del autoWrap vendorOption es {{TIPO}}, y no los distintos "TIPOS" de geomorfologias.
+        //me estoy quedando en la capa externa de la cebolla, tengo que entrar al valor cogiendo feature.get('TIPO'). ¿pero cómo?
 
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
         //ojo, tal vez la "placement" 'lines
         //tengo que existir el tag de LinePlacement dentro de LabelPlacement, y luego el vendorOption de turno.
-            //done by hugo for OL!!!
+                    //done by hugo!!!
     //molaria ahora implementar el PerpendicualrOffset, a través de llegarle a la clase New Text de OL con "textBaseline" y sus posibilidades
+                    //done by hugo!!!
       
     //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
         //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
@@ -84,11 +87,11 @@ export class MyOlParser extends OpenLayersParser {
         if (symbolizer.followLine && symbolizer.LabelPlacement[0].LinePlacement) {
             baseProps["placement"] = 'line';
         }
-        //PerpendicularOffset of the followLine:
+        //PerpendicularOffset for the followLine (located in LabelPlacement\LinePlacement):
         if (symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset) {
             baseProps["offsetY"] = - symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset[0];
         }
-        //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
+        //anchorPoint as anchor in symbolizer & baseLine and textAlign in Ol
         if (symbolizer.LabelPlacement[0].PointPlacement && symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
             var axisX = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointX[0]);
             var axisY = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointY[0]);
@@ -132,6 +135,7 @@ export class MyOlParser extends OpenLayersParser {
         }
         //vendorOption = 'autoWrap". 
         var labelTextToBeWrapped = symbolizer.label;
+        var labelTextToBeWrappedDOS = symbolizer.label;
         if (symbolizer.autoWrap && !symbolizer.LabelPlacement[0].PointPlacement) {
             var getText =  () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
