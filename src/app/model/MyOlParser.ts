@@ -40,6 +40,7 @@ const VENDOR_OPTIONS_MAP = [
         //ojo, tal vez la "placement" 'lines
         //tengo que existir el tag de LinePlacement dentro de LabelPlacement, y luego el vendorOption de turno.
             //done by hugo for OL!!!
+    //molaria ahora implementar el PerpendicualrOffset, a través de llegarle a la clase New Text de OL con "textBaseline" y sus posibilidades
       
     //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
         //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
@@ -82,6 +83,10 @@ export class MyOlParser extends OpenLayersParser {
         //vendorOption = 'followline'. Line, instead of the 'point' default value for the "placement" property of the New Text class of OL
         if (symbolizer.followLine && symbolizer.LabelPlacement[0].LinePlacement) {
             baseProps["placement"] = 'line';
+        }
+        //PerpendicularOffset of the followLine:
+        if (symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset) {
+            baseProps["offsetY"] = - symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset[0];
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign Ol
         if (symbolizer.LabelPlacement[0].PointPlacement && symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
@@ -134,7 +139,6 @@ export class MyOlParser extends OpenLayersParser {
 
                 } else {
                     let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
-                    debugger
                     return labelTextWrapped
                 }
             }
@@ -164,7 +168,6 @@ export class MyOlParser extends OpenLayersParser {
         var suffix = '\\}\\}';
         var regExp = new RegExp(prefix + '.*?' + suffix, 'g');
         var regExpRes = symbolizer.label ? symbolizer.label.match(regExp) : null;
-        debugger
         if (regExpRes) {
             // if it contains a placeholder
             // return olStyleFunction

@@ -644,7 +644,7 @@
             </se:Font>
             <se:LabelPlacement>
               <se:LinePlacement>
-                <se:PerpendicualrOffset>15</se:PerpendicualrOffset>
+                <se:PerpendicularOffset>15</se:PerpendicularOffset>
               </se:LinePlacement>
             </se:LabelPlacement>
             <se:Halo>
