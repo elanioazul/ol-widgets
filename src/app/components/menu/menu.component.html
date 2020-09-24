@@ -23,4 +23,13 @@
 <mat-menu #GeometryToMeasure>
     <button mat-menu-item id="measureline" (click)="lenghtSelection()">Length(line)</button>
     <button mat-menu-item id="measurepolygon" (click)="areaSelection()">Area(polygon)</button>
+    <button mat-menu-item [matMenuTriggerFor]="appToDraw">Draw</button>
+    <button mat-menu-item>Measure</button>
+    <button mat-menu-item>Add a marker</button>
+    <button mat-menu-item>Print</button>
+</mat-menu>
+<mat-menu #appToDraw>
+    <button mat-menu-item (click)="drawPoint()">Point</button>
+    <button mat-menu-item (click)="drawLine()">LineString</button>
+    <button mat-menu-item (click)="drawPolygon()">Polygon</button>
 </mat-menu>

@@ -24,6 +24,9 @@ import {unByKey} from 'ol/Observable';
 import Overlay from 'ol/Overlay';
 import OverlayPositioning from 'ol/OverlayPositioning';
 
+import {Modify, Snap} from 'ol/interaction';
+import Point from 'ol/geom/Point';
+import GeometryType from 'ol/geom/GeometryType';
 
 
 @Component({
@@ -80,6 +83,7 @@ export class MapComponent implements OnInit {
 
    private vectortoDrawAndMeasure;
 
+  //let geom: GeometryType = 'Point'
 
   constructor(
     private providers: MapProvidersService
@@ -285,6 +289,121 @@ export class MapComponent implements OnInit {
     }
   }
 
+  drawPoint() {
+    debugger
+    let source = new VectorSource();
+    let vector = new VectorLayer({
+      source: source,
+      style: new Style({
+        fill: new Fill({
+          color: 'rgba(255, 255, 255, 0.2)',
+        }),
+        stroke: new Stroke({
+          color: '#ffcc33',
+          width: 2,
+        }),
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({
+            color: '#ffcc33',
+          }),
+        }),
+      }),
+    });
+    this.providers.map.addLayer(vector);
+    let modify = new Modify({source: source})
+    this.providers.map.addInteraction(modify);
+    let draw;
+    let snap;
+    let addInteraction = () => {
+      draw = new Draw({
+        source: source,
+        type: GeometryType.POINT
+      });
+      this.providers.map.addInteraction(draw);
+      snap = new Snap({source: source});
+      this.providers.map.addInteraction(snap);
+    }
+    addInteraction();
+  }
+
+  drawLine() {
+    debugger
+    let source = new VectorSource();
+    let vector = new VectorLayer({
+      source: source,
+      style: new Style({
+        fill: new Fill({
+          color: 'rgba(255, 255, 255, 0.2)',
+        }),
+        stroke: new Stroke({
+          color: '#ffcc33',
+          width: 2,
+        }),
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({
+            color: '#ffcc33',
+          }),
+        }),
+      }),
+    });
+    this.providers.map.addLayer(vector);
+    let modify = new Modify({source: source})
+    this.providers.map.addInteraction(modify);
+    let draw;
+    let snap;
+    let addInteraction = () => {
+      draw = new Draw({
+        source: source,
+        type: GeometryType.LINE_STRING
+      });
+      this.providers.map.addInteraction(draw);
+      snap = new Snap({source: source});
+      this.providers.map.addInteraction(snap);
+    }
+    addInteraction();
+  }
+
+  drawPolygon() {
+    debugger
+    let source = new VectorSource();
+    let vector = new VectorLayer({
+      source: source,
+      style: new Style({
+        fill: new Fill({
+          color: 'rgba(255, 255, 255, 0.2)',
+        }),
+        stroke: new Stroke({
+          color: '#ffcc33',
+          width: 2,
+        }),
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({
+            color: '#ffcc33',
+          }),
+        }),
+      }),
+    });
+    this.providers.map.addLayer(vector);
+    let modify = new Modify({source: source})
+    this.providers.map.addInteraction(modify);
+    let draw;
+    let snap;
+    let addInteraction = () => {
+      draw = new Draw({
+        source: source,
+        type: GeometryType.POLYGON
+      });
+      this.providers.map.addInteraction(draw);
+      snap = new Snap({source: source});
+      this.providers.map.addInteraction(snap);
+    }
+    addInteraction();
+  }
+
+
   createMeasureTooltip() {
     if (this.measureTooltipElement) {
       this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
@@ -317,6 +436,8 @@ export class MapComponent implements OnInit {
 
 
   
+
+
 
 
 

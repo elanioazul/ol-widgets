@@ -12,6 +12,9 @@ export class MenuComponent implements OnInit {
 
   @Output() lenghtSelected = new EventEmitter();
   @Output() areaSelected = new EventEmitter();
+  @Output() drawPointSelected = new EventEmitter();
+  @Output() drawLineSelected = new EventEmitter();
+  @Output() drawPolygonSelected = new EventEmitter();
 
   constructor(
     private providers: MapProvidersService
@@ -47,6 +50,17 @@ export class MenuComponent implements OnInit {
   }
   switchToVectorTileArcGIS() {
     this.providers.changeToVectorTileArcGIS();
+  }
+
+  drawPoint() {
+    debugger
+    this.drawPointSelected.emit();
+  }
+  drawLine() {
+    this.drawLineSelected.emit();
+  }
+  drawPolygon() {
+    this.drawPolygonSelected.emit();
   }
 
 
