@@ -49,6 +49,7 @@ export class MySldParser extends GeoserverSldStyleParser {
 
         //to parse AnchorPointX and AnchorPointY to be translated into textAlign and textBaseline in OL
         var anchorpoint = _get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]')
+        debugger
         if (anchorpoint) {
             var x = anchorpoint.AnchorPointX[0];
             var y = anchorpoint.AnchorPointY[0];

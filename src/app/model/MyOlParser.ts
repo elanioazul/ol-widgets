@@ -36,6 +36,8 @@ const VENDOR_OPTIONS_MAP = [
         //ojo, tal vez el the label is wrapped by inserting the character \n, como en https://openlayers.org/en/latest/examples/vector-labels.html.
         //estoy viendo que la labelTextToBeWrapped que le paso a la función de recortar string en función del autoWrap vendorOption es {{TIPO}}, y no los distintos "TIPOS" de geomorfologias.
         //me estoy quedando en la capa externa de la cebolla, tengo que entrar al valor cogiendo feature.get('TIPO'). ¿pero cómo?
+        //ea, afectando a la función OlStyleUtil.resolveAttributeTemplate. Dale no más...
+        //tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea
 
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
@@ -88,7 +90,7 @@ export class MyOlParser extends OpenLayersParser {
             baseProps["placement"] = 'line';
         }
         //PerpendicularOffset for the followLine (located in LabelPlacement\LinePlacement):
-        if (symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset) {
+        if (symbolizer.LabelPlacement[0].LinePlacement && symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset) {
             baseProps["offsetY"] = - symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset[0];
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign in Ol
@@ -135,8 +137,7 @@ export class MyOlParser extends OpenLayersParser {
         }
         //vendorOption = 'autoWrap". 
         var labelTextToBeWrapped = symbolizer.label;
-        var labelTextToBeWrappedDOS = symbolizer.label;
-        if (symbolizer.autoWrap && !symbolizer.LabelPlacement[0].PointPlacement) {
+        if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
             var getText =  () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
                     labelTextToBeWrapped = '';
@@ -144,8 +145,22 @@ export class MyOlParser extends OpenLayersParser {
                 } else {
                     let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
                     return labelTextWrapped
+                 
                 }
+             
             }
+            // var getText = {
+            //     getTextNow: function (feature) {
+            //         var labelTextToBeWrapped = feature.get('TIPO');
+            //         if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
+            //             labelTextToBeWrapped = '';
+    
+            //         } else {
+            //             let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
+            //             return labelTextWrapped
+            //         }
+            //     }
+            // }
         }
         //width value at your whim or the autoWrap vendorOption value, like the case
         var stringDivider = function stringDivider(str, width, spaceReplacer) {
@@ -176,7 +191,7 @@ export class MyOlParser extends OpenLayersParser {
             // if it contains a placeholder
             // return olStyleFunction
             var olPointStyledLabelFn = function (feature, res) {
-                var text = new _this.OlStyleTextConstructor(Object.assign({ text: OlStyleUtil_1.default.resolveAttributeTemplate(feature, getText(), '') }, baseProps));
+                var text = new _this.OlStyleTextConstructor(Object.assign({ text: OlStyleUtil_1.default.resolveAttributeTemplate(feature, symbolizer.label, '') }, baseProps));
                 var style = new _this.OlStyleConstructor({
                     text: text
                 });
@@ -188,7 +203,7 @@ export class MyOlParser extends OpenLayersParser {
             // if TextSymbolizer does not contain a placeholder
             // return OlStyle
             return new this.OlStyleConstructor({
-                text: new this.OlStyleTextConstructor(Object.assign({ text: getText() }, baseProps))
+                text: new this.OlStyleTextConstructor(Object.assign({ text: symbolizer.label }, baseProps))
             });
         }
 
