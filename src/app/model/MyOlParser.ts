@@ -48,17 +48,11 @@ const VENDOR_OPTIONS_MAP = [
                     //done by hugo!!!
       
     //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
-        //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
             //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
             //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic', which talk about vertical placement.
-        //consigo ver que el array de estilos que llega a la VectorTileLayer de OL tiene todas las propiedades que le he metido, pero no se randeriza de acuerdo a ello.
-        //no se si se puede hacer más en realidad...
-
-    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez.
-    //Inicialmente pensaba que quedaría resuleto al lograr actuar sobre el textAlign y textBaseline de OL
-    //pero me veo que es en X e Y desplazamiento dado un cuadrante en qgis donde coge Displacemente y te lo coloca alejado X e Y en la direccion de tu AnchorPoint.
-    //si no hay Displacement, el AnchorPoint
-        //efectivamente
+    //si no hay Displacement, el AnchorPoint no lo coje y se randeriza la label sobre simbologia. Si sí lo hay, genera un offset pero sin tener en cuenta la dirección de offset.
+        //efectivamente, no hay textsymbolizer.anchor propery pero si hay textSymbolizer.offset que coge el Displacement
+        //la estoy tratando de crear pero hay que ir al finalSymbolizer de @bayer/geostyler-geoserver-sld-parser plus añadir a la interface TextSymbolizer algo.
 
 
 
