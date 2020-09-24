@@ -53,7 +53,6 @@ export class MenuComponent implements OnInit {
   }
 
   drawPoint() {
-    debugger
     this.drawPointSelected.emit();
   }
   drawLine() {

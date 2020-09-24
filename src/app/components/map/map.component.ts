@@ -95,7 +95,6 @@ export class MapComponent implements OnInit {
   }
 
   letsMeasureLenght() {
-    debugger
     this.restartInteraction();
     this.wantToMeasureLenght = true;
     this.drawPointer();
@@ -103,7 +102,6 @@ export class MapComponent implements OnInit {
   }
 
   letsMeasureArea() {
-    debugger
     this.restartInteraction();
     this.wantToMeasureArea = true;
     this.drawPointer();
@@ -131,7 +129,6 @@ export class MapComponent implements OnInit {
   //3 funciones manejadoras a continuación
 
   public pointerMoveHandler = function (evt) {
-    debugger
     if (evt.dragging) {
       return;
     }
@@ -146,9 +143,7 @@ export class MapComponent implements OnInit {
         helpMsg = this.continueLineMsg;
       }
     }
-    debugger
     this.createHelpTooltip();
-    debugger
     //document.getElementsByClassName('ol-tooltip');
     this.helpTooltipElement.innerHTML = helpMsg;
     this.helpTooltip.setPosition(evt.coordinate);
@@ -179,9 +174,7 @@ export class MapComponent implements OnInit {
 
 
   drawPointer() {
-    debugger
     this.providers.map.on('pointermove', this.pointerMoveHandler(event));
-    debugger
     this.providers.map.getViewport().addEventListener('mouseout', function () {
       this.helpTooltipElement.classList.add('hidden');
     });
@@ -210,7 +203,6 @@ export class MapComponent implements OnInit {
     });
 
     this.providers.map.addLayer(this.vectortoDrawAndMeasure);
-    debugger
     if(this.wantToMeasureLenght == true) {
       this.whatToDraw = 'LineString'
     } else if (this.wantToMeasureArea == true) {
@@ -264,7 +256,6 @@ export class MapComponent implements OnInit {
           output = this.formatLength(geom);
           tooltipCoord = geom.getLastCoordinate();
         }
-        debugger
         this.measureTooltipElement.innerHTML = output;
         this.measureTooltip.setPosition(tooltipCoord);
       });
@@ -290,7 +281,6 @@ export class MapComponent implements OnInit {
   }
 
   drawPoint() {
-    debugger
     let source = new VectorSource();
     let vector = new VectorLayer({
       source: source,
@@ -328,7 +318,6 @@ export class MapComponent implements OnInit {
   }
 
   drawLine() {
-    debugger
     let source = new VectorSource();
     let vector = new VectorLayer({
       source: source,
@@ -366,7 +355,6 @@ export class MapComponent implements OnInit {
   }
 
   drawPolygon() {
-    debugger
     let source = new VectorSource();
     let vector = new VectorLayer({
       source: source,
@@ -419,7 +407,6 @@ export class MapComponent implements OnInit {
   }
 
   createHelpTooltip() {
-    debugger
     if (this.helpTooltipElement) {
       this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
     }
