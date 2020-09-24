@@ -47,12 +47,16 @@ const VENDOR_OPTIONS_MAP = [
     //molaria ahora implementar el PerpendicualrOffset, a través de llegarle a la clase New Text de OL con "textBaseline" y sus posibilidades
                     //done by hugo!!!
       
-    //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
-            //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
-            //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic', which talk about vertical placement.
+
     //si no hay Displacement, el AnchorPoint no lo coje y se randeriza la label sobre simbologia. Si sí lo hay, genera un offset pero sin tener en cuenta la dirección de offset.
         //efectivamente, no hay textsymbolizer.anchor propery pero si hay textSymbolizer.offset que coge el Displacement
         //la estoy tratando de crear pero hay que ir al finalSymbolizer de @bayer/geostyler-geoserver-sld-parser plus añadir a la interface TextSymbolizer algo.
+        //Sacado de Tinterface TextSymbolizer: anchor?: 'center' | 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+        //estas son los 9 cuadrantes del qgis = las 9 combinaciones de AnchorPoit en SLD Labeling for Point.
+    //se trata ahora de ajustar con :
+        //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
+            //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start',  horizontally placement.
+            //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic',  vertical placement.
 
 
 

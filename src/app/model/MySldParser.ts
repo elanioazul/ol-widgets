@@ -42,9 +42,9 @@ export class MySldParser extends GeoserverSldStyleParser {
 
     getTextSymbolizerFromSldSymbolizer(sldSymbolizer) : any{
         debugger
-        var textSymbolizer = {
-            kind: 'Text'
-        };
+        // var textSymbolizer = {
+        //     kind: 'Text'
+        // };
         const myfinalSymbolizer = super.getTextSymbolizerFromSldSymbolizer(sldSymbolizer)
 
         //to parse AnchorPointX and AnchorPointY to be translated into textAlign and textBaseline in OL
@@ -53,10 +53,34 @@ export class MySldParser extends GeoserverSldStyleParser {
         if (anchorpoint) {
             var x = anchorpoint.AnchorPointX[0];
             var y = anchorpoint.AnchorPointY[0];
-            textSymbolizer["anchor"] = [
-                x ? parseFloat(x) : 0,
-                x ? parseFloat(y) : 0,
-            ]
+            if (x === 1 && y ===1) {
+                myfinalSymbolizer["anchor"] = 'bottom-left'
+            }
+            if (x===0 && y===0) {
+                myfinalSymbolizer["anchor"] = 'top-right'
+            }
+            if (x===0.5 && y===0) {
+                myfinalSymbolizer["anchor"] = 'top'
+            }
+            if (x===0 && y===0.5) {
+                myfinalSymbolizer["anchor"] = 'right'
+            }
+            if (x===0.5 && y===1) {
+                myfinalSymbolizer["anchor"] = 'bottom'
+            }
+            if (x===1 && y===0.5) {
+                myfinalSymbolizer["anchor"] = 'left'
+            }
+            if (x===1 && y===0) {
+                myfinalSymbolizer["anchor"] = 'top-left'
+            }
+            if (x===0 && y===1) {
+                myfinalSymbolizer["anchor"] = 'bottom-right'
+            }
+            if (x===0.5 && y===0.5) {
+                myfinalSymbolizer["anchor"] = 'center'
+            }
+            
         }
         return myfinalSymbolizer;
     }
