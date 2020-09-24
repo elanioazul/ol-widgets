@@ -36,7 +36,7 @@ const VENDOR_OPTIONS_MAP = [
         //ojo, tal vez el the label is wrapped by inserting the character \n, como en https://openlayers.org/en/latest/examples/vector-labels.html.
         //estoy viendo que la labelTextToBeWrapped que le paso a la función de recortar string en función del autoWrap vendorOption es {{TIPO}}, y no los distintos "TIPOS" de geomorfologias.
         //me estoy quedando en la capa externa de la cebolla, tengo que entrar al valor cogiendo feature.get('TIPO'). ¿pero cómo?
-        //ea, afectando a la función OlStyleUtil.resolveAttributeTemplate. Dale no más...
+        //ea, afectando a la función OlStyleUtil.resolveAttributeTemplate. Dificil...
         //tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea
 
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
@@ -50,11 +50,15 @@ const VENDOR_OPTIONS_MAP = [
     //textAlign y el textBaseline: https://openlayers.org/en/latest/examples/vector-labels.html
         //they have to be related to sld <AnchorPoint> element, specifing the placement of the label relative to the geometry being labelled.
             //OL/Text/ textAlign must has the following options: 'left', 'right', 'center', 'end' or 'start', which are only talking about horizontally placement.
-            //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic'.
+            //OL/Text/ textBaseline must has the following options: 'bottom', 'top', 'middle', 'alphabetic', 'hanging', 'ideographic', which talk about vertical placement.
         //consigo ver que el array de estilos que llega a la VectorTileLayer de OL tiene todas las propiedades que le he metido, pero no se randeriza de acuerdo a ello.
         //no se si se puede hacer más en realidad...
 
-    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez, que puede quedar resuleto al lograr actuar sobre el textAlign y textBaseline de OL
+    //falta solventar el error about why rule of TextSymbolizer y rule of PointSymbolizor no ocurren a la vez.
+    //Inicialmente pensaba que quedaría resuleto al lograr actuar sobre el textAlign y textBaseline de OL
+    //pero me veo que es en X e Y desplazamiento dado un cuadrante en qgis donde coge Displacemente y te lo coloca alejado X e Y en la direccion de tu AnchorPoint.
+    //si no hay Displacement, el AnchorPoint
+        //efectivamente
 
 
 

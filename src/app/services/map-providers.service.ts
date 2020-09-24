@@ -339,8 +339,6 @@ export class MapProvidersService {
         });
       });
     })
-    */
-    /*
     const sldParserLine = new MySldParser();
     const olParserLine = new MyOlParser(this.map);
     debugger
@@ -360,7 +358,7 @@ export class MapProvidersService {
     const sldParserPoint = new MySldParser();
     const olParserPoint = new MyOlParser(this.map);
     let c: any;
-    this.http.get('../../assets/vectorTileStyles/geoformas-points_2_desplazamientoCuadranteLeft.sld', {responseType: 'text'}).subscribe((success) => {
+    this.http.get('../../assets/vectorTileStyles/geoformas-points_2_cuadranteBottonLeft_X0Y0.sld', {responseType: 'text'}).subscribe((success) => {
       c = success;
       sldParserPoint.readStyle(c).then((geostylerStyle: any) => {
         debugger

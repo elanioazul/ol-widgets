@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:se="http://www.opengis.net/se" version="1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns:xlink="http://www.w3.org/1999/xlink">
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:se="http://www.opengis.net/se" version="1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd">
   <NamedLayer>
     <se:Name>ge.geomorf_cyl_ad_di_p</se:Name>
     <UserStyle>
@@ -35,13 +35,9 @@
             <se:LabelPlacement>
               <se:PointPlacement>
                 <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
+                  <se:AnchorPointX>1</se:AnchorPointX>
                   <se:AnchorPointY>1</se:AnchorPointY>
                 </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>4</se:DisplacementX>
-                  <se:DisplacementY>5</se:DisplacementY>
-                </se:Displacement>
               </se:PointPlacement>
             </se:LabelPlacement>
             <se:Fill>
