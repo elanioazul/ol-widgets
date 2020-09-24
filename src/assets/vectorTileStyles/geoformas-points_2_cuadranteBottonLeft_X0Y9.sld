@@ -44,6 +44,7 @@
                 </se:Displacement>
               </se:PointPlacement>
             </se:LabelPlacement>
+            <se:VendorOption name="autoWrap">20</se:VendorOption>
             <se:Fill>
               <se:SvgParameter name="fill">#534be0</se:SvgParameter>
             </se:Fill>

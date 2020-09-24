@@ -81,10 +81,8 @@ export class MySldParser extends GeoserverSldStyleParser {
             if (x===0.5 && y===0.5) {
                 myfinalSymbolizer["anchor"] = 'center'
             }
-            else {console.log('error when binding anchor')}
             
         }
-        console.log('la myfinalSymbolizer["anchor"] es ' + myfinalSymbolizer["anchor"]);
         return myfinalSymbolizer;
     }
 

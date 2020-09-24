@@ -96,53 +96,55 @@ export class MyOlParser extends OpenLayersParser {
             baseProps["offsetY"] = - symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset[0];
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign in Ol
-        if (symbolizer.LabelPlacement[0].PointPlacement && symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint) {
-            var axisX = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointX[0]);
-            var axisY = parseInt(symbolizer.LabelPlacement[0].PointPlacement[0].AnchorPoint[0].AnchorPointY[0]);
-            if (axisX === 1 && axisY ===1) {
+        var anch = symbolizer.anchor;
+        switch (anch) {
+            case 'bottom-left':
                 baseProps["textAlign"] = 'start';
                 baseProps["textBaseline"] = 'top';
-            }
-            if (axisX===0 && axisY===0) {
+                break;
+            case 'top-right':
                 baseProps["textAlign"] = 'end';
                 baseProps["textBaseline"] = 'bottom';
-            }
-            if (axisX===0.5 && axisY===0) {
+                break;
+            case 'top':
                 baseProps["textAlign"] = 'center';
                 baseProps["textBaseline"] = 'bottom';
-            }
-            if (axisX===0 && axisY===0.5) {
+                break;
+            case 'right':
                 baseProps["textAlign"] = 'end';
                 baseProps["textBaseline"] = 'middle';
-            }
-            if (axisX===0.5 && axisY===1) {
+                break;
+            case 'bottom':
                 baseProps["textAlign"] = 'center';
                 baseProps["textBaseline"] = 'top';
-            }
-            if (axisX===1 && axisY===0.5) {
+                break;
+            case 'left':
                 baseProps["textAlign"] = 'start';
                 baseProps["textBaseline"] = 'middle';
-            }
-            if (axisX===1 && axisY===0) {
+                break;
+            case 'top-left':
                 baseProps["textAlign"] = 'start';
                 baseProps["textBaseline"] = 'bottom';
-            }
-            if (axisX===0 && axisY===1) {
+                break;
+            case 'bottom-right':
                 baseProps["textAlign"] = 'end';
                 baseProps["textBaseline"] = 'top';
-            }
-            if (axisX===0.5 && axisY===0.5) {
+                break;
+            case 'center':
                 baseProps["textAlign"] = 'center';
                 baseProps["textBaseline"] = 'middle';
-            }
-
+                break;
+            default:
+                console.log("none of the anchor positions match") 
         }
+        debugger
         //vendorOption = 'autoWrap". 
         var labelTextToBeWrapped = symbolizer.label;
         if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
             var getText =  () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
                     labelTextToBeWrapped = '';
+                    return labelTextToBeWrapped
 
                 } else {
                     let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
