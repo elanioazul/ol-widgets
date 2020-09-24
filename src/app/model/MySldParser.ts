@@ -51,8 +51,9 @@ export class MySldParser extends GeoserverSldStyleParser {
         var anchorpoint = _get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]')
         debugger
         if (anchorpoint) {
-            var x = anchorpoint.AnchorPointX[0];
-            var y = anchorpoint.AnchorPointY[0];
+            myfinalSymbolizer["anchor"] = 'center';
+            var x = parseInt(anchorpoint.AnchorPointX[0]);
+            var y = parseInt(anchorpoint.AnchorPointY[0]);
             if (x === 1 && y ===1) {
                 myfinalSymbolizer["anchor"] = 'bottom-left'
             }
@@ -80,8 +81,10 @@ export class MySldParser extends GeoserverSldStyleParser {
             if (x===0.5 && y===0.5) {
                 myfinalSymbolizer["anchor"] = 'center'
             }
+            else {console.log('error when binding anchor')}
             
         }
+        console.log('la myfinalSymbolizer["anchor"] es ' + myfinalSymbolizer["anchor"]);
         return myfinalSymbolizer;
     }
 
