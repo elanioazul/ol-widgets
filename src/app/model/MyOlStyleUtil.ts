@@ -66,20 +66,19 @@ export class MyOlstyleUtil extends OlStyleUtil {
             });
         }
         //vendorOption = 'autoWrap".
-        if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
-            var getText =  () => {
+        if (symbolizer.autoWrap) {
+            var getText = () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
                     template = '';
-                    return template
                 } else {
-                    let labelTextWrapped = stringDivider(template, symbolizer.autoWrap, '\n');
-                    template = labelTextWrapped;
-                    return template
+                    template = stringDivider(template, symbolizer.autoWrap, '\n');
                 }
+                return template
             }
+  
         }
         //width value at your whim or the autoWrap vendorOption value, like the case
-        var stringDivider = function stringDivider(str, width, spaceReplacer) {
+        var stringDivider = (str, width, spaceReplacer) => {
             if (str.length > width) {
               var p = width;
               while (p > 0 && str[p] != ' ' && str[p] != '-') {
