@@ -27,8 +27,7 @@ export class MyOlstyleUtil extends OlStyleUtil {
      *   to be passed to new Text Ol.
      * @return {String} The resolved template string.
     */
-   static myResolveAttributeTemplate = function (feature, template, noValueFoundText, valueAdjust, symbolizer) {
-        debugger
+   myResolveAttributeTemplate = function (feature, template, noValueFoundText, valueAdjust, symbolizer) {
         if (noValueFoundText === void 0) { noValueFoundText = 'n.v.'; }
         if (valueAdjust === void 0) { valueAdjust = function (key, val) { return val; }; }
         var attributeTemplatePrefix = '\\{\\{';
@@ -66,21 +65,19 @@ export class MyOlstyleUtil extends OlStyleUtil {
                 }
             });
         }
+        //vendorOption = 'autoWrap".
         if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
             var getText =  () => {
                 if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
                     template = '';
                     return template
-
                 } else {
                     let labelTextWrapped = stringDivider(template, symbolizer.autoWrap, '\n');
                     template = labelTextWrapped;
                     return template
-        
                 }
             }
         }
-        debugger
         //width value at your whim or the autoWrap vendorOption value, like the case
         var stringDivider = function stringDivider(str, width, spaceReplacer) {
             if (str.length > width) {
@@ -98,6 +95,8 @@ export class MyOlstyleUtil extends OlStyleUtil {
                 var right = str.substring(p + 1);
                 return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
               }
+            } else {
+                console.log('lenght of label shorter than autoWrap. Nothing to divide')
             }
             return str;
         }

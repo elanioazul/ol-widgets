@@ -38,7 +38,7 @@ const VENDOR_OPTIONS_MAP = [
         //me estoy quedando en la capa externa de la cebolla, tengo que entrar al valor cogiendo feature.get('TIPO'). ¿pero cómo?
         //tal vez modificando la función OlStyleUtil.resolveAttributeTemplate. Dificil...
         //Pero veo que escupe "template" y es un string. Entonces es el feature.get y aqui tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea.
-        //linea 185 seria OlStyleUtil_1.default como originalmente
+        //linea 185 seria OlStyleUtil_1.default como era originalmente pero ahora estoy llamando a mi extensión de clase, MyOlstyleUtil, y pasandole undefined a valueAdjust para que no pete diciendo que no es función si le pasaba como ''.
         
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
@@ -67,7 +67,7 @@ export class MyOlParser extends OpenLayersParser {
         super();
         this._mapa = map;
     }
-
+    
     getOlTextSymbolizerFromTextSymbolizer(symbolizer): any {
         var _this = this;
         var baseProps = {
@@ -97,95 +97,61 @@ export class MyOlParser extends OpenLayersParser {
             baseProps["offsetY"] = - symbolizer.LabelPlacement[0].LinePlacement[0].PerpendicularOffset[0];
         }
         //anchorPoint as anchor in symbolizer & baseLine and textAlign in Ol
-        var anch = symbolizer.anchor;
-        switch (anch) {
-            case 'bottom-left':
-                baseProps["textAlign"] = 'start';
-                baseProps["textBaseline"] = 'top';
-                break;
-            case 'top-right':
-                baseProps["textAlign"] = 'end';
-                baseProps["textBaseline"] = 'bottom';
-                break;
-            case 'top':
-                baseProps["textAlign"] = 'center';
-                baseProps["textBaseline"] = 'bottom';
-                break;
-            case 'right':
-                baseProps["textAlign"] = 'end';
-                baseProps["textBaseline"] = 'middle';
-                break;
-            case 'bottom':
-                baseProps["textAlign"] = 'center';
-                baseProps["textBaseline"] = 'top';
-                break;
-            case 'left':
-                baseProps["textAlign"] = 'start';
-                baseProps["textBaseline"] = 'middle';
-                break;
-            case 'top-left':
-                baseProps["textAlign"] = 'start';
-                baseProps["textBaseline"] = 'bottom';
-                break;
-            case 'bottom-right':
-                baseProps["textAlign"] = 'end';
-                baseProps["textBaseline"] = 'top';
-                break;
-            case 'center':
-                baseProps["textAlign"] = 'center';
-                baseProps["textBaseline"] = 'middle';
-                break;
-            default:
-                console.log("none of the anchor positions match") 
+        if (symbolizer.anchor) {
+            var anch = symbolizer.anchor;
+            switch (anch) {
+                case 'bottom-left':
+                    baseProps["textAlign"] = 'start';
+                    baseProps["textBaseline"] = 'top';
+                    break;
+                case 'top-right':
+                    baseProps["textAlign"] = 'end';
+                    baseProps["textBaseline"] = 'bottom';
+                    break;
+                case 'top':
+                    baseProps["textAlign"] = 'center';
+                    baseProps["textBaseline"] = 'bottom';
+                    break;
+                case 'right':
+                    baseProps["textAlign"] = 'end';
+                    baseProps["textBaseline"] = 'middle';
+                    break;
+                case 'bottom':
+                    baseProps["textAlign"] = 'center';
+                    baseProps["textBaseline"] = 'top';
+                    break;
+                case 'left':
+                    baseProps["textAlign"] = 'start';
+                    baseProps["textBaseline"] = 'middle';
+                    break;
+                case 'top-left':
+                    baseProps["textAlign"] = 'start';
+                    baseProps["textBaseline"] = 'bottom';
+                    break;
+                case 'bottom-right':
+                    baseProps["textAlign"] = 'end';
+                    baseProps["textBaseline"] = 'top';
+                    break;
+                case 'center':
+                    baseProps["textAlign"] = 'center';
+                    baseProps["textBaseline"] = 'middle';
+                    break;
+                default:
+                    console.log("no anchor position or no anchor positions matches") 
+            }
         }
-        //vendorOption = 'autoWrap". 
-        // var labelTextToBeWrapped = symbolizer.label;
-        // if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
-        //     var getText =  () => {
-        //         if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
-        //             labelTextToBeWrapped = '';
-        //             return labelTextToBeWrapped
-
-        //         } else {
-        //             let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
-        //             return labelTextWrapped
-        
-        //         }
-        //     }
-        // }
-        // //width value at your whim or the autoWrap vendorOption value, like the case
-        // var stringDivider = function stringDivider(str, width, spaceReplacer) {
-        //     if (str.length > width) {
-        //       var p = width;
-        //       while (p > 0 && str[p] != ' ' && str[p] != '-') {
-        //         p--;
-        //       }
-        //       if (p > 0) {
-        //         var left;
-        //         if (str.substring(p, p + 1) == '-') {
-        //           left = str.substring(0, p + 1);
-        //         } else {
-        //           left = str.substring(0, p);
-        //         }
-        //         var right = str.substring(p + 1);
-        //         return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-        //       }
-        //     }
-        //     return str;
-        // }
         // check if TextSymbolizer.label contains a placeholder
         var prefix = '\\{\\{';
         var suffix = '\\}\\}';
         var regExp = new RegExp(prefix + '.*?' + suffix, 'g');
         var regExpRes = symbolizer.label ? symbolizer.label.match(regExp) : null;
-        debugger
         if (regExpRes) {
             // if it contains a placeholder
             // return olStyleFunction
-            var olPointStyledLabelFn = function (feature, res) {
-                debugger
+            var olPointStyledLabelFn = (feature, res) => {
                 //var labelAttribute = feature.getProperties()[symbolizer.label];
-                var text = new _this.OlStyleTextConstructor(Object.assign({ text: MyOlstyleUtil.myResolveAttributeTemplate(feature, symbolizer.label, '', undefined, symbolizer) }, baseProps));
+                var myolstyleutil = new MyOlstyleUtil(this._mapa, symbolizer)
+                var text = new _this.OlStyleTextConstructor(Object.assign({ text: myolstyleutil.myResolveAttributeTemplate(feature, symbolizer.label, '', undefined, symbolizer) }, baseProps));
                 var style = new _this.OlStyleConstructor({
                     text: text
                 });

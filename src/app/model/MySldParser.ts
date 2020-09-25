@@ -41,15 +41,10 @@ export class MySldParser extends GeoserverSldStyleParser {
     };
 
     getTextSymbolizerFromSldSymbolizer(sldSymbolizer) : any{
-        debugger
-        // var textSymbolizer = {
-        //     kind: 'Text'
-        // };
         const myfinalSymbolizer = super.getTextSymbolizerFromSldSymbolizer(sldSymbolizer)
 
         //to parse AnchorPointX and AnchorPointY to be translated into textAlign and textBaseline in OL
-        var anchorpoint = _get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]')
-        debugger
+        var anchorpoint = _get(sldSymbolizer, 'LabelPlacement[0].PointPlacement[0].AnchorPoint[0]');
         if (anchorpoint) {
             myfinalSymbolizer["anchor"] = 'center';
             var x = parseInt(anchorpoint.AnchorPointX[0]);
