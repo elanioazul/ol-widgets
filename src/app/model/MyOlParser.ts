@@ -39,7 +39,8 @@ const VENDOR_OPTIONS_MAP = [
         //tal vez modificando la función OlStyleUtil.resolveAttributeTemplate. Dificil...
         //Pero veo que escupe "template" y es un string. Entonces es el feature.get y aqui tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea.
         //linea 185 seria OlStyleUtil_1.default como era originalmente pero ahora estoy llamando a mi extensión de clase, MyOlstyleUtil, y pasandole undefined a valueAdjust para que no pete diciendo que no es función si le pasaba como ''.
-        
+        //no termina de funcionar el stringDivider
+    
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
         //ojo, tal vez la "placement" 'lines
@@ -47,7 +48,7 @@ const VENDOR_OPTIONS_MAP = [
                     //done by hugo!!!
     //molaria ahora implementar el PerpendicualrOffset, a través de llegarle a la clase New Text de OL con "textBaseline" y sus posibilidades
                     //done by hugo!!!
-      
+    //molaría implementar ahora el maxAngleDelta de OL, pues por default entra en el new Text Ol 45º pero se podría suavizar, pq las labes sobre las lineas a veces son muy afiladas, solapandose algun character
 
     //si no hay Displacement, el AnchorPoint no lo coje y se randeriza la label sobre simbologia. Si sí lo hay, genera un offset pero sin tener en cuenta la dirección de offset.
         //efectivamente, no hay textsymbolizer.anchor propery pero si hay textSymbolizer.offset que coge el Displacement
@@ -140,6 +141,10 @@ export class MyOlParser extends OpenLayersParser {
                     console.log("no anchor position or no anchor positions matches") 
             }
         }
+        //maxDelta
+        if (symbolizer.maxAngleDelta) {
+            baseProps["maxAngle"] = parseInt(symbolizer.maxAngleDelta)
+        }
         // check if TextSymbolizer.label contains a placeholder
         var prefix = '\\{\\{';
         var suffix = '\\}\\}';
@@ -157,6 +162,7 @@ export class MyOlParser extends OpenLayersParser {
                 });
                 return style;
             };
+            debugger
             return olPointStyledLabelFn;
         }
         else {

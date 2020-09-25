@@ -65,20 +65,8 @@ export class MyOlstyleUtil extends OlStyleUtil {
                 }
             });
         }
-        //vendorOption = 'autoWrap".
-        if (symbolizer.autoWrap) {
-            var getText = () => {
-                if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
-                    template = '';
-                } else {
-                    template = stringDivider(template, symbolizer.autoWrap, '\n');
-                }
-                return template
-            }
-  
-        }
         //width value at your whim or the autoWrap vendorOption value, like the case
-        var stringDivider = (str, width, spaceReplacer) => {
+        var stringDivider = function (str, width, spaceReplacer) {
             if (str.length > width) {
               var p = width;
               while (p > 0 && str[p] != ' ' && str[p] != '-') {
@@ -94,10 +82,20 @@ export class MyOlstyleUtil extends OlStyleUtil {
                 var right = str.substring(p + 1);
                 return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
               }
-            } else {
-                console.log('lenght of label shorter than autoWrap. Nothing to divide')
-            }
+            } 
             return str;
+        }
+        //vendorOption = 'autoWrap".
+        if (symbolizer.autoWrap) {
+            var getText = () => {
+                if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
+                    template = '';
+                } else {
+                    template = stringDivider(template, parseInt(symbolizer.autoWrap), '\n');
+                }
+                return template
+            }
+  
         }
         return template;
     };
