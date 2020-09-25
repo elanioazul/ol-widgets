@@ -3,6 +3,8 @@ import OpenLayersParser from "geostyler-openlayers-parser";
 
 
 var OlStyleUtil_1 = require("../../../node_modules/geostyler-openlayers-parser/build/dist/Util/OlStyleUtil");
+//var OlStyleUtil_2 = require("./MyOlStyleUtil");
+import { MyOlstyleUtil } from "./MyOlStyleUtil";
 
 
 /*
@@ -32,13 +34,12 @@ const VENDOR_OPTIONS_MAP = [
 
     //querría implementar el "autoWrap" vendorOption por ejemplo
         //descubierto que al menos en Geoserver, el "followLine" vendorOption inactiva el "autoWrap"
-        //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto.
-        //ojo, tal vez el the label is wrapped by inserting the character \n, como en https://openlayers.org/en/latest/examples/vector-labels.html.
         //estoy viendo que la labelTextToBeWrapped que le paso a la función de recortar string en función del autoWrap vendorOption es {{TIPO}}, y no los distintos "TIPOS" de geomorfologias.
         //me estoy quedando en la capa externa de la cebolla, tengo que entrar al valor cogiendo feature.get('TIPO'). ¿pero cómo?
-        //ea, afectando a la función OlStyleUtil.resolveAttributeTemplate. Dificil...
-        //tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea
-
+        //tal vez modificando la función OlStyleUtil.resolveAttributeTemplate. Dificil...
+        //Pero veo que escupe "template" y es un string. Entonces es el feature.get y aqui tiene que verse afectado por la function getText, que querría devolver el valor del atributo con el salto de linea.
+        //linea 185 seria OlStyleUtil_1.default como originalmente
+        
     //el followline vendorOption tbn molaría implementarlo PARA LABELS DE GEOMETRIA LINEA
         //no veo qué propiedad del la clase new Text de OL puede dar pie a modificar esto
         //ojo, tal vez la "placement" 'lines
@@ -137,65 +138,54 @@ export class MyOlParser extends OpenLayersParser {
             default:
                 console.log("none of the anchor positions match") 
         }
-        debugger
         //vendorOption = 'autoWrap". 
-        var labelTextToBeWrapped = symbolizer.label;
-        if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
-            var getText =  () => {
-                if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
-                    labelTextToBeWrapped = '';
-                    return labelTextToBeWrapped
+        // var labelTextToBeWrapped = symbolizer.label;
+        // if (symbolizer.autoWrap && (symbolizer.LabelPlacement[0].PointPlacement || symbolizer.LabelPlacement[0].LinePlacement)) {
+        //     var getText =  () => {
+        //         if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
+        //             labelTextToBeWrapped = '';
+        //             return labelTextToBeWrapped
 
-                } else {
-                    let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
-                    return labelTextWrapped
-                 
-                }
-             
-            }
-            // var getText = {
-            //     getTextNow: function (feature) {
-            //         var labelTextToBeWrapped = feature.get('TIPO');
-            //         if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
-            //             labelTextToBeWrapped = '';
-    
-            //         } else {
-            //             let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
-            //             return labelTextWrapped
-            //         }
-            //     }
-            // }
-        }
-        //width value at your whim or the autoWrap vendorOption value, like the case
-        var stringDivider = function stringDivider(str, width, spaceReplacer) {
-            if (str.length > width) {
-              var p = width;
-              while (p > 0 && str[p] != ' ' && str[p] != '-') {
-                p--;
-              }
-              if (p > 0) {
-                var left;
-                if (str.substring(p, p + 1) == '-') {
-                  left = str.substring(0, p + 1);
-                } else {
-                  left = str.substring(0, p);
-                }
-                var right = str.substring(p + 1);
-                return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-              }
-            }
-            return str;
-        }
+        //         } else {
+        //             let labelTextWrapped = stringDivider(labelTextToBeWrapped, symbolizer.autoWrap, '\n');
+        //             return labelTextWrapped
+        
+        //         }
+        //     }
+        // }
+        // //width value at your whim or the autoWrap vendorOption value, like the case
+        // var stringDivider = function stringDivider(str, width, spaceReplacer) {
+        //     if (str.length > width) {
+        //       var p = width;
+        //       while (p > 0 && str[p] != ' ' && str[p] != '-') {
+        //         p--;
+        //       }
+        //       if (p > 0) {
+        //         var left;
+        //         if (str.substring(p, p + 1) == '-') {
+        //           left = str.substring(0, p + 1);
+        //         } else {
+        //           left = str.substring(0, p);
+        //         }
+        //         var right = str.substring(p + 1);
+        //         return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+        //       }
+        //     }
+        //     return str;
+        // }
         // check if TextSymbolizer.label contains a placeholder
         var prefix = '\\{\\{';
         var suffix = '\\}\\}';
         var regExp = new RegExp(prefix + '.*?' + suffix, 'g');
         var regExpRes = symbolizer.label ? symbolizer.label.match(regExp) : null;
+        debugger
         if (regExpRes) {
             // if it contains a placeholder
             // return olStyleFunction
             var olPointStyledLabelFn = function (feature, res) {
-                var text = new _this.OlStyleTextConstructor(Object.assign({ text: OlStyleUtil_1.default.resolveAttributeTemplate(feature, symbolizer.label, '') }, baseProps));
+                debugger
+                //var labelAttribute = feature.getProperties()[symbolizer.label];
+                var text = new _this.OlStyleTextConstructor(Object.assign({ text: MyOlstyleUtil.myResolveAttributeTemplate(feature, symbolizer.label, '', undefined, symbolizer) }, baseProps));
                 var style = new _this.OlStyleConstructor({
                     text: text
                 });
