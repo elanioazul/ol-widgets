@@ -82,13 +82,15 @@ export class MyOlstyleUtil extends OlStyleUtil {
                 var right = str.substring(p + 1);
                 return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
               }
-            } 
+            }
             return str;
         }
         //vendorOption = 'autoWrap".
         if (symbolizer.autoWrap) {
             var getText = () => {
-                if (this._mapa.getView().getResolution() > this._mapa.getView().getMaxResolution()) {
+                var currentResolution = this._mapa.getView().getResolution();
+                var maxResolution = this._mapa.getView().getMaxResolution();
+                if (currentResolution > maxResolution) {
                     template = '';
                 } else {
                     template = stringDivider(template, parseInt(symbolizer.autoWrap), '\n');
@@ -97,6 +99,7 @@ export class MyOlstyleUtil extends OlStyleUtil {
             }
   
         }
+        debugger
         return template;
     };
 };
