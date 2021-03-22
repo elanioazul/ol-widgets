@@ -45,6 +45,10 @@ export class MenuComponent implements OnInit {
     this.providers.changeToGeoformasGeostylerSldToOL();
   }
 
+  switchToIdeeService() {
+    this.providers.changeToIdeeService();
+  }
+
 
 
 

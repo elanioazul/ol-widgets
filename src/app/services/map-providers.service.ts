@@ -132,6 +132,23 @@ export class MapProvidersService {
     })
   });
 
+  public ideeServicio_try1 = new VectorTileLayer({
+    declutter: true,
+    source: new VectorTileSource({
+      maxZoom: 15,
+      format: new MVT({
+        idProperty: 'iso_a3',
+      }),
+      url: 'https://igo.idee.es/vt/{z}/{x}/{y}.pbf'
+    })
+  });
+
+  public ideeServicio_try2 = new VectorTileLayer({
+    source: new VectorTileSource({
+      format: new MVT(),
+      url: 'https://igo.idee.es/vt/{z}/{x}/{y}.pbf'
+    })
+  })
 
 
   constructor(private http: HttpClient) { }
@@ -371,6 +388,30 @@ export class MapProvidersService {
     })
     */
     
+  }
+
+  changeToIdeeService() {
+    this.map.removeLayer(this.osm);
+    this.map.removeLayer(this.vectorTileArcGISpbf);
+    this.map.removeLayer(this.manzanasVectorTileLayer);
+    this.map.removeLayer(this.geoformasVectorTileLayer)
+    this.map.removeLayer(this.geoformasLinesVectorTileLayer)
+    this.map.removeLayer(this.geoformasPointsVectorTileLayer)
+    //para eliminar la ol-mapbox-style vector tile layer:
+    this.map.getLayers().getArray().filter(
+      layer => {
+        return layer.get('mapbox-source')
+      }
+    ).forEach(layer => {
+      this.map.removeLayer(layer)
+    })
+    this.map.addLayer(this.ideeServicio_try2);
+    apply(
+      this.map,
+      //'../../assets/vectorTileStyles/idee-style.json',
+      'https://igo.idee.es/style/mapa-base-igo-v1.json'
+    )
+
   }
 
 

@@ -1,0 +1,2094 @@
+{
+  "version": 8,
+  "name": "mapabaseIGO",
+  "metadata": {},
+  "sources": {
+    "vts-mapabaseIGO": {
+      "type": "vector",
+      "tiles": [
+        "https://igo.idee.es/vt/{z}/{x}/{y}.pbf"
+      ],
+      "minZoom": 0,
+      "maxZoom": 22
+    }
+  },
+  "sprite": "https://igo.idee.es/sprite/sprite",
+  "glyphs": "https://igo.idee.es/font/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "fondo",
+      "type": "background",
+      "minzoom": 0,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "background-color": "rgba(135, 186, 190, 1)"
+      }
+    },
+    {
+      "id": "tierra_firme",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "0-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "tierra_firme_igo",
+      "minzoom": 0,
+      "paint": {
+        "fill-color": "rgba(249, 244, 232, 1)"
+      }
+    },
+    {
+      "id": "mfe50",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "mfe50_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "!=",
+          "clase",
+          "artificial"
+        ],
+        [
+          "!=",
+          "clase",
+          "Artificial"
+        ],
+        [
+          "!=",
+          "clase",
+          "desarbolado"
+        ],
+        [
+          "!=",
+          "clase",
+          "Desarbolado"
+        ],
+        [
+          "!=",
+          "clase",
+          "cultivos"
+        ],
+        [
+          "!=",
+          "clase",
+          "Cultivos"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(219, 234, 210, 1)"
+      }
+    },
+    {
+      "id": "enp_lin",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "9-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "enp_igo",
+      "minzoom": 9,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "#828282",
+        "line-opacity": 0.9,
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "enp",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "enp_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(219, 234, 210, 1)",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "aerodromo-pol",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "11-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "aerodromo_igo",
+      "minzoom": 11,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(131, 116, 136, 1)",
+        "fill-opacity": 0.5
+      }
+    },
+    {
+      "id": "aparcamiento_pol",
+      "type": "fill",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "aparcamiento_igo",
+      "minzoom": 15,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(233, 225, 220, 1)"
+      }
+    },
+    {
+      "id": "area_de_servicio_pol",
+      "type": "fill",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "area_de_servicio_igo",
+      "minzoom": 0,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(233, 225, 220, 1)"
+      }
+    },
+    {
+      "id": "enp-label",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "9-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "enp_igo",
+      "minzoom": 9,
+      "maxzoom": 22,
+      "filter": [
+        "any",
+        [
+          "==",
+          "clase",
+          "reserva_de_la_biosfera"
+        ],
+        [
+          "==",
+          "clase",
+          "parque_nacional"
+        ],
+        [
+          "==",
+          "clase",
+          "parque_natural"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Italic"
+        ],
+        "text-size": 12,
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-padding": {
+          "stops": [
+            [
+              6,
+              50
+            ],
+            [
+              10,
+              200
+            ],
+            [
+              12,
+              200
+            ],
+            [
+              14,
+              400
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#6f9a85",
+        "text-halo-color": "rgba(255, 255, 255, 0.75)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "lamina_agua",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "8-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "lamina_agua_igo",
+      "minzoom": 8,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "#92ccf3"
+      }
+    },
+    {
+      "id": "hidrografia_pol",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "13-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "hidrografia_igo",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "Polygon"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(146, 204, 243, 1)"
+      }
+    },
+    {
+      "id": "hidrografia_lin",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "8-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "hidrografia_igo",
+      "filter": [
+        "all"
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "#92ccf3",
+        "line-width": {
+          "stops": [
+            [
+              8,
+              1
+            ],
+            [
+              10,
+              2
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "camino",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "11-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "camino_igo",
+      "minzoom": 12,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "#885A5A",
+        "line-opacity": 0.7,
+        "line-width": {
+          "stops": [
+            [
+              10,
+              0.3
+            ],
+            [
+              16,
+              0.5
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "carretera_otros",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "12-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_otros_igo",
+      "minzoom": 12,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "#E71717"
+      }
+    },
+    {
+      "id": "carretera_terciaria",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_terciaria_igo",
+      "minzoom": 10,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(231, 23, 23, 1)",
+        "line-opacity": 1,
+        "line-width": {
+          "stops": [
+            [
+              10,
+              0.3
+            ],
+            [
+              12,
+              0.5
+            ],
+            [
+              16,
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "carretera_secundaria",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_secundaria_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-opacity": 1,
+        "line-color": "rgba(231, 225, 23, 1)",
+        "line-width": {
+          "stops": [
+            [
+              8,
+              0.1
+            ],
+            [
+              10,
+              0.5
+            ],
+            [
+              16,
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "carretera_primaria",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_primaria_igo",
+      "minzoom": 7,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-opacity": 0.8,
+        "line-width": {
+          "stops": [
+            [
+              7,
+              0.3
+            ],
+            [
+              10,
+              1
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-color": "rgba(231, 23, 23, 1)"
+      }
+    },
+    {
+      "id": "carretera_nacional_puente_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              15,
+              "rgba(148, 61, 61, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              15,
+              5
+            ],
+            [
+              18,
+              9
+            ]
+          ]
+        },
+        "line-opacity": 0.7,
+        "line-dasharray": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "carretera_nacional_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(148, 61, 61, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "carretera_nacional",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 7,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-opacity": 0.8,
+        "line-color": "rgba(231, 23, 23, 1)",
+        "line-width": {
+          "stops": [
+            [
+              7,
+              0.8
+            ],
+            [
+              10,
+              2
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "carretera_nacional_puente",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              6,
+              "rgba(241, 83, 83, 1)"
+            ],
+            [
+              15,
+              "rgba(241, 83, 83, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              9,
+              1
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "carretera_nacional_tunel",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "tunel",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(210, 128, 128, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              15
+            ]
+          ]
+        },
+        "line-opacity": 0.5
+      }
+    },
+    {
+      "id": "autopista_puente_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              15,
+              "rgba(127, 83, 55, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              15,
+              7
+            ],
+            [
+              18,
+              9
+            ]
+          ]
+        },
+        "line-opacity": 0.7,
+        "line-dasharray": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "autopista_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(96, 71, 58, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              6
+            ],
+            [
+              18,
+              7
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autopista",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              6,
+              "rgba(200, 146, 2, 1)"
+            ],
+            [
+              15,
+              "rgba(248, 200, 68, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              9,
+              1
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autopista_puente",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              6,
+              "rgba(251, 230, 170, 1)"
+            ],
+            [
+              15,
+              "rgba(251, 230, 170, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              9,
+              1
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autopista_tunel",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "tunel",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(78, 61, 10, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              20
+            ]
+          ]
+        },
+        "line-opacity": 0.5
+      }
+    },
+    {
+      "id": "autovia_puente_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              15,
+              "rgba(127, 83, 55, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              15,
+              7
+            ],
+            [
+              18,
+              9
+            ]
+          ]
+        },
+        "line-opacity": 0.7,
+        "line-dasharray": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "autovia_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(96, 71, 58, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              6
+            ],
+            [
+              18,
+              7
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autovia",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              6,
+              "rgba(200, 146, 2, 1)"
+            ],
+            [
+              15,
+              "rgba(248, 200, 68, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              9,
+              1
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autovia_puente",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "puente",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": {
+          "stops": [
+            [
+              6,
+              "rgba(251, 230, 170, 1)"
+            ],
+            [
+              15,
+              "rgba(251, 230, 170, 1)"
+            ]
+          ]
+        },
+        "line-width": {
+          "stops": [
+            [
+              9,
+              1
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              5
+            ]
+          ]
+        },
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "autovia_tunel",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "tunel",
+          "T"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(78, 61, 10, 1)",
+        "line-width": {
+          "stops": [
+            [
+              15,
+              3
+            ],
+            [
+              18,
+              20
+            ]
+          ]
+        },
+        "line-opacity": 0.5
+      }
+    },
+    {
+      "id": "via_urbana",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "11-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "via_urbana_igo",
+      "minzoom": 11,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(162, 162, 162, 1)",
+        "line-width": 0.2
+      }
+    },
+    {
+      "id": "via_urbana_label",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "12-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "via_urbana_igo",
+      "minzoom": 12,
+      "maxzoom": 22,
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "bottom-right",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": {
+          "stops": [
+            [
+              15,
+              9
+            ],
+            [
+              18,
+              11
+            ]
+          ]
+        },
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-transform": "none",
+        "text-offset": [
+          0,
+          0
+        ],
+        "symbol-placement": "line",
+        "text-pitch-alignment": "auto",
+        "text-rotation-alignment": "auto",
+        "text-max-width": 10,
+        "text-justify": "center",
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": false,
+        "icon-optional": false,
+        "text-padding": {
+          "stops": [
+            [
+              15,
+              8
+            ],
+            [
+              18,
+              10
+            ]
+          ]
+        },
+        "symbol-avoid-edges": false,
+        "text-ignore-placement": false,
+        "text-max-angle": 45
+      },
+      "paint": {
+        "text-color": "rgba(162, 162, 162, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(177, 177, 177, 0)"
+      }
+    },
+    {
+      "id": "estacion_autobus_pol",
+      "type": "fill",
+      "metadata": {
+        "maputnik:comment": "13-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "estacion_autobus_igo",
+      "minzoom": 13,
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "ferrocarril_lin",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "8-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ferrocarril_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "filter": [
+        "all"
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(59, 59, 59, 1)",
+        "line-opacity": 0.8,
+        "line-width": {
+          "stops": [
+            [
+              8,
+              0.8
+            ],
+            [
+              11,
+              0.8
+            ],
+            [
+              14,
+              3.5
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ferrocarril_lin_exterior",
+      "type": "line",
+      "metadata": {
+        "maputnik:comment": "12-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ferrocarril_igo",
+      "minzoom": 12,
+      "maxzoom": 22,
+      "filter": [
+        "all"
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(254, 254, 254, 1)",
+        "line-opacity": 0.8,
+        "line-width": 2,
+        "line-dasharray": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "ferrocarril_pol",
+      "type": "fill",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ferrocarril_igo",
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "Polygon"
+        ]
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "rgba(67, 216, 165, 1)",
+        "fill-outline-color": "rgba(162, 60, 60, 1)"
+      }
+    },
+    {
+      "id": "linea_costa",
+      "type": "line",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "linea_costa_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "linea_limite",
+      "type": "line",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "linea_limite_igo",
+      "minzoom": 4,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(197, 197, 197, 1)",
+        "line-width": {
+          "stops": [
+            [
+              4,
+              0.1
+            ],
+            [
+              5,
+              0.3
+            ],
+            [
+              11,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "peaje_pol",
+      "type": "fill",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "peaje_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "peaje_pun",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "peaje_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "rutas_gps",
+      "type": "line",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "rutas_gps_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "sendero",
+      "type": "line",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "sendero_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "via_servicio",
+      "type": "line",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "via_servicio_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "edificio",
+      "type": "fill",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "edificio_igo",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "rgba(221, 221, 221, 1)",
+        "fill-outline-color": "rgba(101, 101, 101, 1)",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "carretera_terciaria_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_terciaria_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-amarillo",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(0, 0, 0, 1)"
+      }
+    },
+    {
+      "id": "carretera_secundaria_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_secundaria_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-verde-oscuro",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "carretera_primaria_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_primaria_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-naranja",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(0, 0, 0, 1)"
+      }
+    },
+    {
+      "id": "carretera_nacional_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_nacional_igo",
+      "minzoom": 8,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-rojo",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "autovia_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autovia_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-azul-oscuro",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "autopista_symbol",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "6-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "autopista_igo",
+      "minzoom": 6,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "has",
+          "ref"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "via-azul-oscuro",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 10,
+        "icon-text-fit": "both",
+        "icon-text-fit-padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "symbol-spacing": 500,
+        "symbol-placement": "line",
+        "symbol-avoid-edges": false,
+        "text-padding": 2,
+        "text-rotation-alignment": "viewport",
+        "text-pitch-alignment": "auto",
+        "text-keep-upright": true,
+        "icon-rotation-alignment": "viewport"
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "ngbe_hidrografia",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_hidrografia_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "ngbe_orografia",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_orografia_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "ngbe_division_administrativa_ccaa",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "6-8"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_division_administrativa_igo",
+      "minzoom": 6,
+      "maxzoom": 8,
+      "filter": [
+        "any",
+        [
+          "==",
+          "clase",
+          "comunidad_autonoma"
+        ],
+        [
+          "==",
+          "clase",
+          "ciudad_estatuto_autonomia"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 12,
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "rgba(112, 112, 112, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(177, 177, 177, 0)"
+      }
+    },
+    {
+      "id": "ngbe_division_administrativa_estado",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "3-7"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_division_administrativa_igo",
+      "minzoom": 3,
+      "maxzoom": 7,
+      "filter": [
+        "all",
+        [
+          "==",
+          "clase",
+          "estado"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 12,
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "rgba(112, 112, 112, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(254, 254, 254, 1)"
+      }
+    },
+    {
+      "id": "ngbe_poblaciones_construcciones_nucleo_poblacion",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_poblaciones_construcciones_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "clase",
+          "capital_eatim"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 14,
+        "visibility": "visible",
+        "text-keep-upright": true
+      },
+      "paint": {
+        "text-color": "rgba(101, 101, 101, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 0.75)",
+        "icon-color": "rgba(162, 162, 162, 1)"
+      }
+    },
+    {
+      "id": "ngbe_poblaciones_construcciones_capital_municipio",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "10-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_poblaciones_construcciones_igo",
+      "minzoom": 10,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "clase",
+          "capital_municipio"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": {
+          "stops": [
+            [
+              10,
+              12
+            ],
+            [
+              12,
+              14
+            ]
+          ]
+        },
+        "visibility": "visible",
+        "text-keep-upright": true
+      },
+      "paint": {
+        "text-color": "rgba(101, 101, 101, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 0.75)",
+        "icon-color": "rgba(162, 162, 162, 1)"
+      }
+    },
+    {
+      "id": "ngbe_poblaciones_construcciones_capital_provincia",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-10"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_poblaciones_construcciones_igo",
+      "minzoom": 7,
+      "maxzoom": 10,
+      "filter": [
+        "all",
+        [
+          "==",
+          "clase",
+          "capital_provincia"
+        ],
+        [
+          "!=",
+          "nombre",
+          "Madrid"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 12,
+        "visibility": "visible",
+        "text-keep-upright": true
+      },
+      "paint": {
+        "text-color": "rgba(0, 0, 0, 0.75)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 0.75)"
+      }
+    },
+    {
+      "id": "ngbe_poblaciones_construcciones_capital_estado",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "7-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_poblaciones_construcciones_igo",
+      "minzoom": 7,
+      "maxzoom": 22,
+      "filter": [
+        "all",
+        [
+          "==",
+          "clase",
+          "capital_estado"
+        ]
+      ],
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 18,
+        "visibility": "visible",
+        "text-keep-upright": true
+      },
+      "paint": {
+        "text-color": "rgba(0, 0, 0, 0.75)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 0.75)"
+      }
+    },
+    {
+      "id": "ngbe",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_igo",
+      "layout": {
+        "visibility": "visible"
+      }
+    },
+    {
+      "id": "ngbe_transporte",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ngbe_transporte_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "estacion_ffcc",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "estacion_ffcc_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "ferrocarril_pun",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "ferrocarril_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "carretera_pk",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "carretera_pk_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "aparcamiento_pun",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "aparcamiento_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "paso_a_nivel",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "paso_a_nivel_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "hidrografia_lin_label",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "15-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "hidrografia_igo",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "bottom-right",
+        "text-field": "{nombre}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 15,
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-transform": "none",
+        "text-offset": [
+          0,
+          -1
+        ],
+        "symbol-placement": "line",
+        "text-pitch-alignment": "auto",
+        "text-rotation-alignment": "auto",
+        "text-max-width": 10,
+        "text-justify": "center",
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": false,
+        "icon-optional": false,
+        "text-padding": 200,
+        "symbol-avoid-edges": false,
+        "text-ignore-placement": false,
+        "text-max-angle": 45
+      },
+      "paint": {
+        "text-color": "rgba(146, 204, 243, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(177, 177, 177, 0)"
+      }
+    },
+    {
+      "id": "portal",
+      "type": "circle",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "portal_igo",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "circle-color": "rgba(45, 45, 45, 1)",
+        "circle-radius": 2,
+        "circle-blur": 0,
+        "circle-pitch-alignment": "viewport"
+      }
+    },
+    {
+      "id": "portal_label",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "portal_igo",
+      "layout": {
+        "icon-size": 1,
+        "text-anchor": "center",
+        "text-field": "{ref}",
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": 12,
+        "visibility": "visible",
+        "text-keep-upright": true,
+        "text-transform": "uppercase",
+        "text-offset": [
+          0,
+          -1
+        ]
+      },
+      "paint": {
+        "text-color": "rgba(147, 147, 147, 1)",
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(177, 177, 177, 0)"
+      }
+    },
+    {
+      "id": "estacion_autobus_pun",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "estacion_autobus_igo",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {}
+    },
+    {
+      "id": "aerodromo-pun",
+      "type": "symbol",
+      "metadata": {
+        "maputnik:comment": "11-22"
+      },
+      "source": "vts-mapabaseIGO",
+      "source-layer": "aerodromo_igo",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "area_de_servicio_pun",
+      "type": "symbol",
+      "source": "vts-mapabaseIGO",
+      "source-layer": "area_de_servicio_igo",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {}
+    }
+  ],
+  "id": "w057wntj3",
+  "owner": "Gobierno de La Rioja"
+}
